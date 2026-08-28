@@ -68,7 +68,11 @@ Playwright 1.58.2 runs each public claim from a clean browser context:
 
 ```sh
 npm test
+npm run test:live:billing
 ```
+
+The live billing check confirms that the exact $39 USD product is present and
+opens a Dodo-hosted checkout session. Release builds run it before packaging.
 
 The claim manifest is [`.factory/claims.json`](.factory/claims.json). The demo contract is [`.factory/demo.md`](.factory/demo.md).
 

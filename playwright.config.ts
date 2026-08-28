@@ -2,6 +2,9 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  // Renderer comparisons are memory-heavy; cap concurrency so each spec gets
+  // an isolated browser without overcommitting small Linux release runners.
+  workers: 2,
   timeout: 45_000,
   expect: { timeout: 15_000 },
   use: { baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure' },
