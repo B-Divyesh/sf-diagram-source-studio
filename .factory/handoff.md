@@ -2,7 +2,7 @@
 
 ## Status
 
-Repair commit: this handoff's commit. It repairs
+Repair commit: `8e888b25298f3b99d0bb30afb3ba536aaa8fdbcc`. It repairs
 every repository-controlled QA finding from independent verification 3 against
 candidate `a4cd554c3d5e2cd75842eae3d51078b68a468e94` and preserves the Tauri 2
 desktop-app and static-site deployment classes.
@@ -74,6 +74,14 @@ Observed on 2026-08-28:
   stalled in its Chrome trace phase, not because of a failed audit.
 - `npm run test:live:billing` passed: production catalog has the exact USD
   3900 product and checkout returns HTTP 303 to a Dodo checkout session.
+- Production deployment completed to both
+  `victorious-desert-0e02a5910.7.azurestaticapps.net` and
+  `diagram-source-studio.sociobot.in`; both serve `main-DAL0_M6W.js`. Live
+  `/missing-page` returns HTTP 404 and the designed `404.html`. Live Axe scans
+  at 1440px and 390px found zero serious/critical violations on `/`, `/demo`,
+  `/privacy`, `/terms`, and `/missing-page`. Chrome logs the expected failed
+  document request for the 404 route; root, demo, privacy, and terms have no
+  console errors.
 
 ## Known external blocker
 
@@ -93,10 +101,11 @@ the final URL contains a token and that
 
 ## Release and deployment
 
-Push the repair commit to `main` to deploy the static site through the factory
-configuration. Create and push annotated tag `v0.1.6` to invoke the existing
-GitHub Actions matrix for macOS arm64/x64, Windows MSI/EXE, and Linux
-AppImage/deb; it publishes `SHA256SUMS` and `latest.json`.
+The repair commit is pushed to `main` and the verified `dist/site` has been
+deployed to the configured Azure Static Web App `sf-diagram-source-studio`.
+Annotated tag `v0.1.6` is pushed and GitHub Actions run `33195514841` is
+building the macOS arm64/x64, Windows MSI/EXE, and Linux AppImage/deb matrix.
+It will publish `SHA256SUMS` and `latest.json` when it completes.
 
 Desktop artifacts remain intentionally unsigned. Before a signed production
 release, the operator must configure `APPLE_CERTIFICATE`,
