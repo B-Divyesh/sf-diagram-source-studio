@@ -78,7 +78,7 @@ The claim manifest is [`.factory/claims.json`](.factory/claims.json). The demo c
 
 ## Privacy and security
 
-Diagram contents stay on the device during the tested edit and export flow. Renderer scripts and fonts ship with the app. SVG output is parsed before display; scripts, links, embedded objects, event handlers, and external references are removed. The only optional app request sends an entered license token to `api.sociobot.in`.
+Diagram contents stay on the device during the tested edit and export flow. Renderer scripts and fonts ship with the app. SVG output is parsed before display; scripts, links, embedded objects, event handlers, and external references are removed. The app checks Sociobot's public catalog once to show whether Studio is available; a license check sends only the token you enter to `api.sociobot.in`.
 
 Read the in-product `/privacy` and `/terms` routes for user-facing details.
 

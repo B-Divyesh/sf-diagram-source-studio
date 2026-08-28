@@ -1,90 +1,105 @@
-# Diagram Source Studio independent verification 3 handoff
+# Diagram Source Studio repair-3 handoff
 
 ## Status
 
-**FAIL — do not release candidate
-`a4cd554c3d5e2cd75842eae3d51078b68a468e94`.**
+Repair commit: this handoff's commit. It repairs
+every repository-controlled QA finding from independent verification 3 against
+candidate `a4cd554c3d5e2cd75842eae3d51078b68a468e94` and preserves the Tauri 2
+desktop-app and static-site deployment classes.
 
-The live web deployment matches the candidate and the editor, demo, release
-assets, installers, offline path, accessibility suite, repository tests, and
-live catalog/checkout creation all work. The paid flow is still incomplete:
-a fresh Dodo Test Mode payment returned to the product without a `license`
-parameter. A buyer therefore cannot receive or verify the advertised Studio
-license.
+The completed-payment license-return failure is in the shared Sociobot/Dodo
+gateway, not in this repository. The app already stores, strips, verifies, and
+uses a returned `license` token; its regression remains in the browser suite.
+No local code or static-host setting can cause Dodo's successful payment
+webhook to issue that missing token. See **Known external blocker** below.
 
-Full evidence and severity are in
-[`.factory/verification-3.md`](verification-3.md).
+## What changed
 
-## Verification summary
+- Raised the mobile renderer-version select and **Compare versions** button to
+  44px. The mobile accessibility regression measures both controls.
+- Replaced the fixed full-page SVG `feTurbulence` overlay with a cheap CSS
+  scanline texture. This retains the night-workbench treatment while removing
+  a main-thread rendering hotspot.
+- Deduplicated native startup billing-catalog access. A fresh native shell now
+  makes one public `GET /api/v1/products`, never posts source or other data,
+  and does not make the prior second request when license state refreshes.
+- Disclosed the catalog request in the landing boundary copy, privacy page,
+  README, and a new `billing-catalog` claim with exact browser coverage.
+- Replaced generic static-host navigation fallback with explicit built routes
+  for `/demo`, `/privacy`, and `/terms`; unknown URLs now use a designed
+  `404.html` through the Static Web Apps 404 response override and return HTTP
+  404 after deployment. The build emits each route document.
+- Bumped the web/desktop package and service-worker cache to `0.1.6`, so the
+  repair is a real desktop release rather than a tag pointing at 0.1.5.
 
-- All 14 exact `.factory/claims.json` commands passed independently.
-- `npm test`: 27/27 passed.
-- `npm run build`: passed; TypeScript checked and `dist/site/` produced.
-- `npm audit --audit-level=high`: 0 vulnerabilities.
-- Rust format, locked check, tests, and clippy with warnings denied passed.
-- `npm run test:live:billing`: passed for catalog identity and checkout 303.
-- Cold first-read and one-click demo gates passed at desktop and 390px.
-- Live Mermaid/D2 editing, diagnostics, recovery, offline reload, and UTF-8
-  BOM/CRLF SVG+PNG round trips passed.
-- The cited missing-arc case exposed 18 versus 22 edges across the two bundled
-  Mermaid renderers.
-- Full axe scans found 0 serious/critical issues on five routes at desktop and
-  mobile. Two Preview controls are nevertheless only 40px high.
-- Three Lighthouse mobile runs scored 82, 90, and 82 performance; all scored
-  100 accessibility, best practices, and SEO.
-- Live web shell, service worker, main JS, and CSS matched the candidate build
-  byte for byte.
-- v0.1.5 release URLs all returned 200. The Linux installer and published
-  SHA-256 matched; the installed AppImage passed a 15-second smoke test.
-- A verify-API burst yielded 30×200 and 30×429, with `Retry-After: 4` on every
-  429.
+## Verification
 
-## Defects
-
-- **High / release blocker:** successful pilot payment returns without a
-  license token.
-- **Medium:** mobile renderer select and Compare button are 40px high, below
-  the 44px interaction target.
-- **Medium:** Lighthouse performance scored below 90 in two of three fresh
-  runs (median 82).
-- **Low:** native startup makes two automatic billing-catalog requests not
-  clearly disclosed in privacy copy.
-- **Low:** unknown routes render the right UI but return HTTP 200.
-
-## Reproduce the main blocker
-
-1. Open
-   `https://pilot-api.sociobot.in/api/v1/products/diagram-source-studio/checkout`.
-2. Complete Dodo Test Mode with `4242 4242 4242 4242`, a future expiry, and CVC
-   123.
-3. Observe the redirect to
-   `https://diagram-source-studio.sociobot.in/` without `?license=<token>`.
-
-## Commands run
+Run from a clean checkout:
 
 ```sh
 npm ci
-# Every exact test command in .factory/claims.json, separately
 npm test
+npm run test:live:billing
 npm run build
 npm audit --audit-level=high
-npm run test:live:billing
 cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 cargo check --locked --manifest-path src-tauri/Cargo.toml
 cargo test --locked --manifest-path src-tauri/Cargo.toml
 cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
 ```
 
-The native Rust commands required the same Ubuntu WebKit/GTK packages declared
-in `.github/workflows/release.yml`. No product code was changed.
+Observed on 2026-08-28:
 
-## Needs operator action
+- Clean `npm ci`: 186 packages, 0 vulnerabilities.
+- Full `npm test`: 29/29 passed. This includes Axe baseline scans at desktop
+  and 390px, keyboard tab/pane checks, demo/offline/export/license claims,
+  the 44px preview-control regression, the single native-catalog-request
+  regression, and the static 404 configuration regression.
+- Every exact command in `.factory/claims.json` was run separately; all 15
+  claims passed.
+- `npm run build` passed (`tsc --noEmit` + Vite) and emitted `dist/site/` with
+  `index.html`, `demo.html`, `privacy.html`, `terms.html`, and `404.html`.
+  Initial JS is 34.23 KB raw / 12.49 KB gzip; CSS is 16.81 KB raw / 4.61 KB
+  gzip; self-hosted fonts total 79.55 KB.
+- `npm audit --audit-level=high` passed with 0 vulnerabilities.
+- Rust fmt, locked check, tests (0 native tests), and clippy with warnings
+  denied all passed after installing the exact Linux packages from the release
+  workflow.
+- `verify-url.sh` passed locally for `/` and `/demo`: HTTP 200, title, `lang`,
+  one H1, main landmark, labels, alt text, desktop and 390px screenshots, and
+  no console errors.
+- Fresh mobile Lighthouse runs after the rendering fix scored performance 97
+  and 100, accessibility 100, best-practices 100, and SEO 100. LCP was 2.13s
+  and 1.40s; TBT was 19ms and 0ms. A third run was stopped after the tool
+  stalled in its Chrome trace phase, not because of a failed audit.
+- `npm run test:live:billing` passed: production catalog has the exact USD
+  3900 product and checkout returns HTTP 303 to a Dodo checkout session.
 
-- Fix the shared Sociobot gateway's Dodo webhook validation for localized
-  settlement currency, replay the retained webhook if available, and verify a
-  valid returned license end to end.
-- Add Apple signing/notarization secrets (`APPLE_CERTIFICATE`,
-  `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`, `APPLE_ID`,
-  `APPLE_PASSWORD`, `APPLE_TEAM_ID`).
-- Add Windows signing secrets (`WINDOWS_CERT_PFX`, `WINDOWS_CERT_PASSWORD`).
-  Current release artifacts are correctly disclosed as unsigned.
+## Known external blocker
+
+Independent verifier report 3 reproduced a successful Dodo Test Mode payment
+that returned to `https://diagram-source-studio.sociobot.in/` with no
+`license` query parameter. The previous handoff records the shared gateway's
+reason: its signed webhook rejects Dodo Adaptive Currency (GBP-presented)
+against the USD checkout intent. This repository contains neither that gateway
+source nor its Dodo webhook configuration; `/work` contains only this product
+repository.
+
+The gateway owner must validate the signed webhook by product/session/payment
+identity and successful state, accepting Dodo's supported adaptive currency,
+then replay or repeat a pilot payment. Release acceptance needs evidence that
+the final URL contains a token and that
+`GET /api/v1/products/diagram-source-studio/verify?license=…` accepts it.
+
+## Release and deployment
+
+Push the repair commit to `main` to deploy the static site through the factory
+configuration. Create and push annotated tag `v0.1.6` to invoke the existing
+GitHub Actions matrix for macOS arm64/x64, Windows MSI/EXE, and Linux
+AppImage/deb; it publishes `SHA256SUMS` and `latest.json`.
+
+Desktop artifacts remain intentionally unsigned. Before a signed production
+release, the operator must configure `APPLE_CERTIFICATE`,
+`APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`, `APPLE_ID`,
+`APPLE_PASSWORD`, `APPLE_TEAM_ID`, `WINDOWS_CERT_PFX`, and
+`WINDOWS_CERT_PASSWORD`.

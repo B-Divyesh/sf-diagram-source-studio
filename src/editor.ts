@@ -101,6 +101,7 @@ export function mountEditor(demo: boolean) {
   const { signal } = abort;
   const timeouts = new Set<number>();
   let disposed = false;
+  let checkoutRequested = false;
   let sourceFormat: { lineEnding: '\n' | '\r\n'; bom: boolean } = { lineEnding: '\n', bom: false };
   let unlocked = localLicenseState(demo).unlocked;
 
@@ -272,19 +273,22 @@ export function mountEditor(demo: boolean) {
     document.querySelector<HTMLElement>('#license-state')!.innerHTML = unlocked
       ? '<span class="license-ok">Studio license active</span><p>Two-version comparison is available.</p>'
       : `<p>${state.notice ?? 'The free editor includes preview and both exports.'}</p>${demo ? '<a class="buy-link" href="/#pricing">See Studio purchase options</a>' : '<span class="buy-link" data-buy-state>Checking purchase availability…</span>'}<p>Studio adds the two-version comparison.</p>`;
-    if (!unlocked && !demo) setupEditorCheckout();
+    if (!unlocked && !demo && !checkoutRequested) {
+      checkoutRequested = true;
+      setupEditorCheckout();
+    }
   };
   const setupEditorCheckout = async () => {
-    const action = document.querySelector<HTMLElement>('[data-buy-state]');
-    if (!action) return;
     try {
       const response = await fetch('https://api.sociobot.in/api/v1/products');
       if (!response.ok) throw new Error('catalog unavailable');
       const catalog = await response.json() as { data?: Array<{ slug?: string; price_minor?: number; currency?: string }> };
       if (!studioProductEnabled(catalog.data)) throw new Error('product unavailable');
-      if (!disposed) action.outerHTML = `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
+      const action = document.querySelector<HTMLElement>('[data-buy-state]');
+      if (!disposed && action) action.outerHTML = `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
     } catch {
-      if (!disposed) action.textContent = 'Purchases are temporarily unavailable.';
+      const action = document.querySelector<HTMLElement>('[data-buy-state]');
+      if (!disposed && action) action.textContent = 'Purchases are temporarily unavailable.';
     }
   };
   updateLicense(); verifyLicense(demo).then(() => { if (!disposed) updateLicense(); });

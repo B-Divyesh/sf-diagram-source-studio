@@ -49,6 +49,21 @@ test('mobile navigation and demo actions meet 44px touch targets', async ({ page
     const box = await target.boundingBox();
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
+  await page.getByRole('tab', { name: 'Preview' }).click();
+  for (const target of [page.locator('#version'), page.getByRole('button', { name: 'Compare versions' })]) {
+    const box = await target.boundingBox();
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
+test('static host configuration keeps known app paths and returns a designed 404 for unknown paths', async () => {
+  const config = JSON.parse(await (await import('node:fs/promises')).readFile('public/staticwebapp.config.json', 'utf8'));
+  expect(config.navigationFallback).toBeUndefined();
+  expect(config.routes.map((route: { route: string; rewrite: string }) => route.route)).toEqual(expect.arrayContaining(['/demo', '/privacy', '/terms']));
+  expect(config.responseOverrides['404']).toEqual({ rewrite: '/404.html', statusCode: 404 });
+  for (const file of ['demo.html', 'privacy.html', 'terms.html', '404.html']) {
+    await expect((await import('node:fs/promises')).readFile(file, 'utf8')).resolves.toContain('<div id="app"></div>');
+  }
 });
 
 test('SPA routes update canonical and social metadata', async ({ page }) => {

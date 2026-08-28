@@ -41,7 +41,8 @@ Read-aloud result: the headline, audience sentence, and sample action fit in one
 | Your diagrams do not become a service | 7 |
 | The editor has no accounts, hosting, collaboration, analytics, or AI generation. | 11 |
 | Source stays local. | 3 |
-| A license check sends only the token you enter. | 9 |
+| Purchase availability checks the public catalog once. | 7 |
+| License checks send only the token you enter. | 8 |
 | Compare both bundled Mermaid versions | 5 |
 | The free editor previews, diagnoses, and exports diagrams. | 8 |
 | Studio adds the side-by-side renderer matrix. | 6 |

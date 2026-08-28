@@ -215,6 +215,24 @@ test('@claim:studio-purchase the enabled $39 product uses Sociobot checkout', as
   expect(eligibility).toEqual({ enabled: true, wrongPrice: false, checkoutUrl: 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout' });
 });
 
+test('@claim:billing-catalog native startup checks the public catalog once and discloses it', async ({ page }) => {
+  let catalogRequests = 0;
+  await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
+  await page.route('**/api/v1/products', (route) => {
+    catalogRequests += 1;
+    expect(route.request().method()).toBe('GET');
+    expect(route.request().postData()).toBeNull();
+    return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
+  });
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Buy Studio for $39 once' })).toBeVisible();
+  expect(catalogRequests).toBe(1);
+  const application = await readFile(resolve('src/main.ts'), 'utf8');
+  expect(application).toContain('The app checks the public Sociobot catalog once to show purchase availability.');
+  const readme = await readFile(resolve('README.md'), 'utf8');
+  expect(readme).toContain("checks Sociobot's public catalog once");
+});
+
 test('checkout return stores, verifies, and activates the returned license in the desktop shell', async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
   await page.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => route.fulfill({

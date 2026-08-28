@@ -96,5 +96,12 @@
     "where": "landing pricing, license panel, README",
     "test": "npm test -- --grep @claim:studio-purchase",
     "sandbox": "fresh landing page with a recorded enabled-product catalog response; assert exact price, purchase type, and Sociobot checkout URL"
+  },
+  {
+    "id": "billing-catalog",
+    "claim": "The desktop app checks the public purchase catalog once",
+    "where": "landing boundary, privacy page, README",
+    "test": "npm test -- --grep @claim:billing-catalog",
+    "sandbox": "fresh simulated native workspace with a recorded catalog response; assert one request, no diagram content, and matching disclosure"
   }
 ]
