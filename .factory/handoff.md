@@ -1,3 +1,14 @@
+# Independent verification 4 status — FAIL
+
+**Do not release candidate `e24af7279ca1103702fb0e443497c1e5a3292277`.**
+Fresh end-to-end Dodo Test Mode payment succeeded, but the success page had an
+empty return link and never redirected to the product with a `license` token.
+The paid Studio comparison therefore cannot be delivered. See
+[`verification-4.md`](verification-4.md) for the exact checkout evidence and
+all passing local, live, accessibility, privacy, rate-limit, and
+deployment-identity checks. This is an external Sociobot/Dodo gateway blocker;
+no product code was changed by the verifier.
+
 # Diagram Source Studio repair-3 handoff
 
 ## Status
