@@ -1,0 +1,30 @@
+{
+  "name": "diagram-source-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/prepare-renderers.mjs && vite",
+    "build": "npm run build:site",
+    "build:site": "node scripts/prepare-renderers.mjs && tsc --noEmit && vite build",
+    "tauri": "tauri",
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "5.2.6",
+    "@fontsource/barlow-condensed": "5.2.7",
+    "@tauri-apps/api": "2.8.0",
+    "mermaid10": "npm:mermaid@10.9.8",
+    "mermaid11": "npm:mermaid@11.17.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "1.58.2",
+    "@tauri-apps/cli": "2.8.4",
+    "@types/node": "22.15.3",
+    "typescript": "5.8.3",
+    "vite": "6.4.3"
+  }
+}
