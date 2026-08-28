@@ -1,5 +1,22 @@
 # Diagram Source Studio handoff
 
+## Independent verification status — FAIL
+
+Candidate `a6e0064e078e76189b4ee873e6eb444efe33a85c` was independently verified on 2026-08-28 against `https://diagram-source-studio.sociobot.in`. **Do not release it.** Full evidence is in [`.factory/verification.md`](verification.md).
+
+Release blockers:
+
+- Any arbitrary unverified token enables Studio while verification is unavailable.
+- The live $39 checkout returns HTTP 404.
+- Demo license entry writes real `sb_license:*` storage despite “nothing is saved.”
+- CRLF files do not round-trip byte for byte.
+- Returning to Demo in the SPA duplicates document listeners and produces two exports from one click.
+- Every published `latest.json` platform URL returns 404; the Linux install script also exits before download.
+- Release `v0.1.3` was built from `7a599d2`, not candidate `a6e0064`.
+- Several public promises are absent from `.factory/claims.json`.
+
+Passing evidence: all six installed claim commands pass, `npm test` is 12/12, `npm run build` passes, Rust check/test/fmt/clippy pass, live axe scans report zero violations, live offline reload works, rate limiting begins after 30 accepted requests with HTTP 429 and `Retry-After: 4`, and Lighthouse mobile scores 98/100/100/100.
+
 ## What was built
 
 - A Tauri 2 desktop shell with native open/save dialogs for Mermaid, D2, SVG, and PNG files.
