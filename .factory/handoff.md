@@ -43,9 +43,10 @@ Claim details and exact commands are in `.factory/claims.json`. Demo isolation i
 
 - The compact D2 renderer is not the full upstream D2 engine. It supports the common node-and-arrow subset and labels this limit in the app and README.
 - The browser and desktop editor accept UTF-8 text. Other source encodings are not converted.
-- GitHub Release assets do not exist until the `v0.1.2` workflow completes. The landing page shows a calm release-page fallback meanwhile.
+- GitHub Release assets do not exist until the `v0.1.3` workflow completes. The landing page shows a calm release-page fallback meanwhile.
 - The first `v0.1.0` workflow stopped on a Tauri 2.8/2.11 package mismatch. Version 0.1.1 aligns both sides on Tauri 2.11.
 - The `v0.1.1` macOS x64 job used GitHub's retired `macos-13` label. Version 0.1.2 uses `macos-latest` with an explicit x86_64 target.
+- Version 0.1.2 built all four targets, but its publish step retained nested artifact paths. Version 0.1.3 flattens installer files before checksumming and publishing.
 - The generated workflow is the source of truth for multi-platform packages; only the Linux Rust shell was compiled in this worker.
 
 ## Needs operator action

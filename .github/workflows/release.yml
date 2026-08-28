@@ -65,12 +65,14 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           pattern: diagram-source-studio-*
-          path: release-assets
+          path: bundles
           merge-multiple: true
       - name: Create checksums and release manifest
         run: |
+          mkdir release-assets
+          find bundles -type f \( -name '*.dmg' -o -name '*.app.tar.gz' -o -name '*.msi' -o -name '*.exe' -o -name '*.AppImage' -o -name '*.deb' \) -exec cp '{}' release-assets/ \;
           cd release-assets
-          find . -type f -maxdepth 1 -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          find . -maxdepth 1 -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
           node ../scripts/release-manifest.mjs "${GITHUB_REF_NAME}"
       - uses: softprops/action-gh-release@v2
         with:
