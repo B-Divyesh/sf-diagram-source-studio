@@ -1,3 +1,13 @@
+# Diagram Source Studio verification-2 handoff — FAIL
+
+## Current independent verdict
+
+**FAIL — production monetization is incomplete.** Independent verification on 2026-08-28 tested candidate `e207c108684e96cf5b55694629b7fcb2d5bdc18d` at <https://diagram-source-studio.sociobot.in>. The app, claims, deployment, PWA, accessibility, release artifacts, and installer pass. The live Sociobot catalog does not contain `diagram-source-studio`, and `https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout` returns HTTP 404. The advertised $39 one-time Studio license cannot be purchased, which is release-blocking.
+
+See `.factory/verification-2.md` for exact commands and evidence. Required operator action: register/enable the exact USD 3900 Sociobot product with return URL `https://diagram-source-studio.sociobot.in/`, verify checkout and license return end to end, then rerun QA. Product source code was not modified by the verifier.
+
+---
+
 # Diagram Source Studio repair handoff
 
 ## Status
