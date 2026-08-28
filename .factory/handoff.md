@@ -1,81 +1,66 @@
-# Diagram Source Studio handoff
+# Diagram Source Studio repair handoff
 
-## Independent verification status — FAIL
+## Status
 
-Candidate `a6e0064e078e76189b4ee873e6eb444efe33a85c` was independently verified on 2026-08-28 against `https://diagram-source-studio.sociobot.in`. **Do not release it.** Full evidence is in [`.factory/verification.md`](verification.md).
+Release repair `v0.1.4` addresses the independent verifier findings from commit `06768e7c6f85081107e674e17999dd2dbe8e23cd`. The static site is deployed at <https://diagram-source-studio.sociobot.in>.
 
-Release blockers:
+The production billing catalog still does not list `diagram-source-studio`; its checkout returns HTTP 404. Repository policy forbids changing billing infrastructure here. The product now checks the live Sociobot catalog and does not show a dead purchase action while registration is unavailable. The free editor and existing-license restore remain usable.
 
-- Any arbitrary unverified token enables Studio while verification is unavailable.
-- The live $39 checkout returns HTTP 404.
-- Demo license entry writes real `sb_license:*` storage despite “nothing is saved.”
-- CRLF files do not round-trip byte for byte.
-- Returning to Demo in the SPA duplicates document listeners and produces two exports from one click.
-- Every published `latest.json` platform URL returns 404; the Linux install script also exits before download.
-- Release `v0.1.3` was built from `7a599d2`, not candidate `a6e0064`.
-- Several public promises are absent from `.factory/claims.json`.
+## Repairs
 
-Passing evidence: all six installed claim commands pass, `npm test` is 12/12, `npm run build` passes, Rust check/test/fmt/clippy pass, live axe scans report zero violations, live offline reload works, rate limiting begins after 30 accepted requests with HTTP 429 and `Retry-After: 4`, and Lighthouse mobile scores 98/100/100/100.
+- A token unlocks Studio only after a successful cached verdict for that same token. Offline verification never accepts a new or mismatched token.
+- Demo source and license state use memory only. Demo license actions do not write `real:*` or `sb_license:*` local-storage keys.
+- UTF-8 BOM and CRLF policy survive source open, local persistence, SVG metadata, PNG metadata, export, and reopen.
+- Editor listeners have an explicit route teardown. Re-entering `/demo` no longer duplicates export or other actions.
+- Release assets are normalized to their final dot-separated GitHub names before checksums and `latest.json` are generated. The manifest fails if any required platform is missing.
+- The POSIX installer parses formatted GitHub JSON and verifies full filenames safely. PowerShell requires an exact filename checksum line.
+- Public claims now have one tagged regression each, including license enforcement, native file controls, offline references, SVG cleanup, no tracking/CDN, unsigned builds, release installers, and Studio pricing.
+- The 1366×768 first screen keeps its sample action and facts visible. Mobile navigation, footer, wordmark, and demo controls meet 44 px target height.
+- Canonical and social metadata now follow SPA routes. Cross-route download and restore links resolve.
+- Versioned assets use immutable one-year caching. Navigations use network-first service-worker updates with offline fallback.
+- The live purchase link appears only when the catalog contains the exact USD 3900 product. Until then, the page clearly says purchases are temporarily unavailable.
 
-## What was built
+## Verification evidence
 
-- A Tauri 2 desktop shell with native open/save dialogs for Mermaid, D2, SVG, and PNG files.
-- A split source and rendered-output workbench with keyboard-friendly mobile pane tabs.
-- Self-hosted Mermaid 10.9.8 and 11.17.2 renderers with a paid side-by-side matrix.
-- A compact local D2 renderer covering nodes, labels, arrows, and edge labels.
-- Diagnostics, explicit empty/error states, and a bundled offline syntax reference.
-- SVG and PNG exports that embed UTF-8 source metadata. Both formats reopen byte for byte.
-- Strict SVG cleanup before preview: scripts, links, foreign objects, event handlers, and external references are removed.
-- A one-click `/demo` sandbox with in-memory sample state, reset, and exit controls.
-- One-time $39 Studio checkout, callback capture, daily verification cache, offline optimistic state, and license restore.
-- A night-market neon landing site with original generated artwork, responsive layouts, legal routes, 404, release downloads, security headers, and a service worker.
-- A four-target GitHub Actions release workflow for Linux, Windows, macOS arm64, and macOS x64. It creates `SHA256SUMS` and `latest.json`.
-
-## Run and verify
+Run from a clean checkout:
 
 ```sh
 npm ci
 npm test
-npm run build:site
-cargo check --manifest-path src-tauri/Cargo.toml
+npm run build
+npm audit --audit-level=high
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
 ```
 
-Static output is exactly `dist/site`; `index.html` is at that root. `npm run tauri dev` runs the desktop shell after the platform's Tauri prerequisites are installed.
+Observed on 2026-08-28:
 
-Verification completed on 2026-08-28:
+- `npm ci`: 186 packages, 0 vulnerabilities.
+- `npm test`: 25 passed. This includes exact CRLF+BOM SVG/PNG round trips, demo license isolation, offline token rejection, SPA remount, release-manifest, installer, 1366×768, 390 px, keyboard, and route metadata regressions.
+- Every command in `.factory/claims.json`: 1 matching test passed independently.
+- `npm run build`: passed with TypeScript `--noEmit`; output is `dist/site`.
+- Initial application JS: 34.08 KB raw / 12.44 KB gzip. CSS: 17.01 KB raw / 4.79 KB gzip. Fonts: 79.55 KB total. Mobile hero: 24.9 KB.
+- npm audit: 0 vulnerabilities. Rust fmt, check, test, and clippy with warnings denied: passed.
+- Production-preview `verify-url.sh` on `/` and `/demo`: HTTP 200, no console errors, title/lang/main/alt checks passed.
+- Live `verify-url.sh` on `/` and `/demo`: HTTP 200, no console errors, title/lang/main/alt checks passed.
+- Live axe integration on `/`, `/demo`, `/privacy`, `/terms`, and `/missing-page` at 1440×900 and 390×844: 0 serious/critical findings, no console errors, and no horizontal overflow.
+- Live keyboard checks: pane tabs support Left/Right; all tested interactive controls remain reachable with visible 3 px focus.
+- Live service worker: controller `/sw.js`, cache `diagram-source-studio-v0.1.4`, no waiting worker; offline `/demo` reload and D2 render passed.
+- Live response policy: CSP, HSTS, nosniff, strict-origin referrer policy, and camera/microphone/geolocation denial present. Hashed assets return `Cache-Control: public, max-age=31536000, immutable`.
+- Live identity: deployed main JS SHA256 `99b969d450fa41e4bac79c443a4466755ba507137e67c78cd6472b8f035d9856` matches `dist/site` byte for byte.
+- Live Lighthouse 12.8.2 mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.6 s, CLS 0, TBT 30 ms.
+- Release workflow: tag `v0.1.4` builds Linux AppImage/deb, Windows MSI/EXE, and macOS arm64/x64 DMGs from this repair commit, then publishes `SHA256SUMS` and `latest.json`.
 
-- `npm test`: 12 passed. This includes all six claim tests, five route accessibility scans, and a 390 px keyboard-pane test.
-- `npm run build:site`: passed with 31.08 KB initial JS, 16.46 KB CSS, and 79.55 KB self-hosted WOFF2 fonts.
-- `cargo check --manifest-path src-tauri/Cargo.toml`: passed.
-- `cargo fmt --check`: passed.
-- `npm audit`: zero vulnerabilities.
-- `git diff --check`: passed before handoff.
-- Lighthouse mobile, local production build: Performance 94, Accessibility 100, Best Practices 100, SEO 100.
-- Lighthouse lab details: FCP 1.1 s, LCP 1.7 s, CLS 0, TBT 270 ms, Speed Index 1.1 s.
-- Hero WebP: 79 KB desktop and 25 KB mobile. Social preview: 66 KB.
+## Known limits
 
-Claim details and exact commands are in `.factory/claims.json`. Demo isolation is documented in `.factory/demo.md`. Copy review is in `.factory/copy-audit.md`.
-
-## Known gaps
-
-- The compact D2 renderer is not the full upstream D2 engine. It supports the common node-and-arrow subset and labels this limit in the app and README.
-- The browser and desktop editor accept UTF-8 text. Other source encodings are not converted.
-- GitHub Release `v0.1.3` contains both macOS DMGs, Linux AppImage/deb, Windows MSI/EXE, `latest.json`, and `SHA256SUMS`.
-- The first `v0.1.0` workflow stopped on a Tauri 2.8/2.11 package mismatch. Version 0.1.1 aligns both sides on Tauri 2.11.
-- The `v0.1.1` macOS x64 job used GitHub's retired `macos-13` label. Version 0.1.2 uses `macos-latest` with an explicit x86_64 target.
-- Version 0.1.2 built all four targets, but its publish step retained nested artifact paths. Version 0.1.3 flattens installer files before checksumming and publishing.
-- The published `v0.1.3` installer checksums were downloaded and checked against a release asset after publication.
-- The generated workflow is the source of truth for multi-platform packages; only the Linux Rust shell was compiled in this worker.
+- D2 support remains the deliberately labeled compact nodes/labels/arrows subset. Full upstream D2 WASM is about 22 MB compressed at source and would materially change the offline package; this repair preserves the already-passing scoped renderer.
+- The application accepts UTF-8 source. It preserves UTF-8 BOM and LF/CRLF but does not transcode legacy encodings.
+- Unknown SPA paths display the designed 404 view but Azure Static Web Apps returns the navigation fallback with HTTP 200.
 
 ## Needs operator action
 
-- Register `diagram-source-studio` in the Sociobot billing service with a $39 one-time price and the production return URL.
-- Add Apple signing/notarization secrets when available: `APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`, `APPLE_ID`, `APPLE_PASSWORD`, and `APPLE_TEAM_ID`.
-- Add Windows signing secrets when available: `WINDOWS_CERT_PFX` and `WINDOWS_CERT_PASSWORD`.
-- Until those secrets exist, releases are intentionally unsigned and the landing page says so.
-
-## Next steps
-
-- Replace the compact D2 path with a sandboxed upstream D2 WASM build when a stable, license-compatible browser artifact is available.
-- Add more deliberately divergent Mermaid fixtures as renderer releases change.
-- Consider signed automatic updates only after signing and update-hosting operations exist.
+- Enable `diagram-source-studio` in the Sociobot billing catalog at $39 USD with return URL `https://diagram-source-studio.sociobot.in/`. The UI will expose checkout automatically after the live catalog contains that exact product.
+- Add Apple secrets `APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`, `APPLE_ID`, `APPLE_PASSWORD`, and `APPLE_TEAM_ID` to sign/notarize macOS releases.
+- Add `WINDOWS_CERT_PFX` and `WINDOWS_CERT_PASSWORD` to sign Windows releases. Until then, builds remain explicitly unsigned.
