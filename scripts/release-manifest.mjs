@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync } from 'node:fs';
-const version = process.argv[2] || 'v0.1.4';
+const version = process.argv[2] || 'v0.1.5';
 const owner = 'B-Divyesh';
 const repo = 'sf-diagram-source-studio';
 const names = readdirSync('.').filter((name) => !['SHA256SUMS', 'latest.json'].includes(name));

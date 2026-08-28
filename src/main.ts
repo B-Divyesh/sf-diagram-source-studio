@@ -19,7 +19,7 @@ function header(): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.4 · Original generated artwork</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.5 · Original generated artwork</p></footer>`;
 }
 
 function home(): string {

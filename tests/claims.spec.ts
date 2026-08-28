@@ -174,12 +174,12 @@ test('@claim:unsigned-builds release workflow keeps unsigned builds explicit', a
 test('@claim:release-installers manifest URLs and shell installer match published filenames', async () => {
   const root = await mkdtemp(join(tmpdir(), 'dss-release-'));
   const names = [
-    'Diagram.Source.Studio_0.1.4_aarch64.dmg', 'Diagram.Source.Studio_0.1.4_x64.dmg',
-    'Diagram.Source.Studio_0.1.4_x64_en-US.msi', 'diagram-source-studio_0.1.4_amd64.AppImage',
-    'diagram-source-studio_0.1.4_amd64.deb'
+    'Diagram.Source.Studio_0.1.5_aarch64.dmg', 'Diagram.Source.Studio_0.1.5_x64.dmg',
+    'Diagram.Source.Studio_0.1.5_x64_en-US.msi', 'diagram-source-studio_0.1.5_amd64.AppImage',
+    'diagram-source-studio_0.1.5_amd64.deb'
   ];
   await Promise.all(names.map((name) => writeFile(join(root, name), name)));
-  await exec(process.execPath, [resolve('scripts/release-manifest.mjs'), 'v0.1.4'], { cwd: root });
+  await exec(process.execPath, [resolve('scripts/release-manifest.mjs'), 'v0.1.5'], { cwd: root });
   const manifest = JSON.parse(await readFile(join(root, 'latest.json'), 'utf8')) as { assets: Record<string, { name: string; url: string }> };
   expect(Object.keys(manifest.assets)).toHaveLength(5);
   for (const asset of Object.values(manifest.assets)) {
