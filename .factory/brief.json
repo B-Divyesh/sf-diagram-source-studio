@@ -1,0 +1,8 @@
+{
+  "slug": "diagram-source-studio",
+  "title": "Diagram Source Studio",
+  "summary": "Catch Mermaid and D2 render changes before you commit.",
+  "artifact_class": "desktop-app",
+  "monetization": "one-time",
+  "job": "Compare diagram renderers offline and export editable SVG or PNG files that preserve source."
+}
