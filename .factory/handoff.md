@@ -28,7 +28,7 @@ Static output is exactly `dist/site`; `index.html` is at that root. `npm run tau
 Verification completed on 2026-08-28:
 
 - `npm test`: 12 passed. This includes all six claim tests, five route accessibility scans, and a 390 px keyboard-pane test.
-- `npm run build:site`: passed with 31.02 KB initial JS, 16.46 KB CSS, and 79.55 KB self-hosted WOFF2 fonts.
+- `npm run build:site`: passed with 31.08 KB initial JS, 16.46 KB CSS, and 79.55 KB self-hosted WOFF2 fonts.
 - `cargo check --manifest-path src-tauri/Cargo.toml`: passed.
 - `cargo fmt --check`: passed.
 - `npm audit`: zero vulnerabilities.
@@ -43,7 +43,8 @@ Claim details and exact commands are in `.factory/claims.json`. Demo isolation i
 
 - The compact D2 renderer is not the full upstream D2 engine. It supports the common node-and-arrow subset and labels this limit in the app and README.
 - The browser and desktop editor accept UTF-8 text. Other source encodings are not converted.
-- GitHub Release assets do not exist until the `v0.1.0` workflow completes. The landing page shows a calm release-page fallback meanwhile.
+- GitHub Release assets do not exist until the `v0.1.1` workflow completes. The landing page shows a calm release-page fallback meanwhile.
+- The first `v0.1.0` workflow stopped on a Tauri 2.8/2.11 package mismatch. Version 0.1.1 aligns both sides on Tauri 2.11.
 - The generated workflow is the source of truth for multi-platform packages; only the Linux Rust shell was compiled in this worker.
 
 ## Needs operator action
