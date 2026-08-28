@@ -49,19 +49,27 @@ export function bytesToBase64(value: string): string {
 
 export function base64ToText(value: string): string {
   const binary = atob(value);
-  return new TextDecoder().decode(Uint8Array.from(binary, (character) => character.charCodeAt(0)));
+  return new TextDecoder('utf-8', { ignoreBOM: true }).decode(Uint8Array.from(binary, (character) => character.charCodeAt(0)));
 }
 
 export function sanitizeSvg(svg: string): string {
   const document = new DOMParser().parseFromString(svg, 'image/svg+xml');
+  const removeExternalUrls = (value: string) => value.replace(/url\(\s*(['"]?)([^)'"\s]+)\1\s*\)/gi, (match, _quote, target: string) => target.startsWith('#') ? match : 'none');
   document.querySelectorAll('script, foreignObject, iframe, object, embed, a').forEach((node) => node.remove());
+  document.querySelectorAll('style').forEach((node) => {
+    const safeCss = (node.textContent ?? '')
+      .replace(/@import[^;]+;?/gi, '')
+      .replace(/url\(\s*(['"]?)([^)'"\s]+)\1\s*\)/gi, (match, _quote, target: string) => target.startsWith('#') ? match : 'none');
+    node.textContent = safeCss;
+  });
   document.querySelectorAll('*').forEach((node) => {
     for (const attribute of [...node.attributes]) {
       const name = attribute.name.toLowerCase();
       const value = attribute.value.trim().toLowerCase();
-      if (name.startsWith('on') || name === 'href' || name.endsWith(':href') || value.startsWith('javascript:')) {
+      const cleanedValue = removeExternalUrls(attribute.value);
+      if (name.startsWith('on') || name === 'href' || name.endsWith(':href') || name === 'src' || value.startsWith('javascript:')) {
         node.removeAttribute(attribute.name);
-      }
+      } else if (cleanedValue !== attribute.value) node.setAttribute(attribute.name, cleanedValue);
     }
   });
   const root = document.documentElement;

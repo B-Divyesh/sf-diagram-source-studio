@@ -10,7 +10,8 @@ try {
   $checksumPath = Join-Path $tempDir "SHA256SUMS"
   Invoke-WebRequest $installer.browser_download_url -OutFile $installerPath
   Invoke-WebRequest $checksums.browser_download_url -OutFile $checksumPath
-  $line = Get-Content $checksumPath | Where-Object { $_ -match [regex]::Escape($installer.name) } | Select-Object -First 1
+  $line = Get-Content $checksumPath | Where-Object { $_ -match ('^[0-9a-fA-F]{64}\s+\*?\.?/?' + [regex]::Escape($installer.name) + '$') } | Select-Object -First 1
+  if (-not $line) { throw "Installer checksum is missing." }
   $expected = ($line -split '\s+')[0].ToLowerInvariant()
   $actual = (Get-FileHash $installerPath -Algorithm SHA256).Hash.ToLowerInvariant()
   if (-not $expected -or $expected -ne $actual) { throw "Checksum verification failed." }

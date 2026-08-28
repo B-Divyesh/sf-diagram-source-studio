@@ -40,5 +40,61 @@
     "where": "landing facts, README",
     "test": "npm test -- --grep @claim:offline-core",
     "sandbox": "fresh /demo; wait for service worker, reload once, set browser offline, reload and render D2"
+  },
+  {
+    "id": "license-enforcement",
+    "claim": "Studio comparison requires a successfully verified license",
+    "where": "license panel, pricing",
+    "test": "npm test -- --grep @claim:license-enforcement",
+    "sandbox": "fresh real workspace with an unverified token and the verification request offline; assert comparison stays locked"
+  },
+  {
+    "id": "native-file-dialogs",
+    "claim": "The desktop app provides native open and save actions",
+    "where": "landing preview, README",
+    "test": "npm test -- --grep @claim:native-file-dialogs",
+    "sandbox": "simulated Tauri desktop context; assert native-shell open and save controls are exposed"
+  },
+  {
+    "id": "offline-reference",
+    "claim": "Mermaid and D2 syntax references are bundled for offline use",
+    "where": "editor rail, README",
+    "test": "npm test -- --grep @claim:offline-reference",
+    "sandbox": "fresh /demo switched offline; open both language reference states"
+  },
+  {
+    "id": "safe-svg",
+    "claim": "SVG cleanup removes scripts, links, embedded objects, event handlers, and external references",
+    "where": "README privacy and security",
+    "test": "npm test -- --grep @claim:safe-svg",
+    "sandbox": "sanitize an adversarial SVG containing active elements, handlers, external attributes, CSS imports, and CSS URLs"
+  },
+  {
+    "id": "no-tracking",
+    "claim": "The editor uses no telemetry or runtime CDN",
+    "where": "privacy page, README",
+    "test": "npm test -- --grep @claim:no-tracking",
+    "sandbox": "fresh /demo edit and render while recording all requests; assert every request is same-origin"
+  },
+  {
+    "id": "unsigned-builds",
+    "claim": "Desktop releases are unsigned until signing certificates are configured",
+    "where": "download section, README",
+    "test": "npm test -- --grep @claim:unsigned-builds",
+    "sandbox": "landing page plus release workflow inspection; assert unsigned disclosure and absence of signing configuration"
+  },
+  {
+    "id": "release-installers",
+    "claim": "Release downloads have matching platform filenames and SHA256 verification",
+    "where": "download panel, README",
+    "test": "npm test -- --grep @claim:release-installers",
+    "sandbox": "temporary five-platform release fixture; generate manifest, match URL filenames, then run shell installer against a pretty GitHub-style response and checksum"
+  },
+  {
+    "id": "studio-purchase",
+    "claim": "Studio costs $39 once and uses the Sociobot checkout",
+    "where": "landing pricing, license panel, README",
+    "test": "npm test -- --grep @claim:studio-purchase",
+    "sandbox": "fresh landing page with a recorded enabled-product catalog response; assert exact price, purchase type, and Sociobot checkout URL"
   }
 ]

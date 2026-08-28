@@ -70,7 +70,10 @@ jobs:
       - name: Create checksums and release manifest
         run: |
           mkdir release-assets
-          find bundles -type f \( -name '*.dmg' -o -name '*.app.tar.gz' -o -name '*.msi' -o -name '*.exe' -o -name '*.AppImage' -o -name '*.deb' \) -exec cp '{}' release-assets/ \;
+          find bundles -type f \( -name '*.dmg' -o -name '*.app.tar.gz' -o -name '*.msi' -o -name '*.exe' -o -name '*.AppImage' -o -name '*.deb' \) -print0 | while IFS= read -r -d '' file; do
+            name="$(basename "$file" | tr ' ' '.')"
+            cp "$file" "release-assets/$name"
+          done
           cd release-assets
           find . -maxdepth 1 -type f ! -name 'SHA256SUMS' ! -name 'latest.json' -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
           node ../scripts/release-manifest.mjs "${GITHUB_REF_NAME}"

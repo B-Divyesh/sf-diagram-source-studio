@@ -1,5 +1,5 @@
 import { embedSourceInPng, embedSourceInSvg, Engine, renderDiagram, RendererVersion, sourceFromPng, sourceFromSvg } from './diagram';
-import { checkoutUrl, localLicenseState, saveLicense, verifyLicense } from './license';
+import { checkoutUrl, localLicenseState, saveLicense, studioProductEnabled, verifyLicense } from './license';
 
 const MERMAID_SAMPLE = `flowchart LR
   source[Diagram source] --> current{Mermaid 11.17.2}
@@ -87,6 +87,7 @@ export function editorView(demo: boolean): string {
 }
 
 export function mountEditor(demo: boolean) {
+  const shell = document.querySelector<HTMLElement>('.studio-shell')!;
   const source = document.querySelector<HTMLTextAreaElement>('#source')!;
   const engine = document.querySelector<HTMLSelectElement>('#engine')!;
   const version = document.querySelector<HTMLSelectElement>('#version')!;
@@ -96,11 +97,27 @@ export function mountEditor(demo: boolean) {
   const toast = document.querySelector<HTMLElement>('#toast')!;
   let lastSvg = '';
   let renderTicket = 0;
-  let unlocked = localLicenseState().unlocked;
+  const abort = new AbortController();
+  const { signal } = abort;
+  const timeouts = new Set<number>();
+  let disposed = false;
+  let sourceFormat: { lineEnding: '\n' | '\r\n'; bom: boolean } = { lineEnding: '\n', bom: false };
+  let unlocked = localLicenseState(demo).unlocked;
+
+  const sourceForFile = () => {
+    const lineEndings = sourceFormat.lineEnding === '\r\n' ? source.value.replace(/\n/g, '\r\n') : source.value;
+    return sourceFormat.bom ? `\ufeff${lineEndings}` : lineEndings;
+  };
+
+  const setSource = (value: string) => {
+    sourceFormat = { lineEnding: value.includes('\r\n') ? '\r\n' : '\n', bom: value.startsWith('\ufeff') };
+    source.value = value.replace(/^\ufeff/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  };
 
   const say = (message: string) => {
     toast.textContent = message; toast.classList.add('shown');
-    setTimeout(() => toast.classList.remove('shown'), 2600);
+    const timeout = window.setTimeout(() => { toast.classList.remove('shown'); timeouts.delete(timeout); }, 2600);
+    timeouts.add(timeout);
   };
 
   const setLanguage = (language: Engine) => {
@@ -115,11 +132,11 @@ export function mountEditor(demo: boolean) {
   const render = async () => {
     const ticket = ++renderTicket;
     const text = source.value;
-    byteCount.textContent = `${new TextEncoder().encode(text).length} bytes`;
+    byteCount.textContent = `${new TextEncoder().encode(sourceForFile()).length} bytes`;
     preview.setAttribute('aria-busy', 'true');
     const selected = engine.value as Engine;
     const result = await renderDiagram(text, selected, selected === 'd2' ? 'D2 compact' : version.value as RendererVersion);
-    if (ticket !== renderTicket) return;
+    if (disposed || ticket !== renderTicket) return;
     preview.removeAttribute('aria-busy');
     if (result.error) {
       lastSvg = '';
@@ -131,18 +148,18 @@ export function mountEditor(demo: boolean) {
       diagnostics.className = result.warnings.length ? 'status warning' : 'status success';
       diagnostics.textContent = result.warnings.length ? result.warnings.join(' ') : 'Syntax parsed. Preview rendered.';
     }
-    if (!demo) localStorage.setItem('real:diagram-source-studio:document', JSON.stringify({ source: text, engine: selected }));
+    if (!demo) localStorage.setItem('real:diagram-source-studio:document', JSON.stringify({ source: sourceForFile(), engine: selected }));
   };
 
   let timer = 0;
   const scheduleRender = () => { clearTimeout(timer); timer = window.setTimeout(render, 220); };
   const loadSample = (language: Engine = engine.value as Engine) => {
-    setLanguage(language); source.value = language === 'd2' ? D2_SAMPLE : MERMAID_SAMPLE; render();
+    setLanguage(language); setSource(language === 'd2' ? D2_SAMPLE : MERMAID_SAMPLE); render();
   };
 
   async function exportSvg() {
     if (!lastSvg) return say('Fix the preview before exporting.');
-    const content = embedSourceInSvg(lastSvg, source.value, engine.value as Engine);
+    const content = embedSourceInSvg(lastSvg, sourceForFile(), engine.value as Engine);
     const saved = await nativeInvoke<boolean>('save_document', { name: 'diagram.svg', contents: content });
     if (!saved) download(content, 'image/svg+xml', 'diagram.svg');
     say('SVG exported with editable source.');
@@ -158,7 +175,8 @@ export function mountEditor(demo: boolean) {
       const context = canvas.getContext('2d')!; context.fillStyle = '#10141a'; context.fillRect(0, 0, canvas.width, canvas.height); context.drawImage(image, 0, 0);
       canvas.toBlob(async (blob) => {
         if (!blob) return say('PNG export failed. Export SVG instead.');
-        const encoded = embedSourceInPng(new Uint8Array(await blob.arrayBuffer()), source.value, engine.value as Engine);
+        if (disposed) return;
+        const encoded = embedSourceInPng(new Uint8Array(await blob.arrayBuffer()), sourceForFile(), engine.value as Engine);
         const base64 = btoa(String.fromCharCode(...encoded));
         const saved = await nativeInvoke<boolean>('save_binary', { name: 'diagram.png', base64 });
         if (!saved) download(encoded, 'image/png', 'diagram.png');
@@ -197,25 +215,34 @@ export function mountEditor(demo: boolean) {
     let restored: { source: string; engine: Engine } | null = null;
     if (name.endsWith('.svg')) restored = sourceFromSvg(typeof contents === 'string' ? contents : new TextDecoder().decode(contents));
     else if (name.endsWith('.png') && contents instanceof Uint8Array) restored = sourceFromPng(contents);
-    if (restored) { setLanguage(restored.engine); source.value = restored.source; say('Editable source restored from the export.'); }
-    else { source.value = typeof contents === 'string' ? contents : new TextDecoder().decode(contents); setLanguage(name.endsWith('.d2') ? 'd2' : 'mermaid'); say('Source file opened.'); }
+    if (restored) { setLanguage(restored.engine); setSource(restored.source); say('Editable source restored from the export.'); }
+    else {
+      let text: string;
+      if (typeof contents === 'string') text = contents;
+      else {
+        const hasBom = contents[0] === 0xef && contents[1] === 0xbb && contents[2] === 0xbf;
+        text = `${hasBom ? '\ufeff' : ''}${new TextDecoder().decode(hasBom ? contents.slice(3) : contents)}`;
+      }
+      setSource(text); setLanguage(name.endsWith('.d2') ? 'd2' : 'mermaid'); say('Source file opened.');
+    }
     render();
   }
 
-  document.addEventListener('input', (event) => { if (event.target === source) scheduleRender(); });
-  engine.addEventListener('change', () => { setLanguage(engine.value as Engine); render(); });
-  version.addEventListener('change', render);
+  source.addEventListener('input', scheduleRender, { signal });
+  engine.addEventListener('change', () => { setLanguage(engine.value as Engine); render(); }, { signal });
+  version.addEventListener('change', render, { signal });
   document.querySelector<HTMLInputElement>('#file-input')!.addEventListener('change', (event) => {
     const file = (event.target as HTMLInputElement).files?.[0]; if (file) openFile(file);
-  });
-  document.addEventListener('click', async (event) => {
+  }, { signal });
+  shell.addEventListener('click', async (event) => {
     const action = (event.target as HTMLElement).closest<HTMLElement>('[data-action]')?.dataset.action;
     if (action === 'load-sample' || action === 'reset-demo') loadSample('mermaid');
     if (action === 'open') openFile();
     if (action === 'save') {
       const extension = engine.value === 'd2' ? 'd2' : 'mmd';
-      const saved = await nativeInvoke<boolean>('save_document', { name: `diagram.${extension}`, contents: source.value });
-      if (!saved) download(source.value, 'text/plain', `diagram.${extension}`);
+      const contents = sourceForFile();
+      const saved = await nativeInvoke<boolean>('save_document', { name: `diagram.${extension}`, contents });
+      if (!saved) download(contents, 'text/plain', `diagram.${extension}`);
       say('Source saved.');
     }
     if (action === 'export-svg') exportSvg();
@@ -224,16 +251,16 @@ export function mountEditor(demo: boolean) {
     if (action === 'restore-license') {
       const token = document.querySelector<HTMLInputElement>('#license-token')!.value;
       if (!token.trim()) return say('Paste your license token first.');
-      saveLicense(token); const state = await verifyLicense(); unlocked = state.unlocked; updateLicense(); say(state.unlocked ? 'Studio license verified.' : 'That license is not active.');
+      saveLicense(token, demo); const state = await verifyLicense(demo); unlocked = state.unlocked; updateLicense(); say(state.unlocked ? 'Studio license verified.' : 'That license is not active.');
     }
-  });
+  }, { signal });
 
   document.querySelectorAll<HTMLButtonElement>('[data-pane]').forEach((tab, index, tabs) => {
-    tab.addEventListener('click', () => showPane(tab.dataset.pane!));
+    tab.addEventListener('click', () => showPane(tab.dataset.pane!), { signal });
     tab.addEventListener('keydown', (event) => {
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
       const next = tabs[(index + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; next.focus(); showPane(next.dataset.pane!);
-    });
+    }, { signal });
   });
   function showPane(name: string) {
     document.querySelectorAll<HTMLElement>('[data-pane]').forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.pane === name)));
@@ -241,20 +268,42 @@ export function mountEditor(demo: boolean) {
   }
 
   const updateLicense = () => {
-    const state = localLicenseState(); unlocked = state.unlocked;
+    const state = localLicenseState(demo); unlocked = state.unlocked;
     document.querySelector<HTMLElement>('#license-state')!.innerHTML = unlocked
       ? '<span class="license-ok">Studio license active</span><p>Two-version comparison is available.</p>'
-      : `<p>${state.notice ?? 'The free editor includes preview and both exports.'}</p><a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a><p>Studio adds the two-version comparison.</p>`;
+      : `<p>${state.notice ?? 'The free editor includes preview and both exports.'}</p>${demo ? '<a class="buy-link" href="/#pricing">See Studio purchase options</a>' : '<span class="buy-link" data-buy-state>Checking purchase availability…</span>'}<p>Studio adds the two-version comparison.</p>`;
+    if (!unlocked && !demo) setupEditorCheckout();
   };
-  updateLicense(); verifyLicense().then(() => updateLicense());
+  const setupEditorCheckout = async () => {
+    const action = document.querySelector<HTMLElement>('[data-buy-state]');
+    if (!action) return;
+    try {
+      const response = await fetch('https://api.sociobot.in/api/v1/products');
+      if (!response.ok) throw new Error('catalog unavailable');
+      const catalog = await response.json() as { data?: Array<{ slug?: string; price_minor?: number; currency?: string }> };
+      if (!studioProductEnabled(catalog.data)) throw new Error('product unavailable');
+      if (!disposed) action.outerHTML = `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
+    } catch {
+      if (!disposed) action.textContent = 'Purchases are temporarily unavailable.';
+    }
+  };
+  updateLicense(); verifyLicense(demo).then(() => { if (!disposed) updateLicense(); });
 
   if (demo) loadSample('mermaid');
   else {
     try {
       const saved = JSON.parse(localStorage.getItem('real:diagram-source-studio:document') ?? 'null');
-      if (saved?.source) { setLanguage(saved.engine); source.value = saved.source; render(); } else loadSample('mermaid');
+      if (saved?.source) { setLanguage(saved.engine); setSource(saved.source); render(); } else loadSample('mermaid');
     } catch { loadSample('mermaid'); }
   }
+
+  return () => {
+    disposed = true;
+    renderTicket += 1;
+    clearTimeout(timer);
+    for (const timeout of timeouts) clearTimeout(timeout);
+    abort.abort();
+  };
 }
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character] ?? character));

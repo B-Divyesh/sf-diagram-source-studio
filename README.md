@@ -21,7 +21,7 @@ The compact D2 renderer is intentionally smaller than the full D2 language. Use 
 
 ## Free and Studio
 
-The free editor includes editing, diagnostics, single-version preview, and both exports. Studio costs $39 once and adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison. The checkout and license check use the Sociobot billing API. No product ID or payment-provider secret lives in this repository.
+The free editor includes editing, diagnostics, single-version preview, and both exports. Studio costs $39 once and adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison. The checkout and license check use the Sociobot billing API. The purchase link appears only while the product is enabled in its live catalog.
 
 ## Run the site and browser demo
 
@@ -50,6 +50,18 @@ npm run tauri dev
 
 Create a local platform bundle with `npm run tauri build`. Release bundles are built on GitHub Actions, not in the factory worker.
 
+Linux users can install the checked AppImage from the latest release:
+
+```sh
+curl -fsSL https://diagram-source-studio.sociobot.in/install.sh | sh
+```
+
+Windows users can run the SHA256-checking installer from PowerShell:
+
+```powershell
+irm https://diagram-source-studio.sociobot.in/install.ps1 | iex
+```
+
 ## Test
 
 Playwright 1.58.2 runs each public claim from a clean browser context:
@@ -68,7 +80,7 @@ Read the in-product `/privacy` and `/terms` routes for user-facing details.
 
 ## Release
 
-Push a `v*` tag or start **Release desktop apps** in GitHub Actions. The workflow builds Linux, Windows, macOS arm64, and macOS x64 packages. It publishes checksums and `latest.json` with the GitHub Release.
+Push a `v*` tag or start **Release desktop apps** in GitHub Actions. The workflow builds Linux, Windows, macOS arm64, and macOS x64 packages. It publishes matching SHA256 checksums and `latest.json` URLs with the GitHub Release.
 
 Unsigned builds show the operating system's normal warning. See [`.factory/handoff.md`](.factory/handoff.md) for signing secrets the operator must add.
 

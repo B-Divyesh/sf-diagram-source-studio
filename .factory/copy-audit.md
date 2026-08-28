@@ -49,8 +49,11 @@ Read-aloud result: the headline, audience sentence, and sample action fit in one
 | $39 | 1 |
 | One-time purchase | 2 |
 | Buy Studio | 2 |
+| Checking purchase availability… | 3 |
+| Purchases are temporarily unavailable. | 4 |
+| The free editor still works. | 5 |
 | Already bought it? | 3 |
-| Paste your license in the app. | 6 |
+| Download the app to paste your license. | 7 |
 | Sociobot/Dodo is the merchant of record. | 6 |
 | Refunds are handled there. | 4 |
 | Install it beside your repository | 5 |
@@ -58,6 +61,8 @@ Read-aloud result: the headline, audience sentence, and sample action fit in one
 | Checking the latest release… | 4 |
 | Check diagram renders before you commit. | 6 |
 | Original generated artwork | 3 |
+
+Dynamic release labels contain only a release tag and operating-system name. Dynamic billing copy is included above.
 
 ## Terminology
 
