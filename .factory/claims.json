@@ -1,0 +1,44 @@
+[
+  {
+    "id": "demo-sandbox",
+    "claim": "Demo changes are not saved to real data",
+    "where": "demo banner",
+    "test": "npm test -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh browser context at /demo; edit and reset; inspect the real storage namespace"
+  },
+  {
+    "id": "private-local",
+    "claim": "Files stay on your device",
+    "where": "landing facts, privacy page, README",
+    "test": "npm test -- --grep @claim:private-local",
+    "sandbox": "fresh /demo; edit and export while recording every network request"
+  },
+  {
+    "id": "editable-export",
+    "claim": "SVG and PNG exports preserve editable source",
+    "where": "landing walkthrough, app export buttons, README",
+    "test": "npm test -- --grep @claim:editable-export",
+    "sandbox": "fresh /demo with Unicode source; export then reopen and assert byte-for-byte source"
+  },
+  {
+    "id": "renderer-matrix",
+    "claim": "Studio compares bundled Mermaid 10.9.8 and 11.17.2 render output",
+    "where": "landing pricing, app comparison control, README",
+    "test": "npm test -- --grep @claim:renderer-matrix",
+    "sandbox": "fresh /demo with a cached valid test verdict; render sample in both bundled versions"
+  },
+  {
+    "id": "d2-preview",
+    "claim": "The compact D2 renderer previews nodes, labels, and arrows",
+    "where": "app language picker, README",
+    "test": "npm test -- --grep @claim:d2-preview",
+    "sandbox": "fresh /demo; enter a D2 graph and inspect rendered labels and diagnostics"
+  },
+  {
+    "id": "offline-core",
+    "claim": "Core editing works offline after the first visit",
+    "where": "landing facts, README",
+    "test": "npm test -- --grep @claim:offline-core",
+    "sandbox": "fresh /demo; wait for service worker, reload once, set browser offline, reload and render D2"
+  }
+]
