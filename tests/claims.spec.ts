@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { execFile } from 'node:child_process';
+import { createServer } from 'node:http';
 import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -212,6 +213,60 @@ test('@claim:studio-purchase the enabled $39 product uses Sociobot checkout', as
     };
   });
   expect(eligibility).toEqual({ enabled: true, wrongPrice: false, checkoutUrl: 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout' });
+});
+
+test('checkout return stores, verifies, and activates the returned license in the desktop shell', async ({ page }) => {
+  await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
+  await page.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => route.fulfill({
+    json: { valid: true, reason: 'ok', expires_at: null }
+  }));
+  await page.goto('/?license=returned-license-token');
+  await expect(page).toHaveURL('http://127.0.0.1:4173/');
+  await expect(page.getByText('Studio license active')).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem('sb_license:diagram-source-studio'))).toBe('returned-license-token');
+  const verdict = JSON.parse(await page.evaluate(() => localStorage.getItem('sb_license_verdict:diagram-source-studio')) ?? '{}');
+  expect(verdict).toMatchObject({ valid: true, token: 'returned-license-token' });
+});
+
+test('live billing verifier fails for the missing product and accepts the exact checkout contract', async () => {
+  let productEnabled = false;
+  const server = createServer((request, response) => {
+    if (request.url === '/api/v1/products') {
+      response.setHeader('content-type', 'application/json');
+      response.end(JSON.stringify({ data: productEnabled ? [{
+        slug: 'diagram-source-studio',
+        name: 'Diagram Source Studio License',
+        price_minor: 3900,
+        currency: 'USD',
+        product_url: 'https://diagram-source-studio.sociobot.in/',
+        checkout_url: `http://127.0.0.1:${(server.address() as { port: number }).port}/api/v1/products/diagram-source-studio/checkout`
+      }] : [] }));
+      return;
+    }
+    if (request.url === '/api/v1/products/diagram-source-studio/checkout') {
+      response.writeHead(303, { location: 'https://checkout.dodopayments.com/session/contract-test' });
+      response.end();
+      return;
+    }
+    response.writeHead(404).end();
+  });
+  await new Promise<void>((resolveListen) => server.listen(0, '127.0.0.1', resolveListen));
+  const address = server.address() as { port: number };
+  const env = { ...process.env, SOCIOBOT_API_BASE: `http://127.0.0.1:${address.port}/api/v1` };
+  try {
+    await expect(exec(process.execPath, [resolve('scripts/verify-live-billing.mjs')], { env })).rejects.toThrow(/missing diagram-source-studio/);
+    productEnabled = true;
+    const result = await exec(process.execPath, [resolve('scripts/verify-live-billing.mjs')], { env });
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      slug: 'diagram-source-studio',
+      price_minor: 3900,
+      currency: 'USD',
+      checkout_status: 303,
+      checkout_host: 'checkout.dodopayments.com'
+    });
+  } finally {
+    await new Promise<void>((resolveClose, rejectClose) => server.close((error) => error ? rejectClose(error) : resolveClose()));
+  }
 });
 
 test('SPA route remount keeps one export handler', async ({ page }) => {

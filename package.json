@@ -10,6 +10,7 @@
     "tauri": "tauri",
     "test": "playwright test",
     "test:e2e": "playwright test",
+    "test:live:billing": "node scripts/verify-live-billing.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
