@@ -1,78 +1,29 @@
-# Diagram Source Studio verification 10 handoff
+# Diagram Source Studio review 3 handoff
 
 ## Status
 
-**PASS — candidate accepted.** Independent verification completed on
-2026-08-29 for commit
-`5fb973e5dcfbd05e5014cd5e0d2671b29fea2766` at
-<https://diagram-source-studio.sociobot.in>.
+**PASS.** Adversarial first-read review 3 completed on 2026-08-29 against commit `d7697755210314199dc2a86fb11943a487ff5e0d` and the live site <https://diagram-source-studio.sociobot.in>. No product code was changed.
 
-No product code was changed. The verification report and evidence are the only
-repository changes.
+## Completed
 
-## Acceptance evidence
+- Wrote `.factory/review-3.md` with the full cold-read, copy, demo, claims, history, routing, privacy, accessibility, visual-identity, and missed-leverage review.
+- Verified fresh 390 × 844 and 1440 × 900 landing contexts. The first screen clearly gives the job, audience, and sample-demo action; its action result and three facts fit without scrolling.
+- Verified the live one-click demo, direct `/demo`, sample state, banner, reset, start-for-real exit, and isolated storage using a seeded real-data sentinel.
+- Crawled all rendered live links. Internal routes and external product destinations returned the expected statuses; unknown routes produce the designed HTTP 404.
+- Verified live route metadata, back-button focus management, console/page errors, request logs, and Axe serious/critical results.
 
-- The mandatory cold first-read passes at desktop and 390 px: the first screen
-  says what the product does, who it serves, and what to click first.
-- **Try it with sample data** opens `/demo` in one click with a rendered sample,
-  persistent demo notice, Reset, and Start for real.
-- All 21 commands in `.factory/claims.json` pass individually after installing
-  the README-documented PowerShell 7 prerequisite.
-- `npm test` passes 38 tests: 13 accessibility/route, 21 claim, and 4
-  regression tests, with no retries or skips.
-- `npm run build`, release-version verification, npm audit, Rust format,
-  locked test/check, warnings-as-errors Clippy, and live billing all pass.
-- Mermaid and compact D2 normal, Unicode, empty, malformed, recovery, SVG/PNG
-  export, demo isolation, locked comparison, and routing flows pass.
-- Live Axe scans report zero violations on all supported routes and the 404 at
-  desktop, plus `/` and `/demo` at 390 px. Keyboard, focus, 44 px targets,
-  responsive layout, and reduced motion pass.
-- Production has no supported-route console/page errors. Demo editing/export
-  sends no data off-origin. Security headers and cache policies are present.
-- Service-worker update and offline `/demo` reload pass; a new D2 diagram
-  renders offline from cache `diagram-source-studio-v0.1.10`.
-- Live mobile Lighthouse: `/` 98/100/100/100 and `/demo` 99/100/100/100;
-  LCP 1.654/1.306 s, TBT 121/102 ms, and CLS 0/0.00024.
-- All 31 public build files match the fresh candidate build byte-for-byte.
-- Release `v0.1.10` and workflow run `33251516458` identify the exact candidate
-  commit. All platform jobs and publish passed; the release has macOS arm64 and
-  x64, Windows, AppImage, deb, checksums, and `latest.json`.
-- The live shell installer checksum-verified and installed the AppImage. It
-  launched under Xvfb as a **Diagram Source Studio** desktop window.
-- The license endpoint allowed 30 concurrent requests, then returned 429 for
-  10 of 40; every 429 included `Retry-After: 4`.
+## Verification
 
-Defects: **0 critical, 0 high, 0 medium, 0 low**.
-
-## Reproduce locally
-
-Prerequisites include Node/npm, Playwright Chromium, PowerShell 7 (`pwsh`),
-Rust/Cargo, `sh`, `sha256sum`, and the Linux Tauri packages documented in the
-README and release workflow.
+In clean clone `/tmp/diagram-review-3.FbLygL`:
 
 ```sh
 npm ci
-npm test
+PATH=/tmp/pwsh-7.4.12.LpBiQs:$PATH npm test
 npm run build
-npm run verify:release
-npm audit --audit-level=high
-cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
-cargo test --manifest-path src-tauri/Cargo.toml --locked
-cargo check --manifest-path src-tauri/Cargo.toml --locked
-cargo clippy --manifest-path src-tauri/Cargo.toml --locked --all-targets -- -D warnings
-npm run test:live:billing
 ```
 
-Full narrative: `.factory/verification-10.md`. Machine evidence:
-`.factory/verification-artifacts-10/`.
+`npm test` passed all 13 accessibility/route checks, all 21 manifest claim checks, and 4 regression checks. The container lacked `pwsh`; a temporary PowerShell 7 runtime was downloaded outside the repository solely to meet the README-listed test prerequisite. `npm run build` passed and produced `dist/site/` (12.99 kB gzip main JS; 4.65 kB gzip CSS).
 
-## Known gaps and operator action
+## Known gaps / next steps
 
-- macOS and Windows artifacts passed their native GitHub-hosted build jobs but
-  were not launched on this Linux verifier host.
-- Packages are intentionally unsigned and disclose this. Signing requires
-  owner-managed Apple and Windows certificates; do not commit them.
-- Compact D2 intentionally implements the documented nodes, labels, and arrows
-  subset.
-
-No release-blocking operator action remains.
+No review findings or release-blocking gaps remain. Keep PowerShell 7 available in future verifier images because `npm test` intentionally requires it for the Windows installer claim.
