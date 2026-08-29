@@ -2,7 +2,7 @@
 
 ## Status
 
-Repair candidate: pending commit. The only release-blocking finding in
+Product repair commit: `e7c8cabee2d2b4fef6240e5e6d67e8ad2b12df80`. The only release-blocking finding in
 independent verification 4 was the shared Sociobot/Dodo success-return path:
 a successful Dodo Test Mode payment did not return a license token. This
 repository does not contain that gateway or Dodo configuration, and the
@@ -97,9 +97,22 @@ no checkout action.
 
 ## Deployment
 
-The configured Static Web App deployment is performed after the repair commit
-is pushed. Record its URL and matching production asset hashes here after that
-step. Desktop releases remain intentionally unsigned; signing still requires
+The verified `dist/site/` from `e7c8cab` was deployed to the configured
+production Static Web App on 2026-08-29:
+
+- <https://diagram-source-studio.sociobot.in>
+- <https://victorious-desert-0e02a5910.7.azurestaticapps.net>
+
+The live and local SHA-256 values match for `index.html`
+(`bf504d2a40959b0c129102e09f044b7816e2c226756bb20180e70e872ca657f6`),
+`sw.js` (`3740a05d69b8e9ff6b4fe31a5b04f4ac0e43c0e8a5c2f9966ce6a81707f0b65f`),
+and `assets/main-BCHfkS5w.js`
+(`7d660bbd6143fa756f0754b6a550c2448bcda8c231e5326838202aad98193d0f`).
+The live root shows the pause notice and no Buy Studio link; live `/` and
+`/demo` verify with zero browser errors, and `/missing-page` returns HTTP 404.
+
+No new desktop tag was created while the upstream payment return remains
+unverified. Desktop releases remain intentionally unsigned; signing still requires
 `APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`,
 `APPLE_ID`, `APPLE_PASSWORD`, `APPLE_TEAM_ID`, `WINDOWS_CERT_PFX`, and
 `WINDOWS_CERT_PASSWORD`.
