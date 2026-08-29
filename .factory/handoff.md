@@ -1,42 +1,69 @@
-# Polish 2 handoff — deployed and rechecked
+# Verification 9 handoff — FAIL
 
-Repair commit: `3e9f2783f8d97bd6bf35de1343e9ac12c9dda711` (based on review commit `f9a7907fb81702ea13cb0b05ad3354ccabf5ea27`).
+Independent verification completed 2026-08-29 for candidate
+`a58e66b1dbe72795afaa089e03832c887327948a` and
+<https://diagram-source-studio.sociobot.in>.
 
-## What changed
+## Verdict
 
-- Made the complete first-screen package fit at 1440×900 and 390×844 without replacing the night-market neon inspection identity.
-- Removed remaining jargon, mixed renderer terminology, and numbered decorative labels from the landing, editor, README, metadata, and catalog description.
-- Made the 404 literal while retaining the original broken-neon artwork.
-- Expanded the release claim proof to cover the GitHub Actions target matrix plus real PowerShell success and checksum-rejection fixtures.
-- Preserved the isolated `?demo=1` / `/demo` sample workflow, persistent banner, Reset demo, Start for real action, shared legal navigation, routes, focus behavior, privacy boundary, and desktop-app release class.
+**FAIL — do not release.** See [verification-9.md](verification-9.md) for the
+complete evidence.
 
-## Run and verify
+## Release blocker
+
+The current desktop Release `v0.1.9` and its installers were built from commit
+`4ad88c46805adeb301cd321c4826f141c991e99a`, not this candidate. Candidate
+product changes modify the shipped frontend and Windows installer after that
+tag. Publish a new immutable version from the accepted candidate lineage.
+
+Medium documentation finding: the installer claim test invokes `pwsh`, but the
+README does not list PowerShell as a test prerequisite. The claim and full
+suite pass after PowerShell is provisioned.
+
+## What passed
+
+- Cold first-read and one-click sample demo gates.
+- Fresh `npm ci`, `npm run build`, TypeScript, npm audit, Cargo formatting, and
+  the Rust native byte-round-trip test after documented Linux prerequisites.
+- All 21 exact claim commands and the complete `npm test` suite.
+- Live Mermaid/D2 normal, empty, invalid, recovery, SVG export, demo isolation,
+  privacy, offline reload, service-worker update, keyboard, 390 px mobile,
+  reduced motion, routes, links, and response-header checks.
+- Zero Axe violations on tested live desktop/mobile routes.
+- Lighthouse mobile: performance 93, accessibility 100, best practices 100,
+  SEO 100, LCP 1.5 s, CLS 0.
+- Fresh web build/live identity: 31 public files matched byte-for-byte, with no
+  mismatch or fetch failure.
+- Production billing and Dodo checkout. License verification enforced an
+  observed allowance of 30 concurrent requests; excess requests returned 429
+  with `Retry-After: 4`.
+- The existing release has all required platform assets and valid checksums;
+  its Linux installer succeeded against the real release. Its source commit is
+  the blocker.
+
+## Retest
 
 ```sh
 npm ci
 npm test
-npm run build:site
+npm run build
+npm audit --audit-level=high
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo test --manifest-path src-tauri/Cargo.toml --locked
+npm run test:live:billing
 ```
 
-The static site is written to `dist/site`. `npm test` runs every claim declared in `.factory/claims.json`, the accessibility suite, mobile keyboard checks, route/metadata checks, the first-screen viewport assertion, and regressions. The PowerShell claim test requires `pwsh`; it is available on the GitHub Actions Ubuntu runner and was installed locally for this verification.
+The Linux Rust command requires the system packages declared in
+`.github/workflows/release.yml`. The normal claim/full test workflow must also
+provision every executable it invokes.
 
-## Exact evidence
+## Needs operator action
 
-- Clean clone: `/tmp/diagram-source-studio-polish-2.hnMZFk` at `3e9f2783f8d97bd6bf35de1343e9ac12c9dda711`.
-- `npm ci` passed with 186 packages and 0 audit vulnerabilities.
-- `npm test` passed: all 21 claims, 13 accessibility checks, and regressions.
-- `npm run build:site` passed. `dist/site` contains the static routes and build assets; main JavaScript is 12.98 kB gzip and CSS is 4.65 kB gzip.
-- Local visual evidence: `.factory/polish-artifacts-2/local-root-desktop.png`, `local-root-mobile.png`, `local-demo-mobile.png`, and `local-404-mobile.png`.
+- Document or provision the PowerShell claim-test prerequisite.
+- Increment the app version and publish a new `v*` tag from the accepted
+  candidate lineage; verify all release assets and update the landing download.
+- Desktop bundles remain unsigned until signing certificates are configured.
+  The current workflow does not consume `APPLE_CERTIFICATE` or
+  `WINDOWS_CERT_PFX`, and the product discloses that state.
 
-The full finding-to-evidence map is in [`.factory/polish-2.md`](polish-2.md).
-
-## Deployment and known gaps
-
-Deployed `dist/site` through the static work-order configuration to `https://diagram-source-studio.sociobot.in` (Azure Static Web Apps deployment `69444b68-7f81-46f4-bcb6-e16bd3f74e2c`). Cold live checks passed for `/`, `/?demo=1`, `/demo`, `/privacy`, `/terms`, and `/does-not-exist`:
-
-- `verify-url.sh` passed for the landing and demo with no page or console errors.
-- Live Axe scans found zero serious or critical issues on every route above.
-- The landing’s complete action/result/fact package ended at 755 px on 1440×900 and 540 px on 390×844.
-- The live demo showed the persistent banner, Reset demo, Start for real, Privacy, Terms, and footer. The live 404 showed the literal heading and recovery sentence.
-
-Evidence lives in `.factory/polish-artifacts-2/live-root/verify.json`, `live-demo/verify.json`, `live-axe.json`, and `live-recheck.json`. No product defects are known. Desktop release bundles remain intentionally unsigned until the operator adds `APPLE_CERTIFICATE` and `WINDOWS_CERT_PFX` to GitHub Actions; the app discloses that state before download.
+No product code was modified during verification.
