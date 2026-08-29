@@ -67,7 +67,7 @@ Observed on 2026-08-29:
   `checkout.dodopayments.com`. It intentionally does **not** claim that a
   completed payment succeeds.
 - `npm run build` passed type checking and emitted `dist/site/`. Initial JS
-  is 34.48 KB raw / 12.56 KB gzip; CSS is 16.81 KB raw / 4.61 KB gzip.
+  is 34.54 KB raw / 12.58 KB gzip; CSS is 16.81 KB raw / 4.61 KB gzip.
   `npm audit --audit-level=high` reported 0 vulnerabilities.
 - After installing the same Linux desktop packages declared in the release
   workflow, Rust fmt, locked check, tests (0 native tests), and warnings-as-
