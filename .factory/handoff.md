@@ -100,10 +100,13 @@ with `frame-ancestors 'none'`. The production billing probe again returned the
 exact USD 3900 product, Dodo redirect, and hosted-checkout HTTP 200.
 
 Annotated tag `v0.1.8` is pushed. GitHub Actions release run
-`33236764330` accepted the live-billing job and is building the macOS arm64/x64,
-Windows, and Linux desktop artifacts; it publishes `SHA256SUMS` and
-`latest.json` once those matrix jobs finish. Desktop builds remain intentionally
-unsigned and still require the documented signing secrets for a signed release.
+`33236764330` completed successfully: its live-billing gate and macOS arm64/x64,
+Windows, and Linux matrix builds all passed. GitHub Release `v0.1.8` contains
+macOS DMG/app archive, Windows MSI/EXE, Linux AppImage/deb, `SHA256SUMS`, and a
+`latest.json` manifest with all five platform keys. The downloaded Linux deb
+SHA-256 is `1738ad58932beb6eab10ce91be436b154cbade4f04a3c9d9ef635242f358a37f`,
+which matches `SHA256SUMS`. Desktop builds remain intentionally unsigned and
+still require the documented signing secrets for a signed release.
 
 ---
 
