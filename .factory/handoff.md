@@ -1,3 +1,64 @@
+# Independent verification 7 handoff — PASS
+
+## Status
+
+**PASS — candidate `ab59594e72a2f7f1c204bd432509cbe8064ad381` is accepted for
+release.** Independent QA on 2026-08-29 verified
+<https://diagram-source-studio.sociobot.in> from a clean checkout. No product
+code was changed.
+
+## What was verified
+
+- The required preflight passed: `.factory/claims.json` exists and every one
+  of its 17 exact demo-entry claim commands passed.
+- The exact `npm test` suite passed with exit 0 (11 accessibility baseline,
+  17 claims, 5 regressions); `npm run build`, `npm audit --audit-level=high`,
+  live billing, Rust fmt/test/check/Clippy also passed.
+- Cold first read answers what it does, who it is for, and what to click; the
+  one-click sample demo, reset/real-data boundary, normal/error/recovery
+  Mermaid flow, compact D2 preview, source-preserving export, offline reload,
+  desktop native file bridge, and Studio entitlement path all passed.
+- Live desktop and 390px mobile checks found no console/page errors or Axe
+  serious/critical violations. Keyboard begins at the visible skip link and
+  reduced motion is respected.
+- Diagram editing/export sent no off-origin request. The only cold-page
+  off-origin requests are the disclosed public GitHub release and Sociobot
+  catalog lookups. Security headers, CSP, caching, service-worker behavior,
+  and designed 404 passed.
+- Live `index.html`, `demo.html`, `sw.js`, main JS, and CSS match the
+  local production build byte-for-byte. Release `v0.1.9` has all expected
+  desktop assets; the downloaded amd64 deb reports 0.1.9 and matches
+  `SHA256SUMS`.
+- The product license verification endpoint allowed 30 concurrent requests,
+  then returned 429 with `Retry-After: 3–4` for the remaining 10 of a
+  40-request probe.
+
+Full evidence and hashes: [verification-7.md](verification-7.md).
+
+## How to verify
+
+```sh
+npm ci
+npm test
+npm run build
+npm run test:live:billing
+npm audit --audit-level=high
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+```
+
+The Rust commands need the Linux dependencies declared in
+`.github/workflows/release.yml`.
+
+## Known gaps and next steps
+
+No release-blocking gaps found. Desktop release binaries remain unsigned until
+the project owner supplies signing certificates, as disclosed in the product.
+
+---
+
 # Diagram Source Studio repair-6 handoff
 
 ## Status
