@@ -233,7 +233,7 @@ test('@claim:billing-catalog native startup checks the public catalog once and d
   expect(readme).toContain("checks Sociobot's public catalog once");
 });
 
-test('checkout return stores, verifies, and activates the returned license in the desktop shell', async ({ page }) => {
+test('checkout return stores, verifies, and unlocks the Studio matrix in the desktop shell', async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
   await page.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => route.fulfill({
     json: { valid: true, reason: 'ok', expires_at: null }
@@ -244,6 +244,8 @@ test('checkout return stores, verifies, and activates the returned license in th
   expect(await page.evaluate(() => localStorage.getItem('sb_license:diagram-source-studio'))).toBe('returned-license-token');
   const verdict = JSON.parse(await page.evaluate(() => localStorage.getItem('sb_license_verdict:diagram-source-studio')) ?? '{}');
   expect(verdict).toMatchObject({ valid: true, token: 'returned-license-token' });
+  await page.getByRole('button', { name: 'Compare versions' }).click();
+  await expect(page.locator('.matrix-result')).toHaveCount(2);
 });
 
 test('live billing verifier fails for the missing product and accepts the exact checkout contract', async () => {

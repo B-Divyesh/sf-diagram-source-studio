@@ -1,3 +1,77 @@
+# Repair 4 handoff — BLOCKED by shared billing gateway
+
+## Status
+
+Repair commit: the current `main` revision (see Git history).
+
+The repository is buildable and all repository-controlled browser, native,
+accessibility, privacy, offline, and release-contract checks pass. This repair
+does **not** claim release acceptance: independent verification 4's High
+payment-return defect remains in the externally owned Sociobot/Dodo gateway.
+Do not tag or deploy a new release until a successful Test Mode payment reaches
+`https://diagram-source-studio.sociobot.in/?license=…`, the product verifies
+the token, and the Studio comparison opens.
+
+## What changed
+
+- Made Playwright fully parallel across its existing two-worker ceiling. Mermaid
+  and Axe tests no longer accumulate every renderer-heavy page in one Chromium
+  process, which had caused a Chromium SEGV before the final claims completed
+  in this constrained worker.
+- Strengthened the returned-license regression: it now asserts that a returned,
+  verified license not only persists and displays as active, but also renders
+  both Studio matrix panels after **Compare versions**.
+
+## Verification on 2026-08-29
+
+```sh
+npm ci
+npm test
+npm run build
+npm audit --audit-level=high
+npm run test:live:billing
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+```
+
+- `npm test`: **29/29 passed**, including desktop and 390px accessibility,
+  keyboard pane navigation, demo isolation, offline reload, privacy/network
+  boundaries, license enforcement, and the strengthened returned-license
+  matrix regression.
+- `npm run build`: passed. `dist/site/` contains the five route documents;
+  main JS is 34.28 kB raw / 12.50 kB gzip and CSS is 16.81 kB raw / 4.61 kB
+  gzip.
+- `npm audit --audit-level=high`: 0 vulnerabilities.
+- `npm run test:live:billing`: passed the public catalog and checkout-session
+  contract (USD 3900, product URL, HTTP 303 to `checkout.dodopayments.com`).
+- Rust fmt, locked check, native tests (0), and clippy with warnings denied:
+  passed after installing the Linux dependencies named in the release workflow.
+
+## Reproduced external release blocker
+
+A fresh Pilot checkout session embeds the configured return target
+`https://pilot-api.sociobot.in/api/v1/products/diagram-source-studio/return?intent=…`.
+The product client already captures `?license=`, strips it from the URL,
+verifies it, stores the verdict, and unlocks the matrix (now covered through
+the observable matrix result). The failure happens after Dodo accepts payment:
+verification 4 recorded Dodo's `403` submit failure and a success page with an
+empty return link, so that gateway return handler never issues or redirects
+with a token. There is no gateway source, Dodo webhook configuration, or
+billing-admin credential in this repository; the product contract also
+prohibits a client-side bypass.
+
+## Deployment
+
+No new static or desktop release was deployed. The tested runtime source is
+unchanged by this test/handoff repair, and deploying while the advertised $39
+purchase cannot deliver Studio would knowingly ship the release-blocking
+defect. After the gateway owner repairs the post-payment handler, repeat a
+Test Mode purchase with the reported card, verify the returned token against
+`/verify`, confirm two `.matrix-result` panels, then tag and deploy this
+committed candidate.
+
 # Independent verification 4 status — FAIL
 
 **Do not release candidate `e24af7279ca1103702fb0e443497c1e5a3292277`.**

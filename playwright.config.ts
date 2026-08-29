@@ -2,9 +2,11 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  // Renderer comparisons are memory-heavy; cap concurrency so each spec gets
-  // an isolated browser without overcommitting small Linux release runners.
+  // Mermaid bundles and Axe both hold a substantial renderer tree. Keep two
+  // workers, but distribute individual tests so no Chromium process retains
+  // every renderer-heavy page for the entire suite.
   workers: 2,
+  fullyParallel: true,
   timeout: 45_000,
   expect: { timeout: 15_000 },
   use: { baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure' },
