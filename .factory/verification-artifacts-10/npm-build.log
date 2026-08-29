@@ -1,0 +1,26 @@
+
+> diagram-source-studio@0.1.10 build
+> npm run build:site
+
+
+> diagram-source-studio@0.1.10 build:site
+> node scripts/prepare-renderers.mjs && tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 14 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/site/404.html                                                       1.48 kB │ gzip:  0.54 kB
+dist/site/demo.html                                                      1.52 kB │ gzip:  0.54 kB
+dist/site/terms.html                                                     1.53 kB │ gzip:  0.54 kB
+dist/site/privacy.html                                                   1.56 kB │ gzip:  0.55 kB
+dist/site/index.html                                                     1.59 kB │ gzip:  0.58 kB
+dist/site/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2  17.18 kB
+dist/site/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2  17.62 kB
+dist/site/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2       22.31 kB
+dist/site/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2       22.44 kB
+dist/site/assets/main-CCC-LUn6.css                                      17.06 kB │ gzip:  4.65 kB
+dist/site/assets/core-DhEqZVGG.js                                        2.48 kB │ gzip:  1.01 kB │ map: 17.14 kB
+dist/site/assets/main-hLxcIUO1.js                                       35.90 kB │ gzip: 12.99 kB │ map: 76.05 kB
+✓ built in 711ms

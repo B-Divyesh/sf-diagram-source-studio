@@ -1,0 +1,13 @@
+
+> diagram-source-studio@0.1.10 test:live:billing
+> node scripts/verify-live-billing.mjs
+
+{
+  "slug": "diagram-source-studio",
+  "price_minor": 3900,
+  "currency": "USD",
+  "product_url": "https://diagram-source-studio.sociobot.in/",
+  "checkout_status": 303,
+  "checkout_host": "checkout.dodopayments.com",
+  "checkout_page_status": 200
+}

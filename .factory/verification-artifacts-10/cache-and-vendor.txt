@@ -1,0 +1,91 @@
+mermaid-10.min.js local=8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d live=8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d MATCH
+mermaid-11.min.js local=581ed7d74bd9048d0e3a91363927d72ef22942d7722546b27f7cc29e35390eb8 live=581ed7d74bd9048d0e3a91363927d72ef22942d7722546b27f7cc29e35390eb8 MATCH
+
+===== /assets/main-hLxcIUO1.js =====
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 12:53:15 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 35897
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /assets/main-CCC-LUn6.css =====
+HTTP/2 200
+content-type: text/css
+date: Sat, 29 Aug 2026 12:53:14 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 17056
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /assets/neon-inspection-640.webp =====
+HTTP/2 200
+content-type: image/webp
+date: Sat, 29 Aug 2026 12:53:15 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 24900
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /vendor/mermaid-11.min.js =====
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 12:53:15 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 3572661
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /sw.js =====
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 12:53:16 GMT
+accept-ranges: bytes
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1228
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'

@@ -1,0 +1,14 @@
+{
+  "url": "https://diagram-source-studio.sociobot.in/demo",
+  "malformed": {
+    "text": "The 11.17.2 renderer stopped: Parse error on line 3:. Check the marked source.",
+    "className": "status error",
+    "recoveryVisible": true
+  },
+  "recovered": {
+    "text": "Syntax parsed. Preview rendered.",
+    "preview": 1
+  },
+  "consoleErrors": [],
+  "pageErrors": []
+}

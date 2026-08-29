@@ -1,0 +1,16 @@
+
+> diagram-source-studio@0.1.10 test
+> node scripts/check-test-prerequisites.mjs && node scripts/run-tests.mjs --grep @claim:demo-sandbox
+
+[WebServer] (node:1706) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:1725) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1725) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:15:1 › @claim:demo-sandbox demo loads sample and does not save it as real data (1.8s)
+
+  1 passed (5.3s)

@@ -1,0 +1,295 @@
+
+> diagram-source-studio@0.1.10 test
+> node scripts/check-test-prerequisites.mjs && node scripts/run-tests.mjs
+
+[WebServer] (node:5476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:5496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/accessibility.spec.ts:5:3 › accessibility baseline for / (1.9s)
+  ✓   2 tests/accessibility.spec.ts:5:3 › accessibility baseline for /demo (1.7s)
+  ✓   3 tests/accessibility.spec.ts:5:3 › accessibility baseline for /privacy (1.3s)
+  ✓   4 tests/accessibility.spec.ts:5:3 › accessibility baseline for /terms (1.4s)
+  ✓   5 tests/accessibility.spec.ts:5:3 › accessibility baseline for /missing-page (1.4s)
+  ✓   6 tests/accessibility.spec.ts:19:1 › mobile editor keeps both panes keyboard reachable (686ms)
+  ✓   7 tests/accessibility.spec.ts:30:1 › mobile accessibility baseline has no serious or critical violations (1.5s)
+  ✓   8 tests/accessibility.spec.ts:42:1 › landing complete first-screen package fits at required desktop and mobile viewports (1.8s)
+  ✓   9 tests/accessibility.spec.ts:55:1 › 404 names the missing page plainly (612ms)
+  ✓  10 tests/accessibility.spec.ts:62:1 › mobile navigation and demo actions meet 44px touch targets (837ms)
+  ✓  11 tests/accessibility.spec.ts:81:1 › demo keeps the shared home, legal navigation, and footer at its direct entry point (603ms)
+  ✓  12 tests/accessibility.spec.ts:97:1 › static host configuration keeps known app paths and returns a designed 404 for unknown paths (11ms)
+  ✓  13 tests/accessibility.spec.ts:107:1 › SPA routes update canonical and social metadata (1.1s)
+
+  13 passed (18.5s)
+[WebServer] (node:5788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5807) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5807) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:15:1 › @claim:demo-sandbox demo loads sample and does not save it as real data (1.6s)
+
+  1 passed (4.6s)
+[WebServer] (node:5916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5935) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5935) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:31:1 › @claim:private-local editor flow sends no diagram data off origin (2.3s)
+
+  1 passed (5.4s)
+[WebServer] (node:6037) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:44:1 › @claim:editable-export SVG and PNG exports restore source byte for byte (2.2s)
+
+  1 passed (5.1s)
+[WebServer] (node:6178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6198) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6198) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:85:1 › @claim:renderer-matrix licensed demo compares bundled Mermaid 10 and 11 (4.0s)
+
+  1 passed (7.0s)
+[WebServer] (node:6306) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:99:1 › @claim:d2-preview compact D2 source renders nodes and arrows (1.3s)
+
+  1 passed (4.3s)
+[WebServer] (node:6428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6447) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6447) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:107:1 › @claim:offline-core demo reloads and edits without a network (1.7s)
+
+  1 passed (4.8s)
+[WebServer] (node:6550) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6569) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6569) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:119:1 › @claim:license-enforcement unverified tokens never enable Studio offline (927ms)
+
+  1 passed (3.9s)
+[WebServer] (node:6671) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6690) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6690) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:131:1 › @claim:native-file-dialogs desktop shell opens and saves exact source bytes through Tauri commands (2.0s)
+
+  1 passed (5.0s)
+[WebServer] (node:6793) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6813) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6813) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:162:1 › @claim:offline-reference bundled syntax reference works without network (1.2s)
+
+  1 passed (4.1s)
+[WebServer] (node:6943) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6962) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6962) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:171:1 › @claim:safe-svg exported previews remove active and external SVG content (898ms)
+
+  1 passed (3.9s)
+[WebServer] (node:7069) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:182:1 › @claim:no-tracking editor loads without telemetry or runtime CDNs (1.0s)
+
+  1 passed (4.1s)
+[WebServer] (node:7194) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7213) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7213) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:191:1 › @claim:unsigned-builds release workflow keeps unsigned builds explicit (1.0s)
+
+  1 passed (4.0s)
+[WebServer] (node:7317) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:198:1 › @claim:release-installers workflow builds four platforms and both installers refuse bad checksums (1.6s)
+
+  1 passed (4.4s)
+[WebServer] (node:7457) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:284:1 › @claim:studio-purchase checkout return saves, verifies, and unlocks Studio after the exact $39 offer is available (4.7s)
+
+  1 passed (7.7s)
+[WebServer] (node:7607) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:342:1 › @claim:billing-catalog native startup checks the public catalog once and discloses it (875ms)
+
+  1 passed (3.8s)
+[WebServer] (node:7735) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7754) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7754) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:363:1 › @claim:license-verdict-one-day cached verification waits exactly one day before rechecking (1.6s)
+
+  1 passed (4.5s)
+[WebServer] (node:7856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7875) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7875) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:389:1 › @claim:refund-revocation a revoked verification response locks Studio comparison (1.0s)
+
+  1 passed (3.9s)
+[WebServer] (node:7978) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:445:1 › @claim:no-sign-in a fresh demo edits and exports without authentication (1.2s)
+
+  1 passed (4.2s)
+[WebServer] (node:8103) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8122) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8122) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:458:1 › @claim:free-editor-diagnostics reports malformed Mermaid, recovers, and exports (2.3s)
+
+  1 passed (5.3s)
+[WebServer] (node:8229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:471:1 › @claim:startup-network landing requests only public release and purchase data (1.0s)
+
+  1 passed (4.0s)
+[WebServer] (node:8371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8391) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8391) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:410:1 › @claim:checkout-provider recorded checkout redirects to Dodo Payments (18ms)
+
+  1 passed (2.9s)
+[WebServer] (node:8437) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:8456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/accessibility.spec.ts:116:1 › @regression:skip-link is the first keyboard stop on initial desktop and mobile loads (1.6s)
+  ✓  2 tests/accessibility.spec.ts:128:1 › @regression:demo defers the Mermaid renderer until source changes (965ms)
+  ✓  3 tests/claims.spec.ts:491:1 › @regression:route-remount keeps one export handler (1.0s)
+  ✓  4 tests/claims.spec.ts:502:1 › @regression:catalog-unavailable purchase action explains an unavailable billing catalog (732ms)
+
+  4 passed (7.6s)

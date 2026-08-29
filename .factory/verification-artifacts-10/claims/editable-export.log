@@ -1,0 +1,16 @@
+
+> diagram-source-studio@0.1.10 test
+> node scripts/check-test-prerequisites.mjs && node scripts/run-tests.mjs --grep @claim:editable-export
+
+[WebServer] (node:2057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:2076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:44:1 › @claim:editable-export SVG and PNG exports restore source byte for byte (3.1s)
+
+  1 passed (6.1s)

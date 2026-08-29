@@ -1,0 +1,685 @@
+{
+  "started": "2026-08-29T12:51:58.668Z",
+  "desktop": {
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()"
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": [],
+    "responses": [
+      {
+        "status": 404,
+        "url": "https://diagram-source-studio.sociobot.in/does-not-exist"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://api.sociobot.in/api/v1/products",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-1280.webp",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/demo",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "blob:https://diagram-source-studio.sociobot.in/3e6f562f-d28b-476f-810d-9108100fb3ef",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/vendor/mermaid-11.min.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://api.sociobot.in/api/v1/products",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-1280.webp",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/privacy",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/terms",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/does-not-exist",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      }
+    ],
+    "root": {
+      "status": 200,
+      "title": "Diagram Source Studio — check diagram renders",
+      "h1": [
+        "Catch broken diagram renders before commit"
+      ],
+      "tryAction": true,
+      "foldFacts": [
+        "Files stay on your device",
+        "Core editing works offline",
+        "Free editor · Studio is $39 once"
+      ],
+      "bodyOverflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      }
+    },
+    "firstTab": {
+      "text": "Skip to main content",
+      "tag": "A",
+      "outline": "rgb(54, 241, 228) solid 3px",
+      "outlineColor": "rgb(54, 241, 228)",
+      "outlineWidth": "3px",
+      "rect": {
+        "x": 8,
+        "y": 8,
+        "width": 189,
+        "height": 49.828125
+      }
+    },
+    "skipTarget": {
+      "id": "main",
+      "url": "https://diagram-source-studio.sociobot.in/#main"
+    },
+    "downloadPanel": "",
+    "checkoutAction": "Buy Studio",
+    "demoInitial": {
+      "url": "https://diagram-source-studio.sociobot.in/demo",
+      "title": "Demo — Diagram Source Studio",
+      "banner": "Demo — sample data, nothing is saved\nReset demo\nStart for real",
+      "source": "flowchart LR\n  source[Diagram source] --> current{Mermaid 11.17.2}\n  source --> previous{Mermaid 10.9.8}\n  current --> c",
+      "diagnostics": "Syntax parsed. Preview rendered.",
+      "h1Count": 1,
+      "mainCount": 1
+    },
+    "empty": {
+      "diagnostic": "The source is empty. Type a diagram or load the sample.",
+      "loadWorkingVisible": true
+    },
+    "exportBlockedToast": "Fix the preview before exporting.",
+    "invalidMermaid": {
+      "diagnostic": "The source is empty. Type a diagram or load the sample.",
+      "loadWorkingVisible": true
+    },
+    "recovery": {
+      "diagnostic": "Syntax parsed. Preview rendered."
+    },
+    "d2Unicode": {
+      "diagnostic": "Syntax parsed. Preview rendered.",
+      "labels": [
+        "naïve route",
+        "Café ☕",
+        "你好世界"
+      ],
+      "bytes": "63 bytes"
+    },
+    "invalidD2": {
+      "diagnostic": "No D2 nodes found. Add a node or an arrow."
+    },
+    "exports": {
+      "svg": {
+        "name": "diagram.svg",
+        "bytes": 1529,
+        "hasMetadata": true
+      },
+      "png": {
+        "name": "diagram.png",
+        "bytes": 43929,
+        "signature": "PNG",
+        "hasMetadata": true
+      }
+    },
+    "lockedCompare": {
+      "matrixCount": 0,
+      "toast": "The side-by-side comparison is in the one-time Studio license."
+    },
+    "blankLicenseToast": "Paste your license token first.",
+    "reset": {
+      "engine": "mermaid",
+      "sourceStarts": "flowchart LR",
+      "realKey": null
+    },
+    "demoFlowRequests": [
+      {
+        "method": "GET",
+        "url": "blob:https://diagram-source-studio.sociobot.in/3e6f562f-d28b-476f-810d-9108100fb3ef",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/vendor/mermaid-11.min.js",
+        "body": null
+      }
+    ],
+    "startReal": {
+      "url": "https://diagram-source-studio.sociobot.in/",
+      "bannerCount": 0,
+      "h1": "Catch broken diagram renders before commit"
+    },
+    "back": {
+      "url": "https://diagram-source-studio.sociobot.in/demo",
+      "active": {
+        "tag": "H1",
+        "text": "Check diagram renders"
+      }
+    },
+    "route-privacy": {
+      "status": 200,
+      "title": "Privacy — Diagram Source Studio",
+      "h1": [
+        "Your source stays on your device"
+      ],
+      "lang": "en",
+      "main": 1
+    },
+    "route-terms": {
+      "status": 200,
+      "title": "Terms — Diagram Source Studio",
+      "h1": [
+        "Use the editor for work you control"
+      ],
+      "lang": "en",
+      "main": 1
+    },
+    "route-does-not-exist": {
+      "status": 404,
+      "title": "Page not found — Diagram Source Studio",
+      "h1": [
+        "Page not found"
+      ],
+      "lang": "en",
+      "main": 1
+    }
+  },
+  "mobile": {
+    "console": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "responses": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://api.sociobot.in/api/v1/products",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-640.webp",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/demo",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      }
+    ],
+    "root": {
+      "h1": "Catch broken diagram renders before commit",
+      "tryVisible": true,
+      "facts": [
+        "Files stay on your device",
+        "Core editing works offline",
+        "Free editor · Studio is $39 once"
+      ],
+      "overflow": {
+        "sw": 390,
+        "cw": 390
+      }
+    },
+    "demo": {
+      "overflow": {
+        "sw": 390,
+        "cw": 390
+      },
+      "selectedTabs": [
+        {
+          "text": "Source",
+          "selected": "false"
+        },
+        {
+          "text": "Preview",
+          "selected": "true"
+        }
+      ],
+      "active": "Preview",
+      "smallTargets": []
+    }
+  },
+  "reducedMotion": {
+    "matches": true,
+    "styles": {
+      "animationDuration": "1e-05s",
+      "animationIterationCount": "1",
+      "transitionDuration": "1e-05s",
+      "scrollBehavior": "auto"
+    }
+  },
+  "offline": {
+    "console": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "responses": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/demo",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/demo",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/demo",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-hLxcIUO1.js",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "body": null
+      },
+      {
+        "method": "GET",
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "body": null
+      }
+    ],
+    "result": {
+      "registration": {
+        "scope": "https://diagram-source-studio.sociobot.in/",
+        "active": "https://diagram-source-studio.sociobot.in/sw.js",
+        "state": "activated",
+        "controller": "https://diagram-source-studio.sociobot.in/sw.js"
+      },
+      "status": 200,
+      "url": "https://diagram-source-studio.sociobot.in/demo",
+      "diagnostic": "Syntax parsed. Preview rendered.",
+      "source": "a: Offline\nb: Reload\na -> b",
+      "cacheKeys": [
+        "diagram-source-studio-v0.1.10"
+      ]
+    }
+  },
+  "axe": {
+    "root-desktop": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "demo-desktop": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "privacy-desktop": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "terms-desktop": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "does-not-exist-desktop": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "root-mobile": {
+      "violations": [],
+      "seriousCritical": 0
+    },
+    "demo-mobile": {
+      "violations": [],
+      "seriousCritical": 0
+    }
+  },
+  "errors": [
+    {
+      "area": "desktop",
+      "console": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 ()"
+        }
+      ],
+      "pageErrors": [],
+      "badResponses": [
+        {
+          "status": 404,
+          "url": "https://diagram-source-studio.sociobot.in/does-not-exist"
+        }
+      ],
+      "failedRequests": []
+    }
+  ],
+  "finished": "2026-08-29T12:52:13.346Z"
+}

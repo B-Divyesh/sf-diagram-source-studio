@@ -1,0 +1,20 @@
+   Compiling diagram-source-studio v0.1.10 (/work/repo/src-tauri)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.12s
+     Running unittests src/lib.rs (src-tauri/target/debug/deps/diagram_source_studio_lib-5c0b374d8dfab5f4)
+
+running 1 test
+test tests::native_file_round_trip_preserves_utf8_bom_and_crlf_bytes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (src-tauri/target/debug/deps/diagram_source_studio-f79598224b9a396f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests diagram_source_studio_lib
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

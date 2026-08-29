@@ -1,0 +1,263 @@
+
+===== / =====
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:35 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1587
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /demo =====
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:35 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1519
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /privacy =====
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:35 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1558
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /terms =====
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:35 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1526
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /does-not-exist =====
+HTTP/2 404
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:36 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1476
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /sw.js =====
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 12:48:35 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1228
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /staticwebapp.config.json =====
+HTTP/2 404
+content-type: text/html
+date: Sat, 29 Aug 2026 12:48:37 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 1476
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /robots.txt =====
+HTTP/2 200
+content-type: text/plain
+date: Sat, 29 Aug 2026 12:48:36 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 86
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== /sitemap.xml =====
+HTTP/2 200
+content-type: text/xml
+date: Sat, 29 Aug 2026 12:48:36 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "59505699"
+last-modified: Sat, 29 Aug 2026 12:16:59 GMT
+content-length: 394
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+permissions-policy: camera=(), microphone=(), geolocation=()
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+
+
+===== LOCAL/LIVE HASHES =====
+index.html                   local=0c2a07804897b9211c3a6912c710459dce539700cf1966d64a646005a37d05f5 live=0c2a07804897b9211c3a6912c710459dce539700cf1966d64a646005a37d05f5 MATCH
+demo.html                    local=a9a6f05a4dca119da932b4206dc164779151be37e12659f76ae43dd27d5687b5 live=a9a6f05a4dca119da932b4206dc164779151be37e12659f76ae43dd27d5687b5 MATCH
+privacy.html                 local=d2a0dabc68174de34dae06231a6503b100698c07e784494bc6d0e16e76314d6b live=d2a0dabc68174de34dae06231a6503b100698c07e784494bc6d0e16e76314d6b MATCH
+terms.html                   local=2e620c0d7769a3cbb5fb26674a491e7abc13a04559e95b7cc6f42fd19d11968c live=2e620c0d7769a3cbb5fb26674a491e7abc13a04559e95b7cc6f42fd19d11968c MATCH
+404.html                     local=a146948906d4196f6012d915480e6e916ce306ac8bd5ae8fb25ac8b7ba364bf3 live=a146948906d4196f6012d915480e6e916ce306ac8bd5ae8fb25ac8b7ba364bf3 MATCH
+sw.js                        local=b7e35ff913092644958151681630a3d98add36c8046fd330f4cb69ff0ffabbbf live=b7e35ff913092644958151681630a3d98add36c8046fd330f4cb69ff0ffabbbf MATCH
+robots.txt                   local=eb9e125eadac8175c418194c1d9be2cce9e2dcec04db5373d94bf450e35526c9 live=eb9e125eadac8175c418194c1d9be2cce9e2dcec04db5373d94bf450e35526c9 MATCH
+sitemap.xml                  local=47d27c1607d809256267ed69a94bd9d6599c0815858edf3244074e10db45fdb5 live=47d27c1607d809256267ed69a94bd9d6599c0815858edf3244074e10db45fdb5 MATCH
+assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2 local=b09653e3ba9d95e26da5c408979f40451990a4573ce5f96abe6982e2fcb09e6c live=b09653e3ba9d95e26da5c408979f40451990a4573ce5f96abe6982e2fcb09e6c MATCH
+assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2 local=d8e8b1e0e929651439e25e23ade4b9d6cac073f2444aadb8e8b85431726c2036 live=d8e8b1e0e929651439e25e23ade4b9d6cac073f2444aadb8e8b85431726c2036 MATCH
+assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2 local=215a93c696f442034a46fbb382958f753fda60e30490683aeea6b235fcbb2b66 live=215a93c696f442034a46fbb382958f753fda60e30490683aeea6b235fcbb2b66 MATCH
+assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2 local=3787a5a419171630e6890cfa47c4da067474d005cd0ff8dc11ec090fdc3ee2b8 live=3787a5a419171630e6890cfa47c4da067474d005cd0ff8dc11ec090fdc3ee2b8 MATCH
+assets/core-DhEqZVGG.js      local=a2adb48dc04bd633b61d007396e0810a2d68658ca9a22f3f232d98415b2e983a live=a2adb48dc04bd633b61d007396e0810a2d68658ca9a22f3f232d98415b2e983a MATCH
+assets/core-DhEqZVGG.js.map  local=23f43bf6dc54a67792a95b931deaf4c2488be99d500dbaa334bd9b76c38504c1 live=23f43bf6dc54a67792a95b931deaf4c2488be99d500dbaa334bd9b76c38504c1 MATCH
+assets/demo-BiAi2sQ2.js.map  local=71eaa5051ef0e94e8e885b62fa9d5035895a7147236665ffa426e7cc6579451b live=71eaa5051ef0e94e8e885b62fa9d5035895a7147236665ffa426e7cc6579451b MATCH
+assets/home-BiAi2sQ2.js.map  local=0a00211ef617218ccbaa731a6aca29bbf851f48b0a44771265c678638a0ce55d live=0a00211ef617218ccbaa731a6aca29bbf851f48b0a44771265c678638a0ce55d MATCH
+assets/main-CCC-LUn6.css     local=02882e3b9c8a702daff85bb8f2932acc2fd94062158e36fd40fe9d84f256d541 live=02882e3b9c8a702daff85bb8f2932acc2fd94062158e36fd40fe9d84f256d541 MATCH
+assets/main-hLxcIUO1.js      local=57b3fbb25b70e2add8f46fbad9a798195e712ef06c634fc51c1f15ba1824e58f live=57b3fbb25b70e2add8f46fbad9a798195e712ef06c634fc51c1f15ba1824e58f MATCH
+assets/main-hLxcIUO1.js.map  local=dc4cfdba63e3abebbad5b699542219be75db5bcb8c7ad267b6deb9ea3c5918ca live=dc4cfdba63e3abebbad5b699542219be75db5bcb8c7ad267b6deb9ea3c5918ca MATCH
+assets/neon-inspection-1280.webp local=5a13240bddae4c601b831db44f7ddc17cb79a345658e5cf4dcbde085c2019908 live=5a13240bddae4c601b831db44f7ddc17cb79a345658e5cf4dcbde085c2019908 MATCH
+assets/neon-inspection-640.webp local=3f2175fe618e63c8b9f5a3d57be2427eed8b5431d8adabd96dbcc09242d648ec live=3f2175fe618e63c8b9f5a3d57be2427eed8b5431d8adabd96dbcc09242d648ec MATCH
+assets/notFound-BiAi2sQ2.js.map local=2af05c56123e57744e230bf6ddd233588fd429a1798d408c81643a073bcbd65c live=2af05c56123e57744e230bf6ddd233588fd429a1798d408c81643a073bcbd65c MATCH
+assets/privacy-BiAi2sQ2.js.map local=330f0ce5e66567f9f9a050e0de03307c03c2b213b6727b2b7e5c6580bc0370bc live=330f0ce5e66567f9f9a050e0de03307c03c2b213b6727b2b7e5c6580bc0370bc MATCH
+assets/social.webp           local=5c1b61e933c08180a3a49fb845e06a1455fed569c0e8147c81428310bdb34664 live=5c1b61e933c08180a3a49fb845e06a1455fed569c0e8147c81428310bdb34664 MATCH
+assets/terms-BiAi2sQ2.js.map local=ecc127ddf35b22830c99e1cd1ed5c19cfaaf146e41afdff5533c27a0851a538d live=ecc127ddf35b22830c99e1cd1ed5c19cfaaf146e41afdff5533c27a0851a538d MATCH
+
+===== LIVE RELEASE API =====
+HTTP/2 200
+date: Sat, 29 Aug 2026 12:48:41 GMT
+content-type: application/json; charset=utf-8
+cache-control: public, max-age=60, s-maxage=60
+vary: Accept,Accept-Encoding, Accept, X-Requested-With
+etag: W/"d6f336418ac74dd5f704b2ed1a9e3428ff41afe825a45cd0b6da48322d7e8757"
+x-github-media-type: github.v3; format=json
+link: <https://api.github.com/repositories/1349508554/releases?per_page=1&page=2>; rel="next", <https://api.github.com/repositories/1349508554/releases?per_page=1&page=8>; rel="last"
+x-github-api-version-selected: 2022-11-28
+access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning
+access-control-allow-origin: *
+strict-transport-security: max-age=31536000; includeSubdomains; preload
+x-frame-options: deny
+x-content-type-options: nosniff
+x-xss-protection: 0
+referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+content-security-policy: default-src 'none'
+server: github.com
+accept-ranges: bytes
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 55
+x-ratelimit-used: 5
+x-ratelimit-resource: core
+x-ratelimit-reset: 1788010503
+content-length: 21238
+x-github-request-id: 21C0:E88B1:4AE012:FC2FA9:6A92D529
+x-github-edge-region: iad
+
+{
+  "tag_name": "v0.1.10",
+  "target_commitish": "main",
+  "published_at": "2026-08-29T12:11:57Z",
+  "html_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.10",
+  "assets": [
+    {
+      "name": "Diagram.Source.Studio.app.tar.gz",
+      "size": 4691076,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio.app.tar.gz"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_aarch64.dmg",
+      "size": 4748240,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_aarch64.dmg"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_amd64.AppImage",
+      "size": 80587256,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_amd64.AppImage"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_amd64.deb",
+      "size": 6204234,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_amd64.deb"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_x64-setup.exe",
+      "size": 3833461,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_x64-setup.exe"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_x64.dmg",
+      "size": 4793370,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_x64.dmg"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.10_x64_en-US.msi",
+      "size": 4763648,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_x64_en-US.msi"
+    },
+    {
+      "name": "latest.json",
+      "size": 1204,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/latest.json"
+    },
+    {
+      "name": "SHA256SUMS",
+      "size": 756,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/SHA256SUMS"
+    }
+  ]
+}

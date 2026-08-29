@@ -1,0 +1,16 @@
+
+> diagram-source-studio@0.1.10 test
+> node scripts/check-test-prerequisites.mjs && node scripts/run-tests.mjs --grep @claim:unsigned-builds
+
+[WebServer] (node:3636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3655) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3655) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/claims.spec.ts:191:1 › @claim:unsigned-builds release workflow keeps unsigned builds explicit (1.1s)
+
+  1 passed (4.1s)

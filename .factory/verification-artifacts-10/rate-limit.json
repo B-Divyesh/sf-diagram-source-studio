@@ -1,0 +1,29 @@
+{
+  "endpoint": "https://api.sociobot.in/api/v1/products/diagram-source-studio/verify?license=qa-rate-limit-invalid-5fb973e",
+  "requests": 40,
+  "counts": {
+    "200": 30,
+    "429": 10
+  },
+  "retryAfterValues": [
+    "4"
+  ],
+  "xRateLimitAfterValues": [
+    "4"
+  ],
+  "all429HaveRetryAfter": true,
+  "sample429": {
+    "i": 2,
+    "status": 429,
+    "retryAfter": "4",
+    "xRateLimitAfter": "4",
+    "body": "Too Many Requests! Wait for 4s"
+  },
+  "sample200": {
+    "i": 0,
+    "status": 200,
+    "retryAfter": null,
+    "xRateLimitAfter": null,
+    "body": "{\"expires_at\":null,\"reason\":\"invalid\",\"valid\":false}"
+  }
+}

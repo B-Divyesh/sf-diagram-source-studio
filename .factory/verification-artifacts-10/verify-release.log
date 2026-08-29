@@ -1,0 +1,5 @@
+
+> diagram-source-studio@0.1.10 verify:release
+> node scripts/verify-release-version.mjs
+
+v0.1.10

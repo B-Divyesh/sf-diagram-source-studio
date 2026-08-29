@@ -1,0 +1,366 @@
+{
+  "found": [
+    {
+      "route": "/",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/#main"
+    },
+    {
+      "route": "/",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1"
+    },
+    {
+      "route": "/",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "route": "/",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/",
+      "text": "Try it with sample data",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1"
+    },
+    {
+      "route": "/",
+      "text": "Buy Studio",
+      "href": "https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout"
+    },
+    {
+      "route": "/",
+      "text": "Already have a Studio license? Download the app to paste it.",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "route": "/",
+      "text": "Download for Linux",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_amd64.AppImage"
+    },
+    {
+      "route": "/",
+      "text": "Other platforms and checksums (external site)",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.10"
+    },
+    {
+      "route": "/",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    },
+    {
+      "route": "/demo",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/demo#main"
+    },
+    {
+      "route": "/demo",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/demo",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/demo",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/demo",
+      "text": "Start for real",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/demo",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/demo",
+      "text": "See Studio purchase options",
+      "href": "https://diagram-source-studio.sociobot.in/#pricing"
+    },
+    {
+      "route": "/demo",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/demo",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/demo",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    },
+    {
+      "route": "/privacy",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/privacy#main"
+    },
+    {
+      "route": "/privacy",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/privacy",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1"
+    },
+    {
+      "route": "/privacy",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "route": "/privacy",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/privacy",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/privacy",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/privacy",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    },
+    {
+      "route": "/terms",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/terms#main"
+    },
+    {
+      "route": "/terms",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/terms",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1"
+    },
+    {
+      "route": "/terms",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "route": "/terms",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/terms",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/terms",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/terms",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/does-not-exist#main"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Return home",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    }
+  ],
+  "statuses": [
+    {
+      "route": "/",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/#main",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Return home",
+      "href": "https://diagram-source-studio.sociobot.in/",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/?demo=1",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/",
+      "text": "Buy Studio",
+      "href": "https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout",
+      "method": "GET",
+      "status": 303,
+      "location": "https://checkout.dodopayments.com/session/cks_0NmRdMfPJIPHg68Pf0ZeO"
+    },
+    {
+      "route": "/",
+      "text": "Download for Linux",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.10/Diagram.Source.Studio_0.1.10_amd64.AppImage",
+      "method": "HEAD",
+      "status": 302,
+      "location": "https://release-assets.githubusercontent.com/github-production-release-asset/1349508554/5b15940c-a251-4114-b328-e21154e1888c?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-29T13%3A55%3A23Z&rscd=attachment%3B+filename%3DDiagram.Source.Studio_0.1.10_amd64.AppImage&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-29T12%3A54%3A52Z&ske=2026-08-29T13%3A55%3A23Z&sks=b&skv=2018-11-09&sig=fsGQecbAUuPjWcukUGEblH3fcsyg0dfzywup1QzCoEg%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4ODAwOTk4NiwibmJmIjoxNzg4MDA4MTg2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.-zS3CCpnb49w5WHGEhfyg16bA4pOFXIAolmsQuzCL2o&response-content-disposition=attachment%3B%20filename%3DDiagram.Source.Studio_0.1.10_amd64.AppImage&response-content-type=application%2Foctet-stream"
+    },
+    {
+      "route": "/",
+      "text": "Other platforms and checksums (external site)",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.10",
+      "method": "HEAD",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/",
+      "method": "HEAD",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/demo",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/demo#main",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/demo",
+      "text": "See Studio purchase options",
+      "href": "https://diagram-source-studio.sociobot.in/#pricing",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/privacy",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/privacy#main",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/terms",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/terms#main",
+      "method": "GET",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/does-not-exist",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/does-not-exist#main",
+      "method": "GET",
+      "status": 404,
+      "location": null
+    }
+  ]
+}
