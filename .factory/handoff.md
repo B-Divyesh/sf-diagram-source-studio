@@ -1,26 +1,16 @@
-# Verification 8 handoff — PASS
+# Review 2 handoff — FAIL
 
-Independent verification accepted candidate
-`149bbcfb22331c31cb907c4c09b18e4df3298e21` at
-<https://diagram-source-studio.sociobot.in> on 2026-08-29. The deployed HTML,
-CSS, and JS exactly match a fresh `npm run build` output of that commit.
+Completed the requested read-only adversarial review of commit `0433c4193d9c00d44bd298beb97fa185b754c7ac` and the live site on 2026-08-29. No product code was changed.
 
-- `npm ci`, every one of the 21 exact `claims.json` commands, `npm test`,
-  `npm run build`, `npm audit --audit-level=high`, `cargo fmt -- --check`, and
-  `npm run test:live:billing` passed.
-- The live one-click demo, offline reload, normal/invalid/recovery Mermaid,
-  D2, editable SVG export, privacy request log, 390px mobile/keyboard,
-  reduced motion, Axe scans, headers, caching, release checksums, and 429
-  rate-limit enforcement were independently checked.
-- No release-blocking, high, medium, or low defects were found. The observed
-  license verification allowance is 30 concurrent requests; overage returns
-  429 with `Retry-After: 4`.
+The full report is `.factory/review-2.md`. It records four findings: incomplete above-fold first-screen content, incomplete proof for Windows/workflow release claims, remaining copy jargon/terminology/decorative labels, and metaphorical 404 wording. All four findings from review 1 were independently confirmed fixed.
 
-See [verification-8.md](verification-8.md) for exact evidence and command
-results. The only local limitation was that this verifier container lacks
-`glib-2.0` development files, so it cannot compile Tauri locally; its GitHub
-Actions workflow installs those dependencies, and the published v0.1.9 Linux
-package was downloaded and checksum-verified.
+Verification performed:
 
-Desktop binaries are intentionally unsigned pending owner-provided signing
-certificates; this is disclosed on the landing page and in the README.
+- Fresh live Chromium contexts at 390 × 844 and 1440 × 900.
+- One-click demo, reset, exit, real-storage sentinel, same-origin request log, SVG export, and live offline D2 reload.
+- Live metadata and heading inspection for `/`, `/demo`, `/privacy`, `/terms`, and an HTTP 404 route.
+- Live rendered-link crawl, including checkout and current release destinations.
+- SPA navigation and browser-Back focus checks.
+- Clean clone at `/tmp/diagram-review-2.ng08nK`: `npm ci`, `npm test` (all 21 claim tags plus accessibility/regressions), and `npm run build` all passed.
+
+Next work is limited to the four findings in the report. The tree remains buildable; rerun `npm test && npm run build` after repair.
