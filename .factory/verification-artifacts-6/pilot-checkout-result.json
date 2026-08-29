@@ -1,0 +1,123 @@
+{
+  "at": "2026-08-29T06:20:42.631Z",
+  "url": "https://diagram-source-studio.sociobot.in/",
+  "title": "Diagram Source Studio — check diagram renders",
+  "body": "Skip to main content\nD\nS\nDiagram Source Studio\nDemo\nDownload\nPrivacy\n\nRENDERER INSPECTION WORKBENCH\n\nCatch broken diagram renders before commit\n\nFor engineers who keep Mermaid or D2 files in Git and need to inspect real output.\n\nTry it with sample data\nLoads a Mermaid project in the browser.\nFiles stay on your device\nCore editing works offline\nFree editor · Studio is $39 once\n Render difference found between two bundled versions\n\n01 / THE PRODUCT\n\nInspect the output beside its source\n\nUse the browser demo now. Install the desktop app when you need native files.\n\narchitecture.mmd\nUTF-8\nflowchart LR\n  source[Diagram source]\n  source --> current{11.17.2}\n  source --> previous{10.9.8}\n  previous -. missing .-> check\nsource\n11.17.2\n10.9.8\ninspect\n 1 output difference\n\n02 / HOW IT WORKS\n\nCheck a diagram in three steps\narchitecture.mmd\nservice --> database\nOpen the source\n\nChoose a Mermaid or D2 file from your repository.\n\n11.17.2 ✓\n10.9.8 !\nCompare the renders\n\nPlace two bundled Mermaid versions side by side.\n\n<metadata>\nSVG\nPNG\nExport an editable file\n\nSave SVG or PNG output with the source embedded.\n\nDiagram Source Studio\nCheck diagram renders before you commit.\n\nPrivacy\nTerms\nBuilt by Param Factory\n(external site)\n\nv0.1.8 · Original generated artwork\n\nDiagram Source Studio — check diagram renders",
+  "links": [
+    {
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/#main"
+    },
+    {
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/demo"
+    },
+    {
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "text": "Try it with sample data",
+      "href": "https://diagram-source-studio.sociobot.in/demo"
+    },
+    {
+      "text": "Buy Studio",
+      "href": "https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout"
+    },
+    {
+      "text": "Already have a Studio license? Download the app to paste it.",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "text": "Download for Linux",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.8/Diagram.Source.Studio_0.1.8_amd64.AppImage"
+    },
+    {
+      "text": "Other platforms and checksums (external site)",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.8"
+    },
+    {
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    }
+  ],
+  "consoleErrors": [
+    "Permissions policy violation: accelerometer is not allowed in this document.",
+    "Permissions policy violation: accelerometer is not allowed in this document.",
+    "Permissions policy violation: accelerometer is not allowed in this document.",
+    "Permissions policy violation: accelerometer is not allowed in this document.",
+    "Permissions policy violation: accelerometer is not allowed in this document.",
+    "Permissions policy violation: accelerometer is not allowed in this document."
+  ],
+  "failed": [
+    {
+      "url": "https://prod-dodo-backend-internal.s3.ap-south-1.amazonaws.com/business_logos/bus_AZg1eWnTvaXHBlu8w5xwR",
+      "error": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://ozone.dodopayments.tech/ingest/v1/web/i?batch=0_1",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/MNUgkUW7?from=session&_rsc=xk4kc",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/status/pay_0NmQPcp9c6S38WXWdqwJy/succeeded?_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/status/pay_0NmQPcp9c6S38WXWdqwJy/failed?_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/status/pay_0NmQPcp9c6S38WXWdqwJy/processing?_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/MNUgkUW7?session=sess_0QlQbakyXh&_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://prod-dodo-backend-internal.s3.ap-south-1.amazonaws.com/business_logos/bus_AZg1eWnTvaXHBlu8w5xwR",
+      "error": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/status/pay_0NmQPcp9c6S38WXWdqwJy/cancelled?_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://test.checkout.dodopayments.com/status/pay_0NmQPcp9c6S38WXWdqwJy/link-expired?_rsc=11rdn",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://sentry.dodopayments.tech/api/15/envelope/?sentry_version=7&sentry_key=f705c42d8d6c8f78e891da1244f12688&sentry_client=sentry.javascript.nextjs%2F9.47.1",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://bws.sandbox.airwallex.com/bws/v1/cks_0NmQPbRy5e0EPQU35p0le",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://prod-dodo-backend-internal.s3.ap-south-1.amazonaws.com/business_logos/bus_AZg1eWnTvaXHBlu8w5xwR",
+      "error": "net::ERR_BLOCKED_BY_ORB"
+    }
+  ],
+  "responses": []
+}

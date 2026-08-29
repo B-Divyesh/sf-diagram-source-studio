@@ -1,0 +1,193 @@
+{
+  "observedAt": "2026-08-29T06:00:55.695Z",
+  "status": 200,
+  "headers": {
+    "cache-control": "public, must-revalidate, max-age=30",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 06:00:54 GMT",
+    "etag": "\"32630902\"",
+    "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+    "permissions-policy": "camera=(), microphone=(), geolocation=()",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-xss-protection": "1; mode=block"
+  },
+  "url": "https://diagram-source-studio.sociobot.in/",
+  "title": "Diagram Source Studio — check diagram renders",
+  "lang": "en",
+  "viewportText": [
+    "Diagram Source Studio",
+    "Demo",
+    "Download",
+    "Privacy",
+    "Renderer inspection workbench",
+    "Catch broken diagram renders before commit",
+    "For engineers who keep Mermaid or D2 files in Git and need to inspect real output.",
+    "Try it with sample data"
+  ],
+  "headings": [
+    {
+      "tag": "H1",
+      "text": "Catch broken diagram renders before commit"
+    },
+    {
+      "tag": "H2",
+      "text": "Inspect the output beside its source"
+    },
+    {
+      "tag": "H2",
+      "text": "Check a diagram in three steps"
+    },
+    {
+      "tag": "H3",
+      "text": "Open the source"
+    },
+    {
+      "tag": "H3",
+      "text": "Compare the renders"
+    },
+    {
+      "tag": "H3",
+      "text": "Export an editable file"
+    },
+    {
+      "tag": "H2",
+      "text": "Your diagrams do not become a service"
+    },
+    {
+      "tag": "H2",
+      "text": "Compare two Mermaid versions"
+    },
+    {
+      "tag": "H2",
+      "text": "Install it beside your repository"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "A",
+      "text": "Skip to main content",
+      "href": "https://diagram-source-studio.sociobot.in/#main"
+    },
+    {
+      "tag": "A",
+      "text": "DSDiagram Source Studio",
+      "href": "https://diagram-source-studio.sociobot.in/"
+    },
+    {
+      "tag": "A",
+      "text": "Demo",
+      "href": "https://diagram-source-studio.sociobot.in/demo"
+    },
+    {
+      "tag": "A",
+      "text": "Download",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "tag": "A",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "tag": "A",
+      "text": "Try it with sample data",
+      "href": "https://diagram-source-studio.sociobot.in/demo"
+    },
+    {
+      "tag": "A",
+      "text": "Buy Studio",
+      "href": "https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout"
+    },
+    {
+      "tag": "A",
+      "text": "Already have a Studio license? Download the app to paste it.",
+      "href": "https://diagram-source-studio.sociobot.in/#downloads"
+    },
+    {
+      "tag": "A",
+      "text": "Download for Linux",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.8/Diagram.Source.Studio_0.1.8_amd64.AppImage"
+    },
+    {
+      "tag": "A",
+      "text": "Other platforms and checksums (external site)",
+      "href": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.8"
+    },
+    {
+      "tag": "A",
+      "text": "Privacy",
+      "href": "https://diagram-source-studio.sociobot.in/privacy"
+    },
+    {
+      "tag": "A",
+      "text": "Terms",
+      "href": "https://diagram-source-studio.sociobot.in/terms"
+    },
+    {
+      "tag": "A",
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/"
+    }
+  ],
+  "mainCount": 1,
+  "h1Count": 1,
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/main-B03FB11N.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/main-B_eXGFp_.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+      "resourceType": "font"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1",
+      "resourceType": "fetch"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.sociobot.in/api/v1/products",
+      "resourceType": "fetch"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-1280.webp",
+      "resourceType": "image"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+      "resourceType": "font"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+      "resourceType": "font"
+    },
+    {
+      "method": "GET",
+      "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+      "resourceType": "font"
+    }
+  ],
+  "errors": []
+}

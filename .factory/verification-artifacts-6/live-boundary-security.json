@@ -1,0 +1,18 @@
+{
+  "empty": "The source is empty. Type a diagram or load the sample.",
+  "d2Unsupported": "Line 3 is not part of the compact D2 syntax.",
+  "large": {
+    "nodes": 151,
+    "renderMs": 1295,
+    "diagnostic": "Syntax parsed. Preview rendered."
+  },
+  "unsafe": {
+    "anchors": 0,
+    "scripts": 0,
+    "eventAttrs": [],
+    "externalAttrs": [
+      "xmlns=http://www.w3.org/2000/svg"
+    ]
+  },
+  "externalRequestsAfterSource": []
+}

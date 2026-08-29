@@ -1,0 +1,347 @@
+{
+  "observedAt": "2026-08-29T06:13:44.132Z",
+  "base": "https://diagram-source-studio.sociobot.in",
+  "checks": {
+    "demoDesktop": {
+      "banner": true,
+      "url": "https://diagram-source-studio.sociobot.in/demo",
+      "initialSourceLines": 6,
+      "initialPreviewText": "missing arc\nDiagram source\nMermaid 11.17.2\nMermaid 10.9.8\nCompare output\nExport with source",
+      "svgBytes": 18825,
+      "pngBytes": 54924,
+      "invalidDiagnostic": "The 11.17.2 renderer stopped: Parse error on line 3:. Check the marked source.",
+      "recoveredDiagnostic": "Syntax parsed. Preview rendered.",
+      "realStorageKeys": [],
+      "leakedRequests": [],
+      "requests": [
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/main-B03FB11N.js",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/main-B_eXGFp_.css",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://api.sociobot.in/api/v1/products",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-1280.webp",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "https://diagram-source-studio.sociobot.in/vendor/mermaid-11.min.js",
+          "postData": null
+        },
+        {
+          "method": "GET",
+          "url": "blob:https://diagram-source-studio.sociobot.in/e4444984-b0fc-4aa7-b9e6-d2b29aee1841",
+          "postData": null
+        }
+      ],
+      "browserErrors": []
+    },
+    "mobile": {
+      "severeAxe": [],
+      "overflow": {
+        "scrollWidth": 390,
+        "innerWidth": 390
+      },
+      "smallVisibleTargets": [],
+      "firstFocus": {
+        "text": "Skip to main content\n    \n    Demo — sample data, nothing is savedReset demoStart for real\n    \n      DSDiagram Source Studio\n      \n        Open fileSave source\n        Export SVGExport PNG\n      \n    \n    \n      Check diagram render output\n      \n        \n          01 / source\n          Diagram language\n          MermaidD2\n          Load sample project\n        \n        \n          02 / inspection\n          Diagnostics\n          Syntax parsed. Preview rendered.\n        \n        \n          Offline syntax reference\n          flowchart LRUse A --> B for an arrow.Use A[Label] for a named node.\n        \n        \n          03 / license\n          The free editor includes preview and both exports.See Studio purchase optionsStudio adds the two-version comparison.\n          Have a license?License tokenVerify license\n        \n      \n      \n        SourcePreview\n        \n          Source215 bytes\n          Diagram source\n          \n        \n        \n          Renderer previewVersionMermaid 11.17.2Mermaid 10.9.8Compare versions\n          #diagram-11-17-2-1fd63cf4{font-family:Atkinson Hyperlegible,sans-serif;font-size:16px;fill:#f5f1e8;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#diagram-11-17-2-1fd63cf4 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#diagram-11-17-2-1fd63cf4 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#diagram-11-17-2-1fd63cf4 .error-icon{fill:#19131c;}#diagram-11-17-2-1fd63cf4 .error-text{fill:#e6ece3;stroke:#e6ece3;}#diagram-11-17-2-1fd63cf4 .edge-thickness-normal{stroke-width:1px;}#diagram-11-17-2-1fd63cf4 .edge-thickness-thick{stroke-width:3.5px;}#diagram-11-17-2-1fd63cf4 .edge-pattern-solid{stroke-dasharray:0;}#diagram-11-17-2-1fd63cf4 .edge-thickness-invisible{stroke-width:0;fill:none;}#diagram-11-17-2-1fd63cf4 .edge-pattern-dashed{stroke-dasharray:3;}#diagram-11-17-2-1fd63cf4 .edge-pattern-dotted{stroke-dasharray:2;}#diagram-11-17-2-1fd63cf4 .marker{fill:#36f1e4;stroke:#36f1e4;}#diagram-11-17-2-1fd63cf4 .marker.cross{stroke:#36f1e4;}#diagram-11-17-2-1fd63cf4 svg{font-family:Atkinson Hyperlegible,sans-serif;font-size:16px;}#diagram-11-17-2-1fd63cf4 p{margin:0;}#diagram-11-17-2-1fd63cf4 .label{font-family:Atkinson Hyperlegible,sans-serif;color:#f5f1e8;}#diagram-11-17-2-1fd63cf4 .cluster-label text{fill:#e6ece3;}#diagram-11-17-2-1fd63cf4 .cluster-label span{color:#e6ece3;}#diagram-11-17-2-1fd63cf4 .cluster-label span p{background-color:transparent;}#diagram-11-17-2-1fd63cf4 .label text,#diagram-11-17-2-1fd63cf4 span{fill:#f5f1e8;color:#f5f1e8;}#diagram-11-17-2-1fd63cf4 .node rect,#diagram-11-17-2-1fd63cf4 .node circle,#diagram-11-17-2-1fd63cf4 .node ellipse,#diagram-11-17-2-1fd63cf4 .node polygon,#diagram-11-17-2-1fd63cf4 .node path{fill:#19202a;stroke:#36f1e4;stroke-width:1px;}#diagram-11-17-2-1fd63cf4 .rough-node .label text,#diagram-11-17-2-1fd63cf4 .node .label text,#diagram-11-17-2-1fd63cf4 .image-shape .label,#diagram-11-17-2-1fd63cf4 .icon-shape .label{text-anchor:middle;}#diagram-11-17-2-1fd63cf4 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#diagram-11-17-2-1fd63cf4 .rough-node .label,#diagram-11-17-2-1fd63cf4 .node .label,#diagram-11-17-2-1fd63cf4 .image-shape .label,#diagram-11-17-2-1fd63cf4 .icon-shape .label{text-align:center;}#diagram-11-17-2-1fd63cf4 .node.clickable{cursor:pointer;}#diagram-11-17-2-1fd63cf4 .root .anchor path{fill:#36f1e4!important;stroke-width:0;stroke:#36f1e4;}#diagram-11-17-2-1fd63cf4 .arrowheadPath{fill:#efebe5;}#diagram-11-17-2-1fd63cf4 .edgePaths .path{stroke:#36f1e4;stroke-width:1px;}#diagram-11-17-2-1fd63cf4 .flowchart-link{stroke:#36f1e4;fill:none;}#diagram-11-17-2-1fd63cf4 .edgeLabel{background-color:#241421;text-align:center;}#diagram-11-17-2-1fd63cf4 .edgeLabel p{background-color:#241421;}#diagram-11-17-2-1fd63cf4 .edgeLabel rect{opacity:0.5;background-color:#241421;fill:#241421;}#diagram-11-17-2-1fd63cf4 .labelBkg{background-color:rgba(36, 20, 33, 0.5);}#diagram-11-17-2-1fd63cf4 .cluster rect{fill:#19131c;stroke:hsl(280, 0%, 0%);stroke-width:1px;}#diagram-11-17-2-1fd63cf4 .cluster text{fill:#e6ece3;}#diagram-11-17-2-1fd63cf4 .cluster span{color:#e6ece3;}#diagram-11-17-2-1fd63cf4 .node .collapsed-indicator{fill:hsl(280, 0%, 0%);stroke:none;opacity:0.6;}#diagram-11-17-2-1fd63cf4 .node .collapsed-separator{stroke:hsl(280, 0%, 0%);stroke-width:0.75px;}#diagram-11-17-2-1fd63cf4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Atkinson Hyperlegible,sans-serif;font-size:12px;background:#19131c;border:1px solid hsl(280, 0%, 0%);border-radius:2px;pointer-events:none;z-index:100;}#diagram-11-17-2-1fd63cf4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#f5f1e8;}#diagram-11-17-2-1fd63cf4 rect.text{fill:none;stroke-width:0;}#diagram-11-17-2-1fd63cf4 .icon-shape,#diagram-11-17-2-1fd63cf4 .image-shape{background-color:#241421;text-align:center;}#diagram-11-17-2-1fd63cf4 .icon-shape p,#diagram-11-17-2-1fd63cf4 .image-shape p{background-color:#241421;padding:2px;}#diagram-11-17-2-1fd63cf4 .icon-shape .label rect,#diagram-11-17-2-1fd63cf4 .image-shape .label rect{opacity:0.5;background-color:#241421;fill:#241421;}#diagram-11-17-2-1fd63cf4 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#diagram-11-17-2-1fd63cf4 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#diagram-11-17-2-1fd63cf4 .node .neo-node{stroke:#36f1e4;}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node rect,#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].cluster rect,#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node polygon{stroke:url(#diagram-11-17-2-1fd63cf4-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node path{stroke:url(#diagram-11-17-2-1fd63cf4-gradient);stroke-width:1px;}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node .neo-line path{stroke:#36f1e4;filter:none;}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node circle{stroke:url(#diagram-11-17-2-1fd63cf4-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].icon-shape .icon{fill:url(#diagram-11-17-2-1fd63cf4-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#diagram-11-17-2-1fd63cf4 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#diagram-11-17-2-1fd63cf4-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#diagram-11-17-2-1fd63cf4 :root{--mermaid-font-family:Atkinson Hyperlegible,sans-serif;}missing arcDiagram sourceMermaid 11.17.2Mermaid 10.9.8Compare outputExport with source\n        \n      \n    \n    \n    \n  \n  \n\nDemo — Diagram Source Studio",
+        "outline": "rgb(245, 241, 232) none 0px"
+      },
+      "tabSequence": [
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content\n    \n    Demo — sample data, "
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reset demo"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Start for real"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "DSDiagram Source Studio"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Open file"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Export SVG"
+        },
+        {
+          "tag": "SELECT",
+          "id": "engine",
+          "text": "MermaidD2"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Load sample project"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Source"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Preview"
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "source",
+          "text": ""
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content\n    \n    Demo — sample data, "
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reset demo"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Start for real"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "DSDiagram Source Studio"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Open file"
+        }
+      ],
+      "arrowFocus": {
+        "id": "",
+        "text": "Source"
+      },
+      "activeMotion": [],
+      "resizeOverflow": {
+        "scrollWidth": 390,
+        "innerWidth": 390
+      },
+      "browserErrors": []
+    },
+    "offline": {
+      "url": "https://diagram-source-studio.sociobot.in/demo",
+      "diagnostic": "Syntax parsed. Preview rendered.",
+      "errors": []
+    },
+    "routes": {
+      "routeResults": {
+        "/": {
+          "status": 200,
+          "title": "Diagram Source Studio — check diagram renders",
+          "h1": [
+            "Catch broken diagram renders before commit"
+          ],
+          "mainCount": 1,
+          "headers": {
+            "cache-control": "public, must-revalidate, max-age=30",
+            "content-encoding": "br",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Sat, 29 Aug 2026 06:13:53 GMT",
+            "etag": "\"32630902\"",
+            "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-dns-prefetch-control": "off",
+            "x-xss-protection": "1; mode=block"
+          }
+        },
+        "/demo": {
+          "status": 200,
+          "title": "Demo — Diagram Source Studio",
+          "h1": [
+            "Check diagram render output"
+          ],
+          "mainCount": 1,
+          "headers": {
+            "cache-control": "public, must-revalidate, max-age=30",
+            "content-encoding": "br",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Sat, 29 Aug 2026 06:13:54 GMT",
+            "etag": "\"32630902\"",
+            "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-dns-prefetch-control": "off",
+            "x-xss-protection": "1; mode=block"
+          }
+        },
+        "/privacy": {
+          "status": 200,
+          "title": "Privacy — Diagram Source Studio",
+          "h1": [
+            "Your source stays on your device"
+          ],
+          "mainCount": 1,
+          "headers": {
+            "cache-control": "public, must-revalidate, max-age=30",
+            "content-encoding": "br",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Sat, 29 Aug 2026 06:13:53 GMT",
+            "etag": "\"32630902\"",
+            "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-dns-prefetch-control": "off",
+            "x-xss-protection": "1; mode=block"
+          }
+        },
+        "/terms": {
+          "status": 200,
+          "title": "Terms — Diagram Source Studio",
+          "h1": [
+            "Use the editor for work you control"
+          ],
+          "mainCount": 1,
+          "headers": {
+            "cache-control": "public, must-revalidate, max-age=30",
+            "content-encoding": "br",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Sat, 29 Aug 2026 06:13:53 GMT",
+            "etag": "\"32630902\"",
+            "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-dns-prefetch-control": "off",
+            "x-xss-protection": "1; mode=block"
+          }
+        },
+        "/definitely-missing": {
+          "status": 404,
+          "title": "Page not found — Diagram Source Studio",
+          "h1": [
+            "This diagram path is not connected"
+          ],
+          "mainCount": 1,
+          "headers": {
+            "cache-control": "public, must-revalidate, max-age=30",
+            "content-length": "1476",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' https://api.github.com https://api.sociobot.in; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Sat, 29 Aug 2026 06:13:54 GMT",
+            "etag": "\"32630902\"",
+            "last-modified": "Sat, 29 Aug 2026 05:51:14 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-dns-prefetch-control": "off",
+            "x-xss-protection": "1; mode=block"
+          }
+        }
+      },
+      "internalLinks": [
+        {
+          "url": "https://diagram-source-studio.sociobot.in/#main",
+          "status": 200
+        },
+        {
+          "url": "https://diagram-source-studio.sociobot.in/",
+          "status": 200
+        },
+        {
+          "url": "https://diagram-source-studio.sociobot.in/demo",
+          "status": 200
+        },
+        {
+          "url": "https://diagram-source-studio.sociobot.in/#downloads",
+          "status": 200
+        },
+        {
+          "url": "https://diagram-source-studio.sociobot.in/privacy",
+          "status": 200
+        },
+        {
+          "url": "https://diagram-source-studio.sociobot.in/terms",
+          "status": 200
+        }
+      ]
+    }
+  },
+  "errors": []
+}

@@ -1,3 +1,41 @@
+# Independent verification 6 handoff — FAIL
+
+## Status
+
+**FAIL — do not release candidate
+`eaaaf6d8511bf1616679581db76ae09c4a39b7bd`.** The live deployment matches
+the candidate build, the one-click demo and core editor flows work, and a fresh
+Dodo Test Mode purchase now returns a valid license that unlocks both renderer
+panels. The former external billing blocker is resolved.
+
+The candidate still fails acceptance because the exact `npm test` command
+reproducibly crashes Chromium at test 22 and exits 1 (28 passed / 1 failed on
+two runs). In addition, the `native-file-dialogs` claim test only checks button
+visibility, live one-day-cache and refund-revocation promises are absent from
+`.factory/claims.json`, the live demo scored 81 Lighthouse performance with
+953,897 bytes of initial JavaScript transfer, and initial H1 focus bypasses the
+skip link and earlier controls.
+
+## Independent verification evidence
+
+- Every one of the 15 exact claim commands passed independently after `npm ci`.
+- `npm run build`, audit, live billing, Rust fmt/check/test/clippy, live
+  `verify-url.sh`, Axe, offline reload, privacy logging, route/header checks,
+  release checksum/install, and exact live/local hashes passed.
+- One-client verification API burst: 30 × 200, then 10 × 429; every 429 had
+  `Retry-After: 3`.
+- Fresh payment trace: Dodo `/succeeded` → pilot return 303 → live
+  `?license=...` → URL scrub → production verification valid → two Studio
+  renderer panels. The token is redacted from committed evidence.
+- Full findings and reproduction details: [verification-6.md](verification-6.md).
+- Supporting evidence: `verification-artifacts-6/`.
+
+No product code was changed. Repair the full-suite crash and claims coverage,
+then address the demo performance and initial focus-order findings before the
+next verification.
+
+---
+
 # Diagram Source Studio repair-5 handoff
 
 ## Status

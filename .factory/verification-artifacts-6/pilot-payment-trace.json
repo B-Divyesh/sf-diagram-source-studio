@@ -1,0 +1,19 @@
+{
+  "observedAt": "2026-08-29T06:21:25Z",
+  "mode": "Dodo Test Mode",
+  "amount": { "currency": "USD", "minorUnits": 3900 },
+  "paymentResult": "succeeded",
+  "navigation": [
+    { "status": 303, "url": "https://pilot-api.sociobot.in/api/v1/products/diagram-source-studio/checkout" },
+    { "status": 200, "url": "https://test.checkout.dodopayments.com/session/[REDACTED]" },
+    { "status": 200, "url": "https://test.checkout.dodopayments.com/status/[REDACTED]/succeeded" },
+    { "status": 307, "url": "https://test.dodopayments.com/return/[REDACTED]" },
+    { "status": 303, "url": "https://pilot-api.sociobot.in/api/v1/products/diagram-source-studio/return?intent=[REDACTED]&payment_id=[REDACTED]&status=succeeded&email=[REDACTED]" },
+    { "status": 200, "url": "https://diagram-source-studio.sociobot.in/?license=[REDACTED]" },
+    { "clientReplaceState": true, "url": "https://diagram-source-studio.sociobot.in/" }
+  ],
+  "licenseStored": true,
+  "pilotVerification": { "status": 200, "valid": true, "reason": "ok" },
+  "productionVerification": { "status": 200, "valid": true, "reason": "ok" },
+  "token": "[REDACTED]"
+}

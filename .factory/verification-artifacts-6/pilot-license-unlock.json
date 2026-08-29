@@ -1,0 +1,14 @@
+{
+  "studioText": "Studio license active",
+  "matrixCount": 2,
+  "headings": [
+    "Mermaid 11.17.2",
+    "Mermaid 10.9.8"
+  ],
+  "requests": [
+    {
+      "url": "https://api.sociobot.in/api/v1/products/diagram-source-studio/verify?license=[REDACTED]",
+      "status": 200
+    }
+  ]
+}
