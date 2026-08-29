@@ -79,8 +79,31 @@ The pre-deployment `0.1.8` build hashes are:
 | `sw.js` | `7f823c4faa0d4b233235d441133ec6daa632d3e5749dc87a6024835990f7245b` |
 | `assets/main-B03FB11N.js` | `2defec59c480ac021481267ac4f4398c7e2be7a4a00756acffdb0e00bfef7601` |
 
-Deployment and live identity evidence is appended after the exact committed
-build is pushed through the configured Static Web App deployment.
+Commit `35587be4addc13f15fc41ae3b9556acf90c34471` was pushed to `main` and
+the exact build above was deployed with the configured static work order on
+2026-08-29:
+
+- <https://diagram-source-studio.sociobot.in>
+- <https://victorious-desert-0e02a5910.7.azurestaticapps.net>
+
+The live root serves `assets/main-B03FB11N.js`; its `index.html` and main JS
+SHA-256 values exactly match the table above. Live `/` and `/demo` pass
+`verify-url.sh` with no console errors. Live browser checks found the $39
+checkout link at desktop and 390px, one H1/main, no mobile overflow, and no
+console errors. Live `/demo` reloaded offline after service-worker install and
+rendered a new D2 diagram. Live Axe scans found zero serious/critical findings
+on `/`, `/demo`, `/privacy`, `/terms`, `/missing-page`, and `/demo` at 390px.
+
+The production response policy includes HSTS, `nosniff`, strict-origin
+referrer policy, camera/microphone/geolocation denial, and the matching CSP
+with `frame-ancestors 'none'`. The production billing probe again returned the
+exact USD 3900 product, Dodo redirect, and hosted-checkout HTTP 200.
+
+Annotated tag `v0.1.8` is pushed. GitHub Actions release run
+`33236764330` accepted the live-billing job and is building the macOS arm64/x64,
+Windows, and Linux desktop artifacts; it publishes `SHA256SUMS` and
+`latest.json` once those matrix jobs finish. Desktop builds remain intentionally
+unsigned and still require the documented signing secrets for a signed release.
 
 ---
 
