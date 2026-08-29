@@ -2,7 +2,7 @@
 
 ## Status
 
-Product repair commit: `e7c8cabee2d2b4fef6240e5e6d67e8ad2b12df80`. The only release-blocking finding in
+Product repair commit: `e7c8cab1bbc0fb67084fe19139d47ed1c3e02dca`. The only release-blocking finding in
 independent verification 4 was the shared Sociobot/Dodo success-return path:
 a successful Dodo Test Mode payment did not return a license token. This
 repository does not contain that gateway or Dodo configuration, and the
