@@ -1,17 +1,40 @@
-# Review 1 handoff — FAIL
+# Polish round 1 handoff
 
-## What was done
+## Done
 
-Completed the requested adversarial first-read review without changing product code. The report is [review-1.md](review-1.md).
+Repaired every finding in adversarial review 1 and deployed repair commit `c1259cf27ebe30112fb07b1d8b4bb0c2bf9eb962` to <https://diagram-source-studio.sociobot.in>.
 
-## How verified
+- Demo is now a true one-click `/?demo=1` sample path with the persistent isolated-data banner, Reset demo, Start for real, shared legal navigation, and shared footer.
+- Added `no-sign-in`, `free-editor-diagnostics`, `startup-network`, and `checkout-provider` to `.factory/claims.json`, each with exactly one tagged observable test.
+- Rewrote the remaining untestable or overlong public copy, including all four review headings and all four flagged README sentences.
+- Preserved the night-market neon workbench identity, responsive panes, and existing desktop/Tauri artifact class.
 
-- Used fresh live Playwright contexts at 390 × 844 and 1440 × 900 before scrolling.
-- Exercised the `/demo` sample, Reset demo, Start for real, a seeded real-storage key, and the live request log.
-- Read `.factory/brief.json`, `.factory/design.md`, `.factory/claims.json`, demo/copy/history documents, README, and implementation routing code.
-- Created a clean local clone, ran `npm ci`, every manifest claim through `npm test`, and `npm run build`. Playwright recorded a passing final run with no failed tests; the build emitted `dist/site/`.
-- Crawled all live rendered links and checked routes, metadata, route focus/back behavior, the designed 404, response headers, social image dimensions, and the current live checkout redirect.
+The full finding-to-evidence mapping is in [polish-1.md](polish-1.md).
 
-## Result and remaining work
+## Verification
 
-**FAIL:** four findings remain: a blocking `/demo` header/footer/legal-navigation omission, public claims not fully represented in `claims.json`, four README sentences over the 22-word cap, and four jargon/metaphor/contextless headings. No product changes were made. Resolve the report’s concrete fixes, then rerun the whole review from a clean context.
+From a clean local clone at `/tmp/diagram-source-studio-clean.jin7hs`:
+
+- `npm ci` — passed; 186 packages installed; `npm audit --audit-level=high` reported 0 vulnerabilities.
+- `npm test` — passed; the accessibility/route suite plus every one of the 21 `.factory/claims.json` commands passed in fresh Playwright processes.
+- `npm run build:site` — passed and produced `dist/site/`. Initial JavaScript is 13.10 KB gzip and CSS is 4.63 KB gzip.
+
+Native desktop checks, after installing the exact Linux dependencies from `.github/workflows/release.yml`:
+
+- `cargo fmt --manifest-path src-tauri/Cargo.toml -- --check` — passed.
+- `cargo check --locked --manifest-path src-tauri/Cargo.toml` — passed.
+- `cargo test --locked --manifest-path src-tauri/Cargo.toml` — passed (the UTF-8 BOM/CRLF native file round-trip test passed).
+- `cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings` — passed.
+
+Live verification after deployment:
+
+- `/opt/fleet/lib/deploy-static.sh diagram-source-studio dist/site` — succeeded (deployment `8438f2d5-45b0-4830-8f6c-535e4150f803`); custom-domain HTTPS returned 200.
+- `verify-url.sh` passed for the landing page and `/?demo=1`: route-specific title, `lang=en`, one h1, main landmark, image alt text, and zero console/page errors. Evidence: [landing](polish-artifacts-1/live-root/verify.json), [demo](polish-artifacts-1/live-demo/verify.json).
+- Cold live interaction confirmed the new first-screen wording, the `/?demo=1` sample flow, banner, reset, Start for real, legal links, and footer. Screenshots: [landing mobile](polish-artifacts-1/live-root/screenshot-mobile.png), [demo mobile](polish-artifacts-1/live-demo/screenshot-mobile.png).
+- Live Axe scans at 390 px found zero serious or critical violations on `/`, `/?demo=1`, `/privacy`, and `/terms`.
+- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100. Raw report: [lighthouse.json](polish-artifacts-1/live-root/lighthouse.json).
+- `npm run test:live:billing` passed: product price is USD 3900 and the checkout redirects (303) to `checkout.dodopayments.com`, whose hosted page returned 200.
+
+## Known gaps and operator action
+
+There are no unresolved review findings. Desktop release artifacts remain intentionally unsigned until the owner supplies platform signing certificates; the landing page and README disclose this, and release signing is not configured with any secret in this repository.

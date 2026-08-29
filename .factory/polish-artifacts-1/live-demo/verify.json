@@ -1,0 +1,14 @@
+{
+  "url": "https://diagram-source-studio.sociobot.in/?demo=1",
+  "loadMs": 791,
+  "errors": [],
+  "a11y": {
+    "title": "Demo — Diagram Source Studio",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 498
+  }
+}
