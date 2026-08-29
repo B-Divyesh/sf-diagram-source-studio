@@ -1,16 +1,35 @@
-# Review 2 handoff — FAIL
+# Polish 2 handoff — repair ready for static deployment
 
-Completed the requested read-only adversarial review of commit `0433c4193d9c00d44bd298beb97fa185b754c7ac` and the live site on 2026-08-29. No product code was changed.
+Repair commit: `3e9f2783f8d97bd6bf35de1343e9ac12c9dda711` (based on review commit `f9a7907fb81702ea13cb0b05ad3354ccabf5ea27`).
 
-The full report is `.factory/review-2.md`. It records four findings: incomplete above-fold first-screen content, incomplete proof for Windows/workflow release claims, remaining copy jargon/terminology/decorative labels, and metaphorical 404 wording. All four findings from review 1 were independently confirmed fixed.
+## What changed
 
-Verification performed:
+- Made the complete first-screen package fit at 1440×900 and 390×844 without replacing the night-market neon inspection identity.
+- Removed remaining jargon, mixed renderer terminology, and numbered decorative labels from the landing, editor, README, metadata, and catalog description.
+- Made the 404 literal while retaining the original broken-neon artwork.
+- Expanded the release claim proof to cover the GitHub Actions target matrix plus real PowerShell success and checksum-rejection fixtures.
+- Preserved the isolated `?demo=1` / `/demo` sample workflow, persistent banner, Reset demo, Start for real action, shared legal navigation, routes, focus behavior, privacy boundary, and desktop-app release class.
 
-- Fresh live Chromium contexts at 390 × 844 and 1440 × 900.
-- One-click demo, reset, exit, real-storage sentinel, same-origin request log, SVG export, and live offline D2 reload.
-- Live metadata and heading inspection for `/`, `/demo`, `/privacy`, `/terms`, and an HTTP 404 route.
-- Live rendered-link crawl, including checkout and current release destinations.
-- SPA navigation and browser-Back focus checks.
-- Clean clone at `/tmp/diagram-review-2.ng08nK`: `npm ci`, `npm test` (all 21 claim tags plus accessibility/regressions), and `npm run build` all passed.
+## Run and verify
 
-Next work is limited to the four findings in the report. The tree remains buildable; rerun `npm test && npm run build` after repair.
+```sh
+npm ci
+npm test
+npm run build:site
+```
+
+The static site is written to `dist/site`. `npm test` runs every claim declared in `.factory/claims.json`, the accessibility suite, mobile keyboard checks, route/metadata checks, the first-screen viewport assertion, and regressions. The PowerShell claim test requires `pwsh`; it is available on the GitHub Actions Ubuntu runner and was installed locally for this verification.
+
+## Exact evidence
+
+- Clean clone: `/tmp/diagram-source-studio-polish-2.hnMZFk` at `3e9f2783f8d97bd6bf35de1343e9ac12c9dda711`.
+- `npm ci` passed with 186 packages and 0 audit vulnerabilities.
+- `npm test` passed: all 21 claims, 13 accessibility checks, and regressions.
+- `npm run build:site` passed. `dist/site` contains the static routes and build assets; main JavaScript is 12.98 kB gzip and CSS is 4.65 kB gzip.
+- Local visual evidence: `.factory/polish-artifacts-2/local-root-desktop.png`, `local-root-mobile.png`, `local-demo-mobile.png`, and `local-404-mobile.png`.
+
+The full finding-to-evidence map is in [`.factory/polish-2.md`](polish-2.md).
+
+## Deployment and known gaps
+
+Static deployment and a cold live recheck of `/`, `/?demo=1`, `/demo`, `/privacy`, `/terms`, and an unknown route are the remaining work in this work order. No product defects are known locally. Desktop release bundles remain intentionally unsigned until the operator adds `APPLE_CERTIFICATE` and `WINDOWS_CERT_PFX` to GitHub Actions; the app discloses that state before download.
