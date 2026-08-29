@@ -1,6 +1,7 @@
 const LICENSE_KEY = 'sb_license:diagram-source-studio';
 const VERDICT_KEY = 'sb_license_verdict:diagram-source-studio';
 const BASE = 'https://api.sociobot.in/api/v1/products/diagram-source-studio';
+const API_BASE = 'https://api.sociobot.in/api/v1';
 
 interface CachedVerdict { valid?: boolean; checkedAt?: number; token?: string }
 interface LicenseStore {
@@ -21,14 +22,26 @@ const storeFor = (demo: boolean): LicenseStore => demo ? demoStore : localStorag
 export interface LicenseState { unlocked: boolean; notice?: string }
 export interface BillingProduct { slug?: string; price_minor?: number; currency?: string }
 
-// The shared Sociobot/Dodo return handler must issue a token that this client
-// can verify before a customer can be sent to checkout. Keep this false until
-// that end-to-end contract has been independently verified in Test Mode.
-export const purchaseDeliveryReady = false;
-export const purchaseDeliveryNotice = 'Studio purchases are paused while checkout delivery is repaired. The free editor still works.';
+// Sociobot's hosted Dodo checkout returns buyers here with ?license=<token>.
+// captureLicense stores that token before the editor mounts; verifyLicense then
+// reconciles it with the product-specific entitlement endpoint.
+export const purchaseDeliveryReady = true;
+export const purchaseDeliveryNotice = 'Studio checkout is unavailable right now. Try again shortly; the free editor still works.';
 
 export function studioProductEnabled(products: BillingProduct[] | undefined): boolean {
   return Boolean(products?.some((product) => product.slug === 'diagram-source-studio' && product.price_minor === 3900 && product.currency === 'USD'));
+}
+
+function testBillingApiBase(): string | undefined {
+  return (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__;
+}
+
+export function canCheckBillingCatalog(): boolean {
+  return !['localhost', '127.0.0.1'].includes(location.hostname) || Boolean(testBillingApiBase());
+}
+
+export function billingCatalogUrl(): string {
+  return `${testBillingApiBase() ?? API_BASE}/products`;
 }
 
 export function captureLicense(demo = false): void {

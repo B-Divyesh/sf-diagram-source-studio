@@ -91,11 +91,11 @@
     "sandbox": "temporary five-platform release fixture; generate manifest, match URL filenames, then run shell installer against a pretty GitHub-style response and checksum"
   },
   {
-    "id": "purchase-delivery-guard",
-    "claim": "Studio purchases stay unavailable until checkout can deliver a verified license",
+    "id": "studio-purchase",
+    "claim": "Studio is a $39 one-time license that returns and verifies access",
     "where": "landing pricing, license panel, README",
-    "test": "npm test -- --grep @claim:purchase-delivery-guard",
-    "sandbox": "fresh native-style workspace with a recorded enabled-product catalog response; assert the pause notice appears and no checkout link is exposed"
+    "test": "npm test -- --grep @claim:studio-purchase",
+    "sandbox": "recorded exact catalog response; assert checkout link, then deliver a returned token, record a valid verification response, and assert both Studio panels"
   },
   {
     "id": "billing-catalog",

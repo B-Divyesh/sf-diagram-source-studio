@@ -1,5 +1,5 @@
 import { embedSourceInPng, embedSourceInSvg, Engine, renderDiagram, RendererVersion, sourceFromPng, sourceFromSvg } from './diagram';
-import { checkoutUrl, localLicenseState, purchaseDeliveryNotice, purchaseDeliveryReady, saveLicense, studioProductEnabled, verifyLicense } from './license';
+import { billingCatalogUrl, canCheckBillingCatalog, checkoutUrl, localLicenseState, purchaseDeliveryNotice, purchaseDeliveryReady, saveLicense, studioProductEnabled, verifyLicense } from './license';
 
 const MERMAID_SAMPLE = `flowchart LR
   source[Diagram source] --> current{Mermaid 11.17.2}
@@ -280,7 +280,8 @@ export function mountEditor(demo: boolean) {
   };
   const setupEditorCheckout = async () => {
     try {
-      const response = await fetch('https://api.sociobot.in/api/v1/products');
+      if (!canCheckBillingCatalog()) throw new Error('production catalog only');
+      const response = await fetch(billingCatalogUrl());
       if (!response.ok) throw new Error('catalog unavailable');
       const catalog = await response.json() as { data?: Array<{ slug?: string; price_minor?: number; currency?: string }> };
       if (!studioProductEnabled(catalog.data)) throw new Error('product unavailable');

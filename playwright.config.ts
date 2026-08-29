@@ -2,11 +2,11 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  // Mermaid bundles and Axe both hold a substantial renderer tree. Keep two
-  // workers, but distribute individual tests so no Chromium process retains
-  // every renderer-heavy page for the entire suite.
-  workers: 2,
-  fullyParallel: true,
+  // The constrained release worker can only keep one Mermaid/Axe Chromium
+  // renderer tree alive reliably. Serial execution is deliberate: failures
+  // are never retried or ignored, and every test still gets a fresh context.
+  workers: 1,
+  fullyParallel: false,
   timeout: 45_000,
   expect: { timeout: 15_000 },
   use: { baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure' },

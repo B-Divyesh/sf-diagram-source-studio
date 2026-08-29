@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import { execFile } from 'node:child_process';
-import { createServer } from 'node:http';
 import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -199,22 +198,46 @@ test('@claim:release-installers manifest URLs and shell installer match publishe
   expect(await readFile(join(bin, 'diagram-source-studio'), 'utf8')).toBe(names[3]);
 });
 
-test('@claim:purchase-delivery-guard the landing and desktop editor never expose checkout while delivery is paused', async ({ page, context }) => {
-  await page.goto('/');
-  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
-  await expect(page.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
-
+test('@claim:studio-purchase checkout return saves, verifies, and unlocks Studio after the exact $39 offer is available', async ({ page, context }) => {
   let catalogRequests = 0;
+  await page.addInitScript(() => { (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1'; });
+  await page.route('https://api.sociobot.in/api/v1/products', (route) => {
+    catalogRequests += 1;
+    return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
+  });
+  await page.goto('/');
+  const landingCheckout = page.getByRole('link', { name: 'Buy Studio' });
+  await expect(landingCheckout).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
+  await expect(page.getByText('$39 once', { exact: true })).toBeVisible();
+
   const desktop = await context.newPage();
-  await desktop.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
+  await desktop.addInitScript(() => {
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
+    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
+  });
   await desktop.route('**/api/v1/products', (route) => {
     catalogRequests += 1;
     return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
   });
+  let verificationRequests = 0;
+  await desktop.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => {
+    verificationRequests += 1;
+    return route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } });
+  });
   await desktop.goto('/');
-  await expect(desktop.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
-  await expect(desktop.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
-  expect(catalogRequests).toBe(1);
+  await expect(desktop.getByRole('link', { name: 'Buy Studio for $39 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
+  await desktop.goto('/?license=returned-license-token');
+  await expect(desktop).toHaveURL('http://127.0.0.1:4173/');
+  await expect(desktop.getByText('Studio license active')).toBeVisible();
+  expect(await desktop.evaluate(() => localStorage.getItem('sb_license:diagram-source-studio'))).toBe('returned-license-token');
+  const verdict = JSON.parse(await desktop.evaluate(() => localStorage.getItem('sb_license_verdict:diagram-source-studio')) ?? '{}');
+  expect(verdict).toMatchObject({ valid: true, token: 'returned-license-token' });
+  expect(verificationRequests).toBe(1);
+  await desktop.getByRole('button', { name: 'Compare versions' }).click();
+  await expect(desktop.locator('.matrix-result')).toHaveCount(2);
+  // One landing check plus one check for each native document load. The return
+  // document is a new load and must re-check availability independently.
+  expect(catalogRequests).toBe(3);
   const eligibility = await page.evaluate(async () => {
     const modulePath = '/src/license.ts';
     const { checkoutUrl, purchaseDeliveryReady, studioProductEnabled } = await import(/* @vite-ignore */ modulePath);
@@ -229,13 +252,16 @@ test('@claim:purchase-delivery-guard the landing and desktop editor never expose
     catalogContract: true,
     wrongPrice: false,
     checkoutUrl: 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout',
-    purchaseDeliveryReady: false
+    purchaseDeliveryReady: true
   });
 });
 
 test('@claim:billing-catalog native startup checks the public catalog once and discloses it', async ({ page }) => {
   let catalogRequests = 0;
-  await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
+  await page.addInitScript(() => {
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
+    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
+  });
   await page.route('**/api/v1/products', (route) => {
     catalogRequests += 1;
     expect(route.request().method()).toBe('GET');
@@ -243,8 +269,7 @@ test('@claim:billing-catalog native startup checks the public catalog once and d
     return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
   });
   await page.goto('/');
-  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
-  await expect(page.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Buy Studio for $39 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
   expect(catalogRequests).toBe(1);
   const application = await readFile(resolve('src/main.ts'), 'utf8');
   expect(application).toContain('The app checks the public Sociobot catalog once to show purchase availability.');
@@ -252,60 +277,39 @@ test('@claim:billing-catalog native startup checks the public catalog once and d
   expect(readme).toContain("checks Sociobot's public catalog once");
 });
 
-test('checkout return stores, verifies, and unlocks the Studio matrix in the desktop shell', async ({ page }) => {
-  await page.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
-  await page.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => route.fulfill({
-    json: { valid: true, reason: 'ok', expires_at: null }
-  }));
-  await page.goto('/?license=returned-license-token');
-  await expect(page).toHaveURL('http://127.0.0.1:4173/');
-  await expect(page.getByText('Studio license active')).toBeVisible();
-  expect(await page.evaluate(() => localStorage.getItem('sb_license:diagram-source-studio'))).toBe('returned-license-token');
-  const verdict = JSON.parse(await page.evaluate(() => localStorage.getItem('sb_license_verdict:diagram-source-studio')) ?? '{}');
-  expect(verdict).toMatchObject({ valid: true, token: 'returned-license-token' });
-  await page.getByRole('button', { name: 'Compare versions' }).click();
-  await expect(page.locator('.matrix-result')).toHaveCount(2);
-});
-
-test('live billing verifier fails for the missing product and accepts the exact checkout contract', async () => {
+test('live billing verifier rejects a missing product and proves the hosted checkout responds', async () => {
+  // @ts-expect-error The executable live verifier is intentionally plain ESM.
+  const { verifyLiveBilling } = await import('../scripts/verify-live-billing.mjs');
+  const apiBase = 'https://billing.test/api/v1';
+  const product = {
+    slug: 'diagram-source-studio',
+    name: 'Diagram Source Studio License',
+    price_minor: 3900,
+    currency: 'USD',
+    product_url: 'https://diagram-source-studio.sociobot.in/',
+    checkout_url: `${apiBase}/products/diagram-source-studio/checkout`
+  };
   let productEnabled = false;
-  const server = createServer((request, response) => {
-    if (request.url === '/api/v1/products') {
-      response.setHeader('content-type', 'application/json');
-      response.end(JSON.stringify({ data: productEnabled ? [{
-        slug: 'diagram-source-studio',
-        name: 'Diagram Source Studio License',
-        price_minor: 3900,
-        currency: 'USD',
-        product_url: 'https://diagram-source-studio.sociobot.in/',
-        checkout_url: `http://127.0.0.1:${(server.address() as { port: number }).port}/api/v1/products/diagram-source-studio/checkout`
-      }] : [] }));
-      return;
-    }
-    if (request.url === '/api/v1/products/diagram-source-studio/checkout') {
-      response.writeHead(303, { location: 'https://checkout.dodopayments.com/session/contract-test' });
-      response.end();
-      return;
-    }
-    response.writeHead(404).end();
+  const billingFetch = async (input: URL | string) => {
+    const url = String(input);
+    if (url === `${apiBase}/products`) return new Response(JSON.stringify({ data: productEnabled ? [product] : [] }), { status: 200, headers: { 'content-type': 'application/json' } });
+    if (url === product.checkout_url) return new Response(null, { status: 303, headers: { location: 'https://checkout.dodopayments.com/session/contract-test' } });
+    throw new Error(`unexpected billing request: ${url}`);
+  };
+  const hostedCheckoutFetch = async (input: URL | string) => {
+    expect(String(input)).toBe('https://checkout.dodopayments.com/session/contract-test');
+    return new Response('<title>Checkout</title>', { status: 200 });
+  };
+  await expect(verifyLiveBilling(billingFetch, apiBase, hostedCheckoutFetch)).rejects.toThrow(/missing diagram-source-studio/);
+  productEnabled = true;
+  await expect(verifyLiveBilling(billingFetch, apiBase, hostedCheckoutFetch)).resolves.toMatchObject({
+    slug: 'diagram-source-studio',
+    price_minor: 3900,
+    currency: 'USD',
+    checkout_status: 303,
+    checkout_host: 'checkout.dodopayments.com',
+    checkout_page_status: 200
   });
-  await new Promise<void>((resolveListen) => server.listen(0, '127.0.0.1', resolveListen));
-  const address = server.address() as { port: number };
-  const env = { ...process.env, SOCIOBOT_API_BASE: `http://127.0.0.1:${address.port}/api/v1` };
-  try {
-    await expect(exec(process.execPath, [resolve('scripts/verify-live-billing.mjs')], { env })).rejects.toThrow(/missing diagram-source-studio/);
-    productEnabled = true;
-    const result = await exec(process.execPath, [resolve('scripts/verify-live-billing.mjs')], { env });
-    expect(JSON.parse(result.stdout)).toMatchObject({
-      slug: 'diagram-source-studio',
-      price_minor: 3900,
-      currency: 'USD',
-      checkout_status: 303,
-      checkout_host: 'checkout.dodopayments.com'
-    });
-  } finally {
-    await new Promise<void>((resolveClose, rejectClose) => server.close((error) => error ? rejectClose(error) : resolveClose()));
-  }
 });
 
 test('SPA route remount keeps one export handler', async ({ page }) => {
@@ -319,8 +323,10 @@ test('SPA route remount keeps one export handler', async ({ page }) => {
   await expect.poll(() => downloads).toEqual(['diagram.svg']);
 });
 
-test('purchase action stays hidden when the billing catalog is unavailable', async ({ page }) => {
+test('purchase action explains an unavailable billing catalog', async ({ page }) => {
+  await page.addInitScript(() => { (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1'; });
+  await page.route('https://api.sociobot.in/api/v1/products', (route) => route.fulfill({ status: 503 }));
   await page.goto('/');
-  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
+  await expect(page.getByText('Studio checkout is unavailable right now. Try again shortly; the free editor still works.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Buy Studio' })).toHaveCount(0);
 });

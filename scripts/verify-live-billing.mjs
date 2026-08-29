@@ -9,7 +9,7 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-export async function verifyLiveBilling(fetchImpl = fetch, apiBase = 'https://api.sociobot.in/api/v1') {
+export async function verifyLiveBilling(fetchImpl = fetch, apiBase = 'https://api.sociobot.in/api/v1', checkoutFetch = fetchImpl) {
   const base = apiBase.replace(/\/$/, '');
   const catalogResponse = await fetchImpl(`${base}/products`, {
     headers: { accept: 'application/json' },
@@ -36,6 +36,11 @@ export async function verifyLiveBilling(fetchImpl = fetch, apiBase = 'https://ap
   assert(checkout.protocol === 'https:', 'checkout redirect is not HTTPS');
   assert(checkout.hostname === 'checkout.dodopayments.com', `checkout redirect host is ${checkout.hostname}`);
   assert(checkout.pathname.startsWith('/session/'), 'checkout redirect is not a hosted checkout session');
+  const checkoutPage = await checkoutFetch(checkout, {
+    headers: { accept: 'text/html' },
+    signal: AbortSignal.timeout(15_000)
+  });
+  assert(checkoutPage.ok, `hosted checkout returned HTTP ${checkoutPage.status}`);
 
   return {
     slug: product.slug,
@@ -43,7 +48,8 @@ export async function verifyLiveBilling(fetchImpl = fetch, apiBase = 'https://ap
     currency: product.currency,
     product_url: product.product_url,
     checkout_status: checkoutResponse.status,
-    checkout_host: checkout.hostname
+    checkout_host: checkout.hostname,
+    checkout_page_status: checkoutPage.status
   };
 }
 

@@ -1,6 +1,6 @@
 [package]
 name = "diagram-source-studio"
-version = "0.1.7"
+version = "0.1.8"
 description = "Check diagram renders before commit"
 authors = ["Param Factory"]
 license = "MIT"

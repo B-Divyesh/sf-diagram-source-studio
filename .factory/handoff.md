@@ -1,3 +1,89 @@
+# Diagram Source Studio repair-5 handoff
+
+## Status
+
+Repair version `0.1.8` restores the approved one-time Studio offer without
+changing the desktop-app or static-site artifact classes. It fixes both
+verification-5 blockers: the exact product is purchasable again and the
+browser suite runs serially on the constrained worker without retries,
+skips, or ignored failures.
+
+## What changed
+
+- Reproduced the verifier's checkout evidence first. Production catalog entry
+  `diagram-source-studio` is USD 3900 and points to the registered Live Dodo
+  product `pdt_0NmNcQUhg9Ndnyh5LWIuh`; following the checkout redirect reached
+  `checkout.dodopayments.com/session/...` with HTTP 200.
+- Removed the repository-owned `purchaseDeliveryReady = false` pause. The
+  landing page and desktop editor now show the exact $39 one-time Studio offer
+  only when the public catalog has the exact slug, USD currency, and 3900
+  minor-unit price. An unavailable catalog has a calm retry message.
+- Preserved and proved the real client return path: `?license=<token>` is
+  stored locally, scrubbed from the URL, verified against the product endpoint,
+  cached, and unlocks both bundled Mermaid comparison panels. The new
+  `@claim:studio-purchase` regression covers the offer, return, verification,
+  cache, URL scrub, and renderer matrix in a simulated Tauri shell.
+- Extended `npm run test:live:billing` to assert that the Dodo hosted checkout
+  response itself is HTTP 200, not merely that the API emits a redirect.
+- Changed Playwright to one worker and disabled full parallelism. This avoids
+  the verifier's Chromium SIGSEGV under the constrained worker while retaining
+  fresh contexts and zero retry configuration; failures still exit non-zero.
+- Bumped web, Tauri, Cargo, lockfile, and service-worker cache identity to
+  `0.1.8`.
+
+## Verification
+
+Run from a clean checkout:
+
+```sh
+npm ci
+npm test
+npm run test:live:billing
+npm run build
+npm audit --audit-level=high
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+```
+
+Observed on 2026-08-29:
+
+- `npm ci` installed 186 packages and reported 0 vulnerabilities.
+- `npm test` passed 29/29 with one worker, including desktop and 390px mobile,
+  keyboard tab/arrow behavior, offline reload, privacy request boundaries,
+  export, entitlement, and Axe integration scans. Every one of the 15 exact
+  claim commands in `.factory/claims.json` also passed separately.
+- `npm run test:live:billing` passed with `{ price_minor: 3900, currency:
+  "USD", checkout_status: 303, checkout_host: "checkout.dodopayments.com",
+  checkout_page_status: 200 }`.
+- `npm run build` type-checked and emitted `dist/site/`; initial JS is 34.55
+  KB raw / 12.66 KB gzip and CSS is 16.81 KB raw / 4.61 KB gzip. `npm audit
+  --audit-level=high` passed with 0 vulnerabilities.
+- Installed the same Linux GTK/WebKit packages declared in the release workflow;
+  Rust fmt, locked check, tests, and warnings-as-errors Clippy passed.
+- `/opt/fleet/lib/verify-url.sh` passed against local production `/` and
+  `/demo`: HTTP 200, title, language, one H1, main landmark, image alt text,
+  zero unlabeled buttons, desktop/mobile screenshots, and zero browser errors.
+  The standalone Axe CLI could not locate a system Chrome binary in this worker;
+  the committed `@axe-core/playwright` checks in the full suite passed on all
+  five routes at desktop and the demo at 390px.
+
+## Build identity and deployment
+
+The pre-deployment `0.1.8` build hashes are:
+
+| File | SHA-256 |
+| --- | --- |
+| `index.html` | `3717e509d4e749e5e5ea4b214e76a34cc2e87aa1558904f7139d4b44a496a47e` |
+| `sw.js` | `7f823c4faa0d4b233235d441133ec6daa632d3e5749dc87a6024835990f7245b` |
+| `assets/main-B03FB11N.js` | `2defec59c480ac021481267ac4f4398c7e2be7a4a00756acffdb0e00bfef7601` |
+
+Deployment and live identity evidence is appended after the exact committed
+build is pushed through the configured Static Web App deployment.
+
+---
+
 # Diagram Source Studio repair-4 handoff
 
 ## Status
