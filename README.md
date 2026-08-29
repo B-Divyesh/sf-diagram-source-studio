@@ -21,7 +21,7 @@ The compact D2 renderer is intentionally smaller than the full D2 language. Use 
 
 ## Free and Studio
 
-The free editor includes editing, diagnostics, single-version preview, and both exports. Studio costs $39 once and adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison. The checkout and license check use the Sociobot billing API. The purchase link appears only while the product is enabled in its live catalog.
+The free editor includes editing, diagnostics, single-version preview, and both exports. Studio adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison. Studio purchases are paused while the shared checkout return is repaired. No customer can pay before it can deliver a verified license. Existing Studio licenses still verify through the Sociobot billing API.
 
 ## Run the site and browser demo
 
@@ -72,7 +72,9 @@ npm run test:live:billing
 ```
 
 The live billing check confirms that the exact $39 USD product is present and
-opens a Dodo-hosted checkout session. Release builds run it before packaging.
+opens a Dodo-hosted checkout session. It does not prove a completed payment.
+The product deliberately hides checkout until the shared return handler can
+deliver and verify a license end to end.
 
 The claim manifest is [`.factory/claims.json`](.factory/claims.json). The demo contract is [`.factory/demo.md`](.factory/demo.md).
 

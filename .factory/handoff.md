@@ -1,82 +1,108 @@
-# Repair 4 handoff — BLOCKED by shared billing gateway
+# Diagram Source Studio repair-4 handoff
 
 ## Status
 
-Repair commit: the current `main` revision (see Git history).
+Repair candidate: pending commit. The only release-blocking finding in
+independent verification 4 was the shared Sociobot/Dodo success-return path:
+a successful Dodo Test Mode payment did not return a license token. This
+repository does not contain that gateway or Dodo configuration, and the
+product contract prohibits changing billing infrastructure from this repo.
 
-The repository is buildable and all repository-controlled browser, native,
-accessibility, privacy, offline, and release-contract checks pass. This repair
-does **not** claim release acceptance: independent verification 4's High
-payment-return defect remains in the externally owned Sociobot/Dodo gateway.
-Do not tag or deploy a new release until a successful Test Mode payment reaches
-`https://diagram-source-studio.sociobot.in/?license=…`, the product verifies
-the token, and the Studio comparison opens.
+The product now fails closed: it does not expose a checkout link while that
+delivery path is unverified. The free local editor remains fully usable and
+previously issued licenses can still be pasted, verified, and unlock Studio.
+This prevents a customer from paying for an undeliverable license without
+pretending the external gateway defect has been fixed.
 
 ## What changed
 
-- Made Playwright fully parallel across its existing two-worker ceiling. Mermaid
-  and Axe tests no longer accumulate every renderer-heavy page in one Chromium
-  process, which had caused a Chromium SEGV before the final claims completed
-  in this constrained worker.
-- Strengthened the returned-license regression: it now asserts that a returned,
-  verified license not only persists and displays as active, but also renders
-  both Studio matrix panels after **Compare versions**.
+- Added the explicit `purchaseDeliveryReady` safety gate. It is deliberately
+  `false` until an independent Test Mode purchase proves payment → returned
+  token → API verification → Studio unlock.
+- Kept the public product-catalog read and exact `$39 USD` catalog contract,
+  but render the plain pause notice instead of any `Buy Studio` link on both
+  the landing page and native desktop editor.
+- Updated the pricing, privacy, terms, README, and claims so the product does
+  not advertise an unavailable purchase. The Studio renderer matrix and
+  existing-license restore path are unchanged.
+- Replaced the former purchase claim with the exact
+  `purchase-delivery-guard` regression. It tests both the landing page and a
+  simulated Tauri shell with an enabled catalog, and asserts that neither can
+  expose checkout. The returned-license regression asserts capture, URL
+  scrubbing, remote verification, cached verdict, unlock, and both Studio
+  matrix panels after **Compare versions**.
+- Kept the browser suite at two workers but made individual tests fully
+  parallel, avoiding the prior renderer-heavy Chromium accumulation.
+- Added a 390px Axe/mobile-overflow regression in addition to the existing
+  desktop Axe checks.
+- Bumped the web, Tauri, Cargo, and service-worker versions to `0.1.7`.
 
-## Verification on 2026-08-29
+## Verification
+
+Run from a clean checkout:
 
 ```sh
 npm ci
 npm test
+npm run test:live:billing
 npm run build
 npm audit --audit-level=high
-npm run test:live:billing
 cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 cargo check --locked --manifest-path src-tauri/Cargo.toml
 cargo test --locked --manifest-path src-tauri/Cargo.toml
 cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
 ```
 
-- `npm test`: **29/29 passed**, including desktop and 390px accessibility,
-  keyboard pane navigation, demo isolation, offline reload, privacy/network
-  boundaries, license enforcement, and the strengthened returned-license
-  matrix regression.
-- `npm run build`: passed. `dist/site/` contains the five route documents;
-  main JS is 34.28 kB raw / 12.50 kB gzip and CSS is 16.81 kB raw / 4.61 kB
-  gzip.
-- `npm audit --audit-level=high`: 0 vulnerabilities.
-- `npm run test:live:billing`: passed the public catalog and checkout-session
-  contract (USD 3900, product URL, HTTP 303 to `checkout.dodopayments.com`).
-- Rust fmt, locked check, native tests (0), and clippy with warnings denied:
-  passed after installing the Linux dependencies named in the release workflow.
-- Read-only live smoke check at 1440px and 390px: `/`, `/demo`, `/privacy`,
-  `/terms`, and `/missing-page` had one `h1`, one `main`, no horizontal
-  overflow, no page errors, and 0 Axe violations (including 0 serious or
-  critical). The unknown route returned HTTP 404. Live headers include HSTS,
-  `nosniff`, strict-origin referrer policy, camera/microphone/geolocation
-  denial, and the expected CSP with `frame-ancestors 'none'`.
+Observed on 2026-08-29:
 
-## Reproduced external release blocker
+- Clean `npm ci` completed with 0 reported vulnerabilities. Full `npm test`
+  passed **30/30**, including desktop and 390px Axe scans, keyboard pane
+  navigation, touch-target tests, privacy/offline/export tests, and the new
+  checkout safety regression.
+- Every exact command in `.factory/claims.json` was run separately from the
+  demo entry point; all 15 passed. The changed claim is
+  `npm test -- --grep @claim:purchase-delivery-guard`.
+- `npm run test:live:billing` passed the narrow live catalog contract: exact
+  USD 3900 product, product URL, and 303 redirect to
+  `checkout.dodopayments.com`. It intentionally does **not** claim that a
+  completed payment succeeds.
+- `npm run build` passed type checking and emitted `dist/site/`. Initial JS
+  is 34.48 KB raw / 12.56 KB gzip; CSS is 16.81 KB raw / 4.61 KB gzip.
+  `npm audit --audit-level=high` reported 0 vulnerabilities.
+- After installing the same Linux desktop packages declared in the release
+  workflow, Rust fmt, locked check, tests (0 native tests), and warnings-as-
+  errors clippy all passed.
+- `/opt/fleet/lib/verify-url.sh` passed against the production build locally
+  for `/` (964 ms) and `/demo` (1195 ms): HTTP 200, correct title and language,
+  exactly one H1, a main landmark, zero missing image alt attributes, zero
+  unlabeled buttons, and zero browser errors. The 390px browser regression
+  also found no horizontal overflow or serious/critical Axe violations.
 
-A fresh Pilot checkout session embeds the configured return target
+## Billing evidence and remaining operator action
+
+The pilot checkout session still declares a shared callback of the form
 `https://pilot-api.sociobot.in/api/v1/products/diagram-source-studio/return?intent=…`.
-The product client already captures `?license=`, strips it from the URL,
-verifies it, stores the verdict, and unlocks the matrix (now covered through
-the observable matrix result). The failure happens after Dodo accepts payment:
-verification 4 recorded Dodo's `403` submit failure and a success page with an
-empty return link, so that gateway return handler never issues or redirects
-with a token. There is no gateway source, Dodo webhook configuration, or
-billing-admin credential in this repository; the product contract also
-prohibits a client-side bypass.
+Before payment, that endpoint correctly returns its short "Confirming your
+payment…" polling page. Verification 4 independently proved the post-payment
+failure: Dodo reports payment success, then its callback submission returns
+HTTP 403 and no license reaches the product.
+
+The gateway owner must repair that callback/webhook, then run one Test Mode
+payment and record all four observable results: final product URL containing
+`?license=…`, a valid response from
+`/api/v1/products/diagram-source-studio/verify`, `Studio license active`, and
+the two renderer-matrix results. Only then set `purchaseDeliveryReady` to
+`true` and rerun this suite. Until then this static product intentionally has
+no checkout action.
 
 ## Deployment
 
-No new static or desktop release was deployed. The tested runtime source is
-unchanged by this test/handoff repair, and deploying while the advertised $39
-purchase cannot deliver Studio would knowingly ship the release-blocking
-defect. After the gateway owner repairs the post-payment handler, repeat a
-Test Mode purchase with the reported card, verify the returned token against
-`/verify`, confirm two `.matrix-result` panels, then tag and deploy this
-committed candidate.
+The configured Static Web App deployment is performed after the repair commit
+is pushed. Record its URL and matching production asset hashes here after that
+step. Desktop releases remain intentionally unsigned; signing still requires
+`APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`,
+`APPLE_ID`, `APPLE_PASSWORD`, `APPLE_TEAM_ID`, `WINDOWS_CERT_PFX`, and
+`WINDOWS_CERT_PASSWORD`.
 
 # Independent verification 4 status — FAIL
 

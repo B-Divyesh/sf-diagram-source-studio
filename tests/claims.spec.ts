@@ -199,20 +199,38 @@ test('@claim:release-installers manifest URLs and shell installer match publishe
   expect(await readFile(join(bin, 'diagram-source-studio'), 'utf8')).toBe(names[3]);
 });
 
-test('@claim:studio-purchase the enabled $39 product uses Sociobot checkout', async ({ page }) => {
+test('@claim:purchase-delivery-guard the landing and desktop editor never expose checkout while delivery is paused', async ({ page, context }) => {
   await page.goto('/');
-  await expect(page.getByText('$39', { exact: true })).toBeVisible();
-  await expect(page.getByText('One-time purchase', { exact: true })).toBeVisible();
+  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
+  await expect(page.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
+
+  let catalogRequests = 0;
+  const desktop = await context.newPage();
+  await desktop.addInitScript(() => Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} }));
+  await desktop.route('**/api/v1/products', (route) => {
+    catalogRequests += 1;
+    return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
+  });
+  await desktop.goto('/');
+  await expect(desktop.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
+  await expect(desktop.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
+  expect(catalogRequests).toBe(1);
   const eligibility = await page.evaluate(async () => {
     const modulePath = '/src/license.ts';
-    const { checkoutUrl, studioProductEnabled } = await import(/* @vite-ignore */ modulePath);
+    const { checkoutUrl, purchaseDeliveryReady, studioProductEnabled } = await import(/* @vite-ignore */ modulePath);
     return {
-      enabled: studioProductEnabled([{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }]),
+      catalogContract: studioProductEnabled([{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }]),
       wrongPrice: studioProductEnabled([{ slug: 'diagram-source-studio', price_minor: 1, currency: 'USD' }]),
-      checkoutUrl
+      checkoutUrl,
+      purchaseDeliveryReady
     };
   });
-  expect(eligibility).toEqual({ enabled: true, wrongPrice: false, checkoutUrl: 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout' });
+  expect(eligibility).toEqual({
+    catalogContract: true,
+    wrongPrice: false,
+    checkoutUrl: 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout',
+    purchaseDeliveryReady: false
+  });
 });
 
 test('@claim:billing-catalog native startup checks the public catalog once and discloses it', async ({ page }) => {
@@ -225,7 +243,8 @@ test('@claim:billing-catalog native startup checks the public catalog once and d
     return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
   });
   await page.goto('/');
-  await expect(page.getByRole('link', { name: 'Buy Studio for $39 once' })).toBeVisible();
+  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
+  await expect(page.getByRole('link', { name: /Buy Studio/ })).toHaveCount(0);
   expect(catalogRequests).toBe(1);
   const application = await readFile(resolve('src/main.ts'), 'utf8');
   expect(application).toContain('The app checks the public Sociobot catalog once to show purchase availability.');
@@ -300,8 +319,8 @@ test('SPA route remount keeps one export handler', async ({ page }) => {
   await expect.poll(() => downloads).toEqual(['diagram.svg']);
 });
 
-test('purchase action only appears when the billing catalog enables the product', async ({ page }) => {
+test('purchase action stays hidden when the billing catalog is unavailable', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByText('Purchases are temporarily unavailable.')).toBeVisible();
+  await expect(page.getByText('Studio purchases are paused while checkout delivery is repaired. The free editor still works.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Buy Studio' })).toHaveCount(0);
 });

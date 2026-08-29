@@ -13,7 +13,7 @@ Audited 2026-08-28. Counts split on spaces and treat hyphenated terms as one wor
 | Loads a Mermaid project in the browser. | 7 |
 | Files stay on your device | 5 |
 | Core editing works offline | 4 |
-| Free editor · Studio is $39 once | 7 |
+| Free editor · Studio purchases paused | 6 |
 | A neon diagram on a repair bench has one broken magenta connection. | 11 |
 | Render difference found between two bundled versions | 7 |
 
@@ -43,20 +43,18 @@ Read-aloud result: the headline, audience sentence, and sample action fit in one
 | Source stays local. | 3 |
 | Purchase availability checks the public catalog once. | 7 |
 | License checks send only the token you enter. | 8 |
-| Compare both bundled Mermaid versions | 5 |
+| Studio purchases are paused | 4 |
 | The free editor previews, diagnoses, and exports diagrams. | 8 |
 | Studio adds the side-by-side renderer matrix. | 6 |
-| Studio license | 2 |
-| $39 | 1 |
-| One-time purchase | 2 |
-| Buy Studio | 2 |
+| Studio comparison | 2 |
+| Purchases paused | 2 |
+| No payment is accepted until checkout can deliver a verified license. | 11 |
 | Checking purchase availability… | 3 |
-| Purchases are temporarily unavailable. | 4 |
+| Studio purchases are paused while checkout delivery is repaired. | 9 |
 | The free editor still works. | 5 |
-| Already bought it? | 3 |
-| Download the app to paste your license. | 7 |
-| Sociobot/Dodo is the merchant of record. | 6 |
-| Refunds are handled there. | 4 |
+| Already have a Studio license? | 5 |
+| Download the app to paste it. | 6 |
+| The free editor remains available while checkout delivery is repaired. | 10 |
 | Install it beside your repository | 5 |
 | Desktop builds are unsigned until the project owner adds signing certificates. | 10 |
 | Checking the latest release… | 4 |

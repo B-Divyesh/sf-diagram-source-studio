@@ -91,11 +91,11 @@
     "sandbox": "temporary five-platform release fixture; generate manifest, match URL filenames, then run shell installer against a pretty GitHub-style response and checksum"
   },
   {
-    "id": "studio-purchase",
-    "claim": "Studio costs $39 once and uses the Sociobot checkout",
+    "id": "purchase-delivery-guard",
+    "claim": "Studio purchases stay unavailable until checkout can deliver a verified license",
     "where": "landing pricing, license panel, README",
-    "test": "npm test -- --grep @claim:studio-purchase",
-    "sandbox": "fresh landing page with a recorded enabled-product catalog response; assert exact price, purchase type, and Sociobot checkout URL"
+    "test": "npm test -- --grep @claim:purchase-delivery-guard",
+    "sandbox": "fresh native-style workspace with a recorded enabled-product catalog response; assert the pause notice appears and no checkout link is exposed"
   },
   {
     "id": "billing-catalog",

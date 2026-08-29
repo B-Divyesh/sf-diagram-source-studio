@@ -21,6 +21,12 @@ const storeFor = (demo: boolean): LicenseStore => demo ? demoStore : localStorag
 export interface LicenseState { unlocked: boolean; notice?: string }
 export interface BillingProduct { slug?: string; price_minor?: number; currency?: string }
 
+// The shared Sociobot/Dodo return handler must issue a token that this client
+// can verify before a customer can be sent to checkout. Keep this false until
+// that end-to-end contract has been independently verified in Test Mode.
+export const purchaseDeliveryReady = false;
+export const purchaseDeliveryNotice = 'Studio purchases are paused while checkout delivery is repaired. The free editor still works.';
+
 export function studioProductEnabled(products: BillingProduct[] | undefined): boolean {
   return Boolean(products?.some((product) => product.slug === 'diagram-source-studio' && product.price_minor === 3900 && product.currency === 'USD'));
 }
