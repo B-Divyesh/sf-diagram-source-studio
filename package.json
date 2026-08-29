@@ -1,16 +1,17 @@
 {
   "name": "diagram-source-studio",
   "private": true,
-  "version": "0.1.9",
+  "version": "0.1.10",
   "type": "module",
   "scripts": {
     "dev": "node scripts/prepare-renderers.mjs && vite",
     "build": "npm run build:site",
     "build:site": "node scripts/prepare-renderers.mjs && tsc --noEmit && vite build",
     "tauri": "tauri",
-    "test": "node scripts/run-tests.mjs",
+    "test": "node scripts/check-test-prerequisites.mjs && node scripts/run-tests.mjs",
     "test:e2e": "node scripts/run-tests.mjs",
     "test:live:billing": "node scripts/verify-live-billing.mjs",
+    "verify:release": "node scripts/verify-release-version.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

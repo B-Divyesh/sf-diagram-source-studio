@@ -9,7 +9,41 @@ permissions:
   contents: write
 
 jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify synchronized release version and tag
+        id: release
+        shell: bash
+        run: |
+          tag="$(npm run --silent verify:release)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+  quality:
+    needs: metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run build
+      - run: npm audit --audit-level=high
+
   live-billing:
+    needs: metadata
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +55,7 @@ jobs:
       - run: npm run test:live:billing
 
   build:
-    needs: live-billing
+    needs: [quality, live-billing]
     strategy:
       fail-fast: false
       matrix:
@@ -70,7 +104,7 @@ jobs:
           if-no-files-found: error
 
   publish:
-    needs: build
+    needs: [metadata, build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -88,9 +122,10 @@ jobs:
           done
           cd release-assets
           find . -maxdepth 1 -type f ! -name 'SHA256SUMS' ! -name 'latest.json' -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
-          node ../scripts/release-manifest.mjs "${GITHUB_REF_NAME}"
+          node ../scripts/release-manifest.mjs "${{ needs.metadata.outputs.tag }}" "${GITHUB_SHA}"
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ needs.metadata.outputs.tag }}
           files: release-assets/*
           generate_release_notes: true
           fail_on_unmatched_files: true

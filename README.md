@@ -64,6 +64,17 @@ irm https://diagram-source-studio.sociobot.in/install.ps1 | iex
 
 ## Test
 
+Test requirements: Node.js 22, npm, a POSIX `sh`, `sha256sum`, PowerShell 7
+(`pwsh`), and Chromium for Playwright. Install the browser after `npm ci`:
+
+```sh
+npx playwright install --with-deps chromium
+```
+
+Install PowerShell 7 from Microsoft's package for your operating system if
+`pwsh --version` is unavailable. The test command checks these executables
+before starting, so a missing prerequisite reports one setup error.
+
 Playwright 1.58.2 runs each public claim from a clean browser context:
 
 ```sh
@@ -91,7 +102,11 @@ Read the in-product `/privacy` and `/terms` routes for user-facing details.
 
 ## Release
 
-Push a `v*` tag or start **Release desktop apps** in GitHub Actions. The workflow builds Linux, Windows, macOS arm64, and macOS x64 packages. It publishes matching SHA256 checksums and `latest.json` URLs with the GitHub Release.
+Set the same version in the npm, Cargo, and Tauri files. Then push its matching
+`v*` tag, or start **Release desktop apps** on that commit in GitHub Actions.
+The workflow rejects a mismatched tag, runs the complete browser suite, and
+builds Linux, Windows, macOS arm64, and macOS x64 packages. It publishes
+matching SHA256 checksums and `latest.json` URLs with the exact build commit.
 
 Unsigned builds show the operating system's normal warning. See [`.factory/handoff.md`](.factory/handoff.md) for signing secrets the operator must add.
 

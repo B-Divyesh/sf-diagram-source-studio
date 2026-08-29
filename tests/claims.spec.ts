@@ -197,14 +197,16 @@ test('@claim:unsigned-builds release workflow keeps unsigned builds explicit', a
 
 test('@claim:release-installers workflow builds four platforms and both installers refuse bad checksums', async () => {
   const root = await mkdtemp(join(tmpdir(), 'dss-release-'));
+  const releaseCommit = '0123456789abcdef0123456789abcdef01234567';
   const names = [
     'Diagram.Source.Studio_0.1.5_aarch64.dmg', 'Diagram.Source.Studio_0.1.5_x64.dmg',
     'Diagram.Source.Studio_0.1.5_x64_en-US.msi', 'diagram-source-studio_0.1.5_amd64.AppImage',
     'diagram-source-studio_0.1.5_amd64.deb'
   ];
   await Promise.all(names.map((name) => writeFile(join(root, name), name)));
-  await exec(process.execPath, [resolve('scripts/release-manifest.mjs'), 'v0.1.5'], { cwd: root });
-  const manifest = JSON.parse(await readFile(join(root, 'latest.json'), 'utf8')) as { assets: Record<string, { name: string; url: string }> };
+  await exec(process.execPath, [resolve('scripts/release-manifest.mjs'), 'v0.1.5', releaseCommit], { cwd: root });
+  const manifest = JSON.parse(await readFile(join(root, 'latest.json'), 'utf8')) as { version: string; commit: string; assets: Record<string, { name: string; url: string }> };
+  expect(manifest).toMatchObject({ version: 'v0.1.5', commit: releaseCommit });
   expect(Object.keys(manifest.assets)).toHaveLength(5);
   for (const asset of Object.values(manifest.assets)) {
     expect(asset.name).not.toContain(' ');
@@ -229,6 +231,16 @@ test('@claim:release-installers workflow builds four platforms and both installe
   expect(workflow).toContain('aarch64-apple-darwin');
   expect(workflow).toContain('x86_64-apple-darwin');
   expect(workflow).toContain('tauri-apps/tauri-action@v0');
+  expect(workflow).toContain('npm test');
+  expect(workflow).toContain('verify:release');
+  expect(workflow).toContain('"${GITHUB_SHA}"');
+  expect(workflow).toContain('tag_name: ${{ needs.metadata.outputs.tag }}');
+
+  const releaseTag = (await exec(process.execPath, [resolve('scripts/verify-release-version.mjs')])).stdout.trim();
+  const packageVersion = JSON.parse(await readFile(resolve('package.json'), 'utf8')).version;
+  expect(releaseTag).toBe(`v${packageVersion}`);
+  const readme = await readFile(resolve('README.md'), 'utf8');
+  expect(readme).toMatch(/PowerShell 7\s+\(`pwsh`\)/);
 
   const windowsName = names[2];
   const windowsPayload = Buffer.from('fixture MSI payload');

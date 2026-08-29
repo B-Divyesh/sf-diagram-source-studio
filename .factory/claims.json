@@ -85,10 +85,10 @@
   },
   {
     "id": "release-installers",
-    "claim": "GitHub Actions builds Linux, Windows, macOS arm64, and macOS x64 releases, with SHA256 checksums, latest.json, and checked installers",
+    "claim": "GitHub Actions tests and builds Linux, Windows, macOS arm64, and macOS x64 releases, with SHA256 checksums, exact commit provenance, latest.json, and checked installers",
     "where": "download panel, README",
     "test": "npm test -- --grep @claim:release-installers",
-    "sandbox": "temporary five-platform release fixture; inspect the GitHub Actions matrix, then run shell and PowerShell installers against matching and mismatched checksums"
+    "sandbox": "temporary five-platform release fixture; assert synchronized versions and exact commit provenance; inspect the GitHub Actions quality gate and matrix; then run shell and PowerShell installers against matching and mismatched checksums"
   },
   {
     "id": "studio-purchase",
