@@ -1,4 +1,4 @@
-# Polish 2 handoff — repair ready for static deployment
+# Polish 2 handoff — deployed and rechecked
 
 Repair commit: `3e9f2783f8d97bd6bf35de1343e9ac12c9dda711` (based on review commit `f9a7907fb81702ea13cb0b05ad3354ccabf5ea27`).
 
@@ -32,4 +32,11 @@ The full finding-to-evidence map is in [`.factory/polish-2.md`](polish-2.md).
 
 ## Deployment and known gaps
 
-Static deployment and a cold live recheck of `/`, `/?demo=1`, `/demo`, `/privacy`, `/terms`, and an unknown route are the remaining work in this work order. No product defects are known locally. Desktop release bundles remain intentionally unsigned until the operator adds `APPLE_CERTIFICATE` and `WINDOWS_CERT_PFX` to GitHub Actions; the app discloses that state before download.
+Deployed `dist/site` through the static work-order configuration to `https://diagram-source-studio.sociobot.in` (Azure Static Web Apps deployment `69444b68-7f81-46f4-bcb6-e16bd3f74e2c`). Cold live checks passed for `/`, `/?demo=1`, `/demo`, `/privacy`, `/terms`, and `/does-not-exist`:
+
+- `verify-url.sh` passed for the landing and demo with no page or console errors.
+- Live Axe scans found zero serious or critical issues on every route above.
+- The landing’s complete action/result/fact package ended at 755 px on 1440×900 and 540 px on 390×844.
+- The live demo showed the persistent banner, Reset demo, Start for real, Privacy, Terms, and footer. The live 404 showed the literal heading and recovery sentence.
+
+Evidence lives in `.factory/polish-artifacts-2/live-root/verify.json`, `live-demo/verify.json`, `live-axe.json`, and `live-recheck.json`. No product defects are known. Desktop release bundles remain intentionally unsigned until the operator adds `APPLE_CERTIFICATE` and `WINDOWS_CERT_PFX` to GitHub Actions; the app discloses that state before download.

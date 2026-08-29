@@ -1,0 +1,78 @@
+{
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "boxes": [
+      {
+        "selector": ".hero-actions a",
+        "bottom": 605
+      },
+      {
+        "selector": ".hero-actions span",
+        "bottom": 644
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 687
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 721
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 755
+      }
+    ],
+    "allWithin": true,
+    "title": "Diagram Source Studio — check diagram renders"
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "boxes": [
+      {
+        "selector": ".hero-actions a",
+        "bottom": 414
+      },
+      {
+        "selector": ".hero-actions span",
+        "bottom": 442
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 480
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 510
+      },
+      {
+        "selector": ".plain-facts li",
+        "bottom": 540
+      }
+    ],
+    "allWithin": true,
+    "title": "Diagram Source Studio — check diagram renders"
+  },
+  "demo": {
+    "banner": true,
+    "reset": true,
+    "start": true,
+    "privacy": true,
+    "terms": true,
+    "footer": true
+  },
+  "notFound": {
+    "heading": true,
+    "copy": true,
+    "status": true
+  },
+  "errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ]
+}

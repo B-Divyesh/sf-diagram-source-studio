@@ -1,0 +1,28 @@
+{
+  "/": {
+    "seriousOrCritical": [],
+    "errors": []
+  },
+  "/?demo=1": {
+    "seriousOrCritical": [],
+    "errors": []
+  },
+  "/demo": {
+    "seriousOrCritical": [],
+    "errors": []
+  },
+  "/privacy": {
+    "seriousOrCritical": [],
+    "errors": []
+  },
+  "/terms": {
+    "seriousOrCritical": [],
+    "errors": []
+  },
+  "/does-not-exist": {
+    "seriousOrCritical": [],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ]
+  }
+}
