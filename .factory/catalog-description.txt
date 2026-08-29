@@ -1,1 +1,1 @@
-Compare Mermaid and D2 render changes before you commit.
+Catch Mermaid and D2 render changes before you commit.

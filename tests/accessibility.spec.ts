@@ -39,14 +39,24 @@ test('mobile accessibility baseline has no serious or critical violations', asyn
   expect(errors).toEqual([]);
 });
 
-test('landing primary action is visible on a common laptop viewport', async ({ page }) => {
-  await page.setViewportSize({ width: 1366, height: 768 });
-  await page.goto('/');
-  const action = page.getByRole('link', { name: 'Try it with sample data' });
-  const box = await action.boundingBox();
-  expect(box).not.toBeNull();
-  expect(box!.y + box!.height).toBeLessThanOrEqual(768);
-  await expect(page.locator('.plain-facts')).toBeInViewport();
+test('landing complete first-screen package fits at required desktop and mobile viewports', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const required = [page.getByRole('link', { name: 'Try it with sample data' }), page.locator('.hero-actions span'), ...await page.locator('.plain-facts li').all()];
+    for (const item of required) {
+      const box = await item.boundingBox();
+      expect(box, `${viewport.width}x${viewport.height} item is missing`).not.toBeNull();
+      expect(box!.y + box!.height, `${viewport.width}x${viewport.height} item is below the first screen`).toBeLessThanOrEqual(viewport.height);
+    }
+  }
+});
+
+test('404 names the missing page plainly', async ({ page }) => {
+  await page.goto('/missing-page');
+  await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
+  await expect(page.getByText('This page does not exist. Return to the home page.')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Return home' })).toBeVisible();
 });
 
 test('mobile navigation and demo actions meet 44px touch targets', async ({ page }) => {

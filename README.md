@@ -2,26 +2,26 @@
 
 Catch Mermaid and D2 render changes before you commit.
 
-Diagram Source Studio is a local-first workbench for engineers who keep diagrams in Git. Edit source beside its output. Read diagnostics. Compare Mermaid 10.9.8 with 11.17.2. Export SVG or PNG with the source embedded.
+Diagram Source Studio runs on your device for engineers who keep diagrams in Git. Edit source beside its render. Read diagnostics. Compare Mermaid 10.9.8 with 11.17.2. Export SVG or PNG renders with the source embedded.
 
 Live site: <https://diagram-source-studio.sociobot.in><br>
 One-click demo: <https://diagram-source-studio.sociobot.in/demo>
 
 ## What ships
 
-- Mermaid preview through two self-hosted renderer versions.
+- Mermaid preview through two bundled renderer versions.
 - A compact D2 renderer for nodes, labels, and arrows.
 - Syntax diagnostics and an offline reference.
 - Native open and save dialogs in the Tauri app.
 - SVG and PNG export with embedded UTF-8 source metadata.
 - A demo that keeps sample edits separate from real data.
-- No telemetry, diagram upload, third-party fonts, or runtime CDN.
+- No telemetry, diagram uploads, third-party fonts, or code loaded from another site.
 
 The compact D2 renderer is intentionally smaller than the full D2 language. Use Mermaid for diagrams that need shapes beyond nodes, labels, and arrows.
 
 ## Free editor and Studio license
 
-The free editor includes editing, diagnostics, single-version preview, and both exports. Studio adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison for a one-time $39 USD license. Studio checkout is hosted by Dodo Payments. After payment, checkout returns a license token. The app saves it locally, removes it from the address, verifies it, and enables Studio. Existing Studio licenses can also be pasted into the app.
+The free editor includes editing, diagnostics, one-version preview, and both exports. Studio adds a side-by-side comparison of Mermaid 10.9.8 and 11.17.2 for a one-time $39 USD license. Studio checkout is hosted by Dodo Payments. After payment, checkout returns a license token. The app saves it locally, removes it from the address, verifies it, and enables Studio. Existing Studio licenses can also be pasted into the app.
 
 ## Run the site and browser demo
 
@@ -32,7 +32,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:4173/demo`. The production site build lands at the work-order path `dist/site`:
+Open `http://127.0.0.1:4173/demo`. The production site build is written to `dist/site`:
 
 ```sh
 npm run build:site
@@ -48,7 +48,7 @@ npm ci
 npm run tauri dev
 ```
 
-Create a local platform bundle with `npm run tauri build`. Release bundles are built on GitHub Actions, not in the factory worker.
+Create a local platform bundle with `npm run tauri build`. GitHub Actions builds release bundles.
 
 Linux users can install the checked AppImage from the latest release:
 
@@ -81,7 +81,7 @@ The claim manifest is [`.factory/claims.json`](.factory/claims.json). The demo c
 ## Privacy and security
 
 Diagram contents stay on the device during the tested edit and export flow.
-SVG output is parsed before display. Scripts, links, embedded objects, event
+SVG renders are parsed before display. Scripts, links, embedded objects, event
 handlers, and external references are removed. The landing page requests public
 release and purchase availability data. It does not send diagram source with
 those requests. A license check sends only the token you enter to

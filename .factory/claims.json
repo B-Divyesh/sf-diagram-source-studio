@@ -71,7 +71,7 @@
   },
   {
     "id": "no-tracking",
-    "claim": "The editor uses no telemetry or runtime CDN",
+    "claim": "The editor uses no telemetry and loads no runtime code from another site",
     "where": "privacy page, README",
     "test": "npm test -- --grep @claim:no-tracking",
     "sandbox": "fresh /demo edit and render while recording all requests; assert every request is same-origin"
@@ -85,10 +85,10 @@
   },
   {
     "id": "release-installers",
-    "claim": "Release downloads have matching platform filenames and SHA256 verification",
+    "claim": "GitHub Actions builds Linux, Windows, macOS arm64, and macOS x64 releases, with SHA256 checksums, latest.json, and checked installers",
     "where": "download panel, README",
     "test": "npm test -- --grep @claim:release-installers",
-    "sandbox": "temporary five-platform release fixture; generate manifest, match URL filenames, then run shell installer against a pretty GitHub-style response and checksum"
+    "sandbox": "temporary five-platform release fixture; inspect the GitHub Actions matrix, then run shell and PowerShell installers against matching and mismatched checksums"
   },
   {
     "id": "studio-purchase",

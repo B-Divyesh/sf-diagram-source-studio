@@ -4,7 +4,7 @@ import { billingCatalogUrl, canCheckBillingCatalog, checkoutUrl, localLicenseSta
 const D2_SAMPLE = `direction: right
 source: Diagram source
 current: D2 compact
-check: Inspect output
+check: Inspect render
 export: Export with source
 source -> current: render
 current -> check: compare
@@ -38,16 +38,14 @@ export function editorView(demo: boolean): string {
       </nav>
     </header>
     <main id="main" class="studio-main" tabindex="-1">
-      <h1 class="sr-only" tabindex="-1">Check diagram render output</h1>
+      <h1 class="sr-only" tabindex="-1">Check diagram renders</h1>
       <aside class="studio-rail" aria-label="Diagram settings">
         <div class="rail-section">
-          <p class="eyebrow">01 / source</p>
           <label for="engine">Diagram language</label>
           <select id="engine"><option value="mermaid">Mermaid</option><option value="d2">D2</option></select>
           <button data-action="load-sample">Load sample project</button>
         </div>
         <div class="rail-section diagnostics">
-          <p class="eyebrow">02 / inspection</p>
           <h2>Diagnostics</h2>
           <div id="diagnostics" class="status pending" aria-live="polite">Waiting for the renderer.</div>
         </div>
@@ -56,7 +54,7 @@ export function editorView(demo: boolean): string {
           <div id="reference-copy"><code>flowchart LR</code><p>Use <code>A --&gt; B</code> for an arrow.</p><p>Use <code>A[Label]</code> for a named node.</p></div>
         </details>
         <div class="rail-section license-panel">
-          <p class="eyebrow">03 / license</p>
+          <h2>Studio license</h2>
           <div id="license-state">Checking local license…</div>
           <details><summary>Have a license?</summary><label for="license-token">License token</label><input id="license-token" autocomplete="off" /><button data-action="restore-license">Verify license</button></details>
         </div>
@@ -185,7 +183,7 @@ export function mountEditor(demo: boolean) {
   async function compare() {
     if (engine.value === 'd2') return say('D2 compact has one bundled renderer.');
     if (!unlocked) {
-      say('The renderer matrix is in the one-time Studio license.');
+      say('The side-by-side comparison is in the one-time Studio license.');
       document.querySelector('.license-panel')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
@@ -194,7 +192,7 @@ export function mountEditor(demo: boolean) {
     const panel = (label: string, result: Awaited<ReturnType<typeof renderDiagram>>) => `<article class="matrix-result"><h3>${label}</h3>${result.error ? `<p class="error-copy">${escapeHtml(result.error)}</p>` : result.svg}</article>`;
     preview.innerHTML = `<div class="matrix">${panel('Mermaid 11.17.2', current)}${panel('Mermaid 10.9.8', previous)}</div>`;
     diagnostics.className = current.error || previous.error ? 'status warning' : 'status success';
-    diagnostics.textContent = current.error || previous.error ? 'At least one bundled renderer stopped. Compare its message.' : (current.svg === previous.svg ? 'Both renderer outputs match exactly.' : 'Renderer outputs differ. Inspect both previews.');
+    diagnostics.textContent = current.error || previous.error ? 'At least one bundled renderer stopped. Compare its message.' : (current.svg === previous.svg ? 'Both renders match exactly.' : 'Renders differ. Inspect both previews.');
   }
 
   async function openFile(file?: File) {

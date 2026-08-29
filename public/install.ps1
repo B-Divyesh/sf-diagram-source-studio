@@ -1,5 +1,6 @@
 $ErrorActionPreference = "Stop"
-$release = Invoke-RestMethod "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases/latest"
+$releaseApi = if ($env:DIAGRAM_SOURCE_STUDIO_RELEASE_API) { $env:DIAGRAM_SOURCE_STUDIO_RELEASE_API } else { "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases/latest" }
+$release = Invoke-RestMethod $releaseApi
 $installer = $release.assets | Where-Object { $_.name -match '\.msi$' } | Select-Object -First 1
 $checksums = $release.assets | Where-Object { $_.name -eq 'SHA256SUMS' } | Select-Object -First 1
 if (-not $installer -or -not $checksums) { throw "Windows downloads are still being published." }
@@ -15,6 +16,8 @@ try {
   $expected = ($line -split '\s+')[0].ToLowerInvariant()
   $actual = (Get-FileHash $installerPath -Algorithm SHA256).Hash.ToLowerInvariant()
   if (-not $expected -or $expected -ne $actual) { throw "Checksum verification failed." }
-  Start-Process msiexec.exe -ArgumentList "/i `"$installerPath`"" -Wait
+  if ($env:DIAGRAM_SOURCE_STUDIO_TEST_NO_INSTALL -ne "1") {
+    Start-Process msiexec.exe -ArgumentList "/i `"$installerPath`"" -Wait
+  }
   Write-Host "Installed Diagram Source Studio after SHA256 verification."
 } finally { Remove-Item -Recurse -Force $tempDir }

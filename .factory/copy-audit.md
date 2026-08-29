@@ -8,7 +8,7 @@ Audited 2026-08-29. Counts split on spaces and treat hyphenated terms and produc
 | --- | ---: |
 | Diagram renderer comparison | 3 |
 | Catch broken diagram renders before commit | 6 |
-| For engineers who keep Mermaid or D2 files in Git and need to inspect real output. | 15 |
+| For engineers who keep Mermaid or D2 files in Git and need to inspect real output. | 16 |
 | Try it with sample data | 5 |
 | Loads a Mermaid project in the browser. | 7 |
 | Files stay on your device | 5 |
@@ -21,7 +21,7 @@ Read-aloud result: the headline, audience sentence, action, and result fit in on
 
 | Copy | Words |
 | --- | ---: |
-| Inspect the output beside its source | 6 |
+| Inspect the render beside its source | 6 |
 | Use the browser demo now. | 5 |
 | Install the desktop app when you need native files. | 9 |
 | Check a diagram in three steps | 6 |
@@ -30,7 +30,7 @@ Read-aloud result: the headline, audience sentence, action, and result fit in on
 | Compare the renders | 3 |
 | Place two bundled Mermaid versions side by side. | 8 |
 | Export an editable file | 4 |
-| Save SVG or PNG output with the source embedded. | 9 |
+| Save SVG or PNG renders with the source embedded. | 9 |
 
 ## Boundaries, price, and downloads
 
@@ -43,7 +43,7 @@ Read-aloud result: the headline, audience sentence, action, and result fit in on
 | License checks send only the token you enter. | 8 |
 | Compare two Mermaid versions | 4 |
 | The free editor previews, reports syntax problems, and exports diagrams. | 10 |
-| Studio adds the side-by-side renderer matrix. | 6 |
+| Studio adds a side-by-side comparison. | 5 |
 | Studio checkout is hosted by Dodo Payments. | 8 |
 | Refunds revoke the license. | 4 |
 | Download the desktop app | 5 |
@@ -57,9 +57,9 @@ Dynamic release labels contain only a release tag and operating-system name. Dyn
 | --- | --- |
 | Text diagram input | source |
 | Generated graphic | render |
-| Side-by-side version view | renderer matrix |
+| Side-by-side version view | side-by-side comparison |
 | Browser sample environment | demo |
 | Paid entitlement | Studio license |
-| Saved output | export |
+| Saved file | export |
 
-Catalog description: “Compare Mermaid and D2 render changes before you commit.” (9 words, 55 characters)
+Catalog description: “Catch Mermaid and D2 render changes before you commit.” (9 words, 54 characters)

@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { execFile } from 'node:child_process';
 import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
@@ -194,7 +195,7 @@ test('@claim:unsigned-builds release workflow keeps unsigned builds explicit', a
   expect(workflow).not.toMatch(/APPLE_CERTIFICATE|WINDOWS_CERT_PFX/);
 });
 
-test('@claim:release-installers manifest URLs and shell installer match published filenames', async () => {
+test('@claim:release-installers workflow builds four platforms and both installers refuse bad checksums', async () => {
   const root = await mkdtemp(join(tmpdir(), 'dss-release-'));
   const names = [
     'Diagram.Source.Studio_0.1.5_aarch64.dmg', 'Diagram.Source.Studio_0.1.5_x64.dmg',
@@ -220,6 +221,52 @@ test('@claim:release-installers manifest URLs and shell installer match publishe
   const bin = join(root, 'bin'); await mkdir(bin);
   await exec('sh', [resolve('public/install.sh')], { env: { ...process.env, XDG_BIN_HOME: bin, DIAGRAM_SOURCE_STUDIO_RELEASE_API: `file://${join(root, 'release.json')}` } });
   expect(await readFile(join(bin, 'diagram-source-studio'), 'utf8')).toBe(names[3]);
+
+  const workflow = await readFile(resolve('.github/workflows/release.yml'), 'utf8');
+  expect(workflow).toContain('- os: ubuntu-latest');
+  expect(workflow).toContain('- os: windows-latest');
+  expect(workflow.match(/os: macos-latest/g)).toHaveLength(2);
+  expect(workflow).toContain('aarch64-apple-darwin');
+  expect(workflow).toContain('x86_64-apple-darwin');
+  expect(workflow).toContain('tauri-apps/tauri-action@v0');
+
+  const windowsName = names[2];
+  const windowsPayload = Buffer.from('fixture MSI payload');
+  const windowsHash = (await import('node:crypto')).createHash('sha256').update(windowsPayload).digest('hex');
+  let mismatch = false;
+  const server = createServer((request, response) => {
+    const host = `http://${request.headers.host}`;
+    if (request.url === '/release') {
+      response.setHeader('content-type', 'application/json');
+      response.end(JSON.stringify({ assets: [
+        { name: windowsName, browser_download_url: `${host}/download/${windowsName}` },
+        { name: 'SHA256SUMS', browser_download_url: `${host}/download/SHA256SUMS` }
+      ] }));
+      return;
+    }
+    if (request.url === `/download/${windowsName}`) { response.end(windowsPayload); return; }
+    if (request.url === '/download/SHA256SUMS') {
+      response.end(`${mismatch ? '0'.repeat(64) : windowsHash}  ${windowsName}\n`);
+      return;
+    }
+    response.statusCode = 404; response.end();
+  });
+  await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
+  const address = server.address();
+  if (!address || typeof address === 'string') throw new Error('fixture server did not bind');
+  const powershellEnv = {
+    ...process.env,
+    DIAGRAM_SOURCE_STUDIO_RELEASE_API: `http://127.0.0.1:${address.port}/release`,
+    DIAGRAM_SOURCE_STUDIO_TEST_NO_INSTALL: '1'
+  };
+  try {
+    const success = await exec('pwsh', ['-NoProfile', '-File', resolve('public/install.ps1')], { env: powershellEnv });
+    expect(success.stdout).toContain('Installed Diagram Source Studio after SHA256 verification.');
+    mismatch = true;
+    await expect(exec('pwsh', ['-NoProfile', '-File', resolve('public/install.ps1')], { env: powershellEnv })).rejects.toMatchObject({ stderr: expect.stringContaining('Checksum verification failed.') });
+  } finally {
+    await new Promise<void>((done, fail) => server.close((error) => error ? fail(error) : done()));
+  }
 });
 
 test('@claim:studio-purchase checkout return saves, verifies, and unlocks Studio after the exact $39 offer is available', async ({ page, context }) => {
@@ -345,7 +392,7 @@ test('@claim:refund-revocation a revoked verification response locks Studio comp
   expect(verificationRequests).toBe(1);
   await page.getByRole('button', { name: 'Compare versions' }).click();
   await expect(page.locator('.matrix-result')).toHaveCount(0);
-  await expect(page.getByText('The renderer matrix is in the one-time Studio license.')).toBeVisible();
+  await expect(page.getByText('The side-by-side comparison is in the one-time Studio license.')).toBeVisible();
 });
 
 test('@claim:checkout-provider recorded checkout redirects to Dodo Payments', async () => {
