@@ -92,8 +92,13 @@ main asset `assets/main-CQ7BGZPZ.js` match the local production build exactly:
 | `assets/main-CQ7BGZPZ.js` | `684a29bdc53d48915f40871d78ccd09ff33e520f652d53c33751d531b5223845` |
 
 Live billing verification passed for the exact USD 3900 product, including the
-hosted Dodo checkout HTTP 200 response. The existing release workflow remains
-responsible for desktop packages; no signing or billing configuration changed.
+hosted Dodo checkout HTTP 200 response. Annotated tag `v0.1.9` triggered
+GitHub Actions run `33239834728`, which passed live billing and all macOS
+arm64/x64, Windows, and Linux package builds before publishing release
+`v0.1.9`. `latest.json` contains all five platform mappings. The downloaded
+Linux AMD64 deb reports version `0.1.9`; its SHA-256
+`28bcd799232c046eec81bcd97c3ac9c25f9773ca86fcc16832b2bb027ac9ff5a`
+matches `SHA256SUMS` exactly. No signing or billing configuration changed.
 
 ---
 
