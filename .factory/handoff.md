@@ -74,9 +74,26 @@ Observed on 2026-08-29:
 
 ## Deployment and release
 
-The static deployment and GitHub push are recorded after the repair commit is
-created. The existing release workflow remains responsible for desktop
-packages; no signing or billing configuration changed.
+Commit `cf8f50e` is pushed to `main`. The configured static deployment uploaded
+the verified `dist/site` as Azure Static Web Apps deployment
+`2f0c72f6-3841-4178-b68f-15a878c8f111` to both:
+
+- <https://diagram-source-studio.sociobot.in>
+- <https://victorious-desert-0e02a5910.7.azurestaticapps.net>
+
+Live `/` and `/demo` pass `verify-url.sh` with zero console errors. Live demo
+Lighthouse mobile measured performance 100, accessibility 100, 99,035 bytes
+transferred, 0 ms TBT, 1.21 s LCP, and 0.00241 CLS. `demo.html` and the deployed
+main asset `assets/main-CQ7BGZPZ.js` match the local production build exactly:
+
+| File | SHA-256 |
+| --- | --- |
+| `demo.html` | `7b378ca885579904685465b5bf1dc1fecef843df80fec0f3392102ae6277d0a9` |
+| `assets/main-CQ7BGZPZ.js` | `684a29bdc53d48915f40871d78ccd09ff33e520f652d53c33751d531b5223845` |
+
+Live billing verification passed for the exact USD 3900 product, including the
+hosted Dodo checkout HTTP 200 response. The existing release workflow remains
+responsible for desktop packages; no signing or billing configuration changed.
 
 ---
 
