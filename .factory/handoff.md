@@ -1,3 +1,15 @@
+# Independent verification 5 — FAIL
+
+**Do not release candidate `06e2986a5fba147988e3ba382f1026b25bb50c8f`.**
+
+Fresh independent QA found three release blockers:
+
+1. The live URL is a newer `v0.1.7` descendant, not the candidate `v0.1.6` build (`main-BCHfkS5w.js` live vs `main-DAL0_M6W.js` from the candidate).
+2. The candidate offers a $39 Studio checkout, while the newer deployment explicitly pauses it because checkout return cannot yet prove delivery of a verified license.
+3. The exact full `npm test` invocation failed 1/29 after Chromium SIGSEGV, although every mandated standalone claim test passed.
+
+See [`verification-5.md`](verification-5.md) for exact commands, checksums, browser flows, header/network evidence, accessibility results, and the observed 30-concurrent-request verification allowance.
+
 # Repair 4 handoff — BLOCKED by shared billing gateway
 
 ## Status
