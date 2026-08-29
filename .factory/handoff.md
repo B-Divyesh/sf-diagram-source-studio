@@ -1,3 +1,85 @@
+# Diagram Source Studio repair-6 handoff
+
+## Status
+
+Repair for verifier report commit
+`776452236a63757321b7933629444cd4218870d0`, against candidate
+`eaaaf6d8511bf1616679581db76ae09c4a39b7bd`. The desktop-app and static-site
+artifact classes are unchanged. This repair resolves every listed
+repository-controlled release blocker.
+
+## What changed
+
+- Reproduced the original full-suite Chromium failure after `npm ci`: the
+  single long-lived browser died in the later claim sequence. `npm test` now
+  starts one Playwright process per claim plus isolated accessibility and
+  regression groups. It remains one worker, `fullyParallel: false`, and
+  `retries: 0`; every existing test still runs and failures stop the command.
+- Replaced the native-dialog presence check with an IPC-level desktop round
+  trip: the simulated Tauri bridge opens BOM/CRLF/UTF-8 source, saves exact
+  bytes via `save_document`, and reopens them. Rust unit coverage exercises
+  the same native read/write helpers for both text and PNG bytes.
+- Added claim-manifest entries and exact tagged tests for the one-day license
+  verdict boundary (no request at 23:59:59; one at 24:00:00) and a revoked
+  refund response locking Studio comparison.
+- Kept the reviewed sample preview in the initial app shell and defer the
+  3.5 MB Mermaid renderer until the source changes or comparison is requested.
+  Comparison still invokes both bundled Mermaid versions. This restores the
+  initial demo JavaScript and mobile performance budgets without changing the
+  sample, exports, D2 renderer, offline flow, or Studio behavior.
+- Restored normal initial keyboard order. Initial documents no longer focus
+  their H1; Tab reaches the skip link first on desktop and 390 px mobile. The
+  skip link focuses `<main>`, while client-side navigation still focuses the
+  route H1.
+- Bumped web, Tauri, Cargo, and service-worker cache identity to `0.1.9`.
+
+## Verification
+
+Run from a clean checkout:
+
+```sh
+npm ci
+npm test
+npm run build
+npm audit --audit-level=high
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+```
+
+Observed on 2026-08-29:
+
+- Clean `npm ci` installed 186 packages with 0 vulnerabilities. The exact
+  `npm test` command passed twice on this constrained worker with no retries
+  and no skips: 13 accessibility/keyboard/mobile tests, 17 claim tests, and
+  3 additional regressions, each browser process fresh.
+- All 17 exact commands in `.factory/claims.json` pass, including
+  `native-file-dialogs`, `license-verdict-one-day`, and `refund-revocation`.
+- `npm run build` emitted `dist/site/`: initial main JS is 35.85 KB raw / 12.98
+  KB gzip; CSS is 16.81 KB raw / 4.61 KB gzip. Mermaid remains a deferred,
+  self-hosted renderer asset.
+- Local production `/` and `/demo` passed `verify-url.sh` at desktop and 390 px:
+  one H1, main landmark, title, `lang=en`, image alt text, labeled controls,
+  and no console errors. Playwright Axe scans pass all routes and the mobile
+  demo with no serious or critical issues.
+- Lighthouse mobile on local production `/demo`: performance 100,
+  accessibility 100, 99,980 bytes transferred, 0 ms TBT, 1.51 s LCP, and
+  0.00054 CLS. The standalone Axe CLI could not start the supplied Playwright
+  headless shell; the in-suite `@axe-core/playwright` scans passed.
+- After the release workflow's Linux desktop prerequisites were installed,
+  Cargo fmt, the new native byte round-trip test, locked check, and
+  warnings-as-errors Clippy all passed. `npm audit --audit-level=high` found
+  0 vulnerabilities.
+
+## Deployment and release
+
+The static deployment and GitHub push are recorded after the repair commit is
+created. The existing release workflow remains responsible for desktop
+packages; no signing or billing configuration changed.
+
+---
+
 # Independent verification 6 handoff — FAIL
 
 ## Status

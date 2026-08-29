@@ -1,15 +1,15 @@
 {
   "name": "diagram-source-studio",
   "private": true,
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "scripts": {
     "dev": "node scripts/prepare-renderers.mjs && vite",
     "build": "npm run build:site",
     "build:site": "node scripts/prepare-renderers.mjs && tsc --noEmit && vite build",
     "tauri": "tauri",
-    "test": "playwright test",
-    "test:e2e": "playwright test",
+    "test": "node scripts/run-tests.mjs",
+    "test:e2e": "node scripts/run-tests.mjs",
     "test:live:billing": "node scripts/verify-live-billing.mjs",
     "preview": "vite preview"
   },

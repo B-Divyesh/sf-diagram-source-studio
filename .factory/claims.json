@@ -50,10 +50,10 @@
   },
   {
     "id": "native-file-dialogs",
-    "claim": "The desktop app provides native open and save actions",
+    "claim": "The desktop app opens source and saves it through native file dialogs",
     "where": "landing preview, README",
     "test": "npm test -- --grep @claim:native-file-dialogs",
-    "sandbox": "simulated Tauri desktop context; assert native-shell open and save controls are exposed"
+    "sandbox": "simulated Tauri IPC with a native file fixture; open source, save its exact bytes, then reopen the saved bytes"
   },
   {
     "id": "offline-reference",
@@ -103,5 +103,19 @@
     "where": "landing boundary, privacy page, README",
     "test": "npm test -- --grep @claim:billing-catalog",
     "sandbox": "fresh simulated native workspace with a recorded catalog response; assert one request, no diagram content, and matching disclosure"
+  },
+  {
+    "id": "license-verdict-one-day",
+    "claim": "The app stores a license result for one day before checking again",
+    "where": "privacy page",
+    "test": "npm test -- --grep @claim:license-verdict-one-day",
+    "sandbox": "simulated native workspace with a cached valid verdict; assert no request at 23:59:59 and exactly one recheck at 24:00:00"
+  },
+  {
+    "id": "refund-revocation",
+    "claim": "A refunded license stops working after verification",
+    "where": "landing pricing, terms",
+    "test": "npm test -- --grep @claim:refund-revocation",
+    "sandbox": "simulated native workspace with an expired cache; recorded revoked verification response locks Studio comparison"
   }
 ]

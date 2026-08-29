@@ -86,3 +86,28 @@ test('SPA routes update canonical and social metadata', async ({ page }) => {
   await expect(page).toHaveURL(/\/#downloads$/);
   await expect(page.locator('#downloads')).toBeInViewport();
 });
+
+test('@regression:skip-link is the first keyboard stop on initial desktop and mobile loads', async ({ page }) => {
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/demo');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('main')).toBeFocused();
+});
+
+test('@regression:demo defers the Mermaid renderer until source changes', async ({ page }) => {
+  const rendererRequests: string[] = [];
+  page.on('request', (request) => { if (request.url().includes('/vendor/mermaid-')) rendererRequests.push(request.url()); });
+  await page.goto('/demo');
+  await expect(page.locator('#diagnostics')).toContainText('Preview rendered');
+  expect(rendererRequests).toEqual([]);
+  const rendererRequest = page.waitForRequest('**/vendor/mermaid-11.min.js');
+  await page.locator('#source').fill('flowchart LR\n  changed --> renderer');
+  await rendererRequest;
+  await expect(page.locator('#diagnostics')).toContainText('Preview rendered');
+  expect(rendererRequests).toEqual([expect.stringContaining('/vendor/mermaid-11.min.js')]);
+});

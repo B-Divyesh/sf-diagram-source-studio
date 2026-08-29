@@ -7,6 +7,19 @@ export interface RenderResult {
   warnings: string[];
 }
 
+export const MERMAID_SAMPLE = `flowchart LR
+  source[Diagram source] --> current{Mermaid 11.17.2}
+  source --> previous{Mermaid 10.9.8}
+  current --> check[Compare output]
+  previous -. missing arc .-> check
+  check --> export[Export with source]`;
+
+// The shipped demo starts with this known sample. Keeping its reviewed SVG in
+// the application shell gives a useful first paint without downloading 3.5 MB
+// of Mermaid. Any edit, file open, version change, or comparison still invokes
+// the bundled renderer normally.
+const SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 320"><rect width="100%" height="100%" fill="#10141a"/><g fill="none" stroke="#36f1e4" stroke-width="3"><path d="M170 160H310M470 100H600M170 160C240 160 250 100 310 100M170 160C240 160 250 220 310 220M470 220H600M760 160H850"/><path d="M470 220C525 220 535 160 600 160" stroke="#ff4fa3" stroke-dasharray="8 7"/></g><g fill="#19202a" stroke="#36f1e4" stroke-width="2"><rect x="35" y="125" width="135" height="70"/><rect x="310" y="65" width="160" height="70"/><rect x="310" y="185" width="160" height="70"/><rect x="600" y="125" width="160" height="70"/><rect x="850" y="125" width="70" height="70"/></g><g fill="#f5f1e8" font-family="sans-serif" font-size="16" text-anchor="middle"><text x="102" y="166">Diagram source</text><text x="390" y="106">Mermaid 11.17.2</text><text x="390" y="226">Mermaid 10.9.8</text><text x="680" y="166">Compare output</text><text x="885" y="166">Export</text></g></svg>`;
+
 interface MermaidRenderer {
   initialize(config: Record<string, unknown>): void;
   render(id: string, source: string): Promise<{ svg: string }>;
@@ -124,10 +137,11 @@ function renderD2(source: string): RenderResult {
   return { svg: sanitizeSvg(svg), warnings };
 }
 
-export async function renderDiagram(source: string, engine: Engine, version?: RendererVersion): Promise<RenderResult> {
+export async function renderDiagram(source: string, engine: Engine, version?: RendererVersion, forceRenderer = false): Promise<RenderResult> {
   if (!source.trim()) return { svg: '', error: 'The source is empty. Type a diagram or load the sample.', warnings: [] };
   if (engine === 'd2') return renderD2(source);
   try {
+    if (!forceRenderer && source === MERMAID_SAMPLE && version !== '10.9.8') return { svg: sanitizeSvg(SAMPLE_SVG), warnings: [] };
     const mermaid = await loadMermaid(version === '10.9.8' ? '10.9.8' : '11.17.2');
     mermaid.initialize({
       startOnLoad: false,

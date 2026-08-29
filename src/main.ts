@@ -19,11 +19,11 @@ function header(): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.8 · Original generated artwork</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.9 · Original generated artwork</p></footer>`;
 }
 
 function home(): string {
-  return `${header()}<main id="main">
+  return `${header()}<main id="main" tabindex="-1">
     <section class="hero">
       <div class="hero-copy"><p class="eyebrow">Renderer inspection workbench</p><h1 tabindex="-1">Catch broken diagram renders before commit</h1><p class="lede">For engineers who keep Mermaid or D2 files in Git and need to inspect real output.</p><div class="hero-actions"><a class="primary" href="/demo" data-link>Try it with sample data</a><span>Loads a Mermaid project in the browser.</span></div><ul class="plain-facts"><li>Files stay on your device</li><li>Core editing works offline</li><li>Free editor · Studio is $39 once</li></ul></div>
       <figure class="hero-art"><picture><source media="(max-width: 640px)" srcset="/assets/neon-inspection-640.webp"><img src="/assets/neon-inspection-1280.webp" width="1536" height="1024" fetchpriority="high" alt="A neon diagram on a repair bench has one broken magenta connection." /></picture><figcaption><span class="signal magenta"></span> Render difference found between two bundled versions</figcaption></figure>
@@ -40,7 +40,7 @@ function home(): string {
   </main>${footer()}`;
 }
 
-const legalHeader = (eyebrow: string, heading: string, intro: string) => `${header()}<main id="main" class="legal"><p class="eyebrow">${eyebrow}</p><h1 tabindex="-1">${heading}</h1><p class="lede">${intro}</p>`;
+const legalHeader = (eyebrow: string, heading: string, intro: string) => `${header()}<main id="main" class="legal" tabindex="-1"><p class="eyebrow">${eyebrow}</p><h1 tabindex="-1">${heading}</h1><p class="lede">${intro}</p>`;
 
 function privacy(): string {
   return `${legalHeader('Privacy / updated 28 August 2026', 'Your source stays on your device', 'Diagram Source Studio reads files you choose and does not upload their contents.')}
@@ -59,7 +59,7 @@ function terms(): string {
 }
 
 function notFound(): string {
-  return `${header()}<main id="main" class="not-found"><div class="broken-sign" aria-hidden="true"><span>4</span><i></i><span>4</span></div><h1 tabindex="-1">This diagram path is not connected</h1><p>The page does not exist. Return to the workbench entrance.</p><a class="primary" href="/" data-link>Return home</a></main>${footer()}`;
+  return `${header()}<main id="main" class="not-found" tabindex="-1"><div class="broken-sign" aria-hidden="true"><span>4</span><i></i><span>4</span></div><h1 tabindex="-1">This diagram path is not connected</h1><p>The page does not exist. Return to the workbench entrance.</p><a class="primary" href="/" data-link>Return home</a></main>${footer()}`;
 }
 
 async function setupDownloads() {
@@ -100,7 +100,7 @@ async function setupCheckout() {
   }
 }
 
-function renderRoute(path = location.pathname, push = false) {
+function renderRoute(path = location.pathname, push = false, moveFocus = false) {
   let route = routes[path] ? path : '/404';
   if (isNative()) route = '/demo';
   if (push) history.pushState({}, '', path);
@@ -122,19 +122,26 @@ function renderRoute(path = location.pathname, push = false) {
   else app.innerHTML = notFound();
   if (route === '/demo') unmountRoute = mountEditor(!isNative());
   if (route === '/') { setupDownloads(); setupCheckout(); }
-  requestAnimationFrame(() => document.querySelector<HTMLElement>('h1')?.focus({ preventScroll: !push }));
+  // Initial document focus must stay at the top of the document so Tab reaches
+  // the skip link first. Client-side navigation moves focus to the new heading.
+  if (moveFocus || push) requestAnimationFrame(() => document.querySelector<HTMLElement>('h1')?.focus({ preventScroll: !push }));
   document.querySelector<HTMLElement>('#route-announcer')?.remove();
   const announcer = document.createElement('div'); announcer.id = 'route-announcer'; announcer.className = 'sr-only'; announcer.setAttribute('aria-live', 'polite'); announcer.textContent = metadata.title; document.body.append(announcer);
   if (push) scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 
 captureLicense(!isNative() && location.pathname === '/demo');
+document.querySelector<HTMLAnchorElement>('.skip-link')?.addEventListener('click', (event) => {
+  event.preventDefault();
+  history.replaceState(history.state, '', '#main');
+  document.querySelector<HTMLElement>('#main')?.focus();
+});
 document.addEventListener('click', (event) => {
   const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[data-link]');
   if (!anchor || anchor.origin !== location.origin) return;
   event.preventDefault(); renderRoute(anchor.pathname, true);
 });
-addEventListener('popstate', () => renderRoute());
+addEventListener('popstate', () => renderRoute(location.pathname, false, true));
 renderRoute();
 
 if ('serviceWorker' in navigator && !isNative()) addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => undefined));

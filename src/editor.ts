@@ -1,12 +1,5 @@
-import { embedSourceInPng, embedSourceInSvg, Engine, renderDiagram, RendererVersion, sourceFromPng, sourceFromSvg } from './diagram';
+import { embedSourceInPng, embedSourceInSvg, Engine, MERMAID_SAMPLE, renderDiagram, RendererVersion, sourceFromPng, sourceFromSvg } from './diagram';
 import { billingCatalogUrl, canCheckBillingCatalog, checkoutUrl, localLicenseState, purchaseDeliveryNotice, purchaseDeliveryReady, saveLicense, studioProductEnabled, verifyLicense } from './license';
-
-const MERMAID_SAMPLE = `flowchart LR
-  source[Diagram source] --> current{Mermaid 11.17.2}
-  source --> previous{Mermaid 10.9.8}
-  current --> check[Compare output]
-  previous -. missing arc .-> check
-  check --> export[Export with source]`;
 
 const D2_SAMPLE = `direction: right
 source: Diagram source
@@ -44,7 +37,7 @@ export function editorView(demo: boolean): string {
         <button class="primary small" data-action="export-svg">Export SVG</button><button data-action="export-png">Export PNG</button>
       </nav>
     </header>
-    <main id="main" class="studio-main">
+    <main id="main" class="studio-main" tabindex="-1">
       <h1 class="sr-only" tabindex="-1">Check diagram render output</h1>
       <aside class="studio-rail" aria-label="Diagram settings">
         <div class="rail-section">
@@ -197,7 +190,7 @@ export function mountEditor(demo: boolean) {
       return;
     }
     preview.innerHTML = '<div class="loading-state">Rendering both bundled versions…</div>';
-    const [current, previous] = await Promise.all([renderDiagram(source.value, 'mermaid', '11.17.2'), renderDiagram(source.value, 'mermaid', '10.9.8')]);
+    const [current, previous] = await Promise.all([renderDiagram(source.value, 'mermaid', '11.17.2', true), renderDiagram(source.value, 'mermaid', '10.9.8', true)]);
     const panel = (label: string, result: Awaited<ReturnType<typeof renderDiagram>>) => `<article class="matrix-result"><h3>${label}</h3>${result.error ? `<p class="error-copy">${escapeHtml(result.error)}</p>` : result.svg}</article>`;
     preview.innerHTML = `<div class="matrix">${panel('Mermaid 11.17.2', current)}${panel('Mermaid 10.9.8', previous)}</div>`;
     diagnostics.className = current.error || previous.error ? 'status warning' : 'status success';

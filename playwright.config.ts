@@ -6,6 +6,7 @@ export default defineConfig({
   // renderer tree alive reliably. Serial execution is deliberate: failures
   // are never retried or ignored, and every test still gets a fresh context.
   workers: 1,
+  retries: 0,
   fullyParallel: false,
   timeout: 45_000,
   expect: { timeout: 15_000 },
