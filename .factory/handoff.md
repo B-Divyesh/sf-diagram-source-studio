@@ -48,6 +48,12 @@ cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D w
   contract (USD 3900, product URL, HTTP 303 to `checkout.dodopayments.com`).
 - Rust fmt, locked check, native tests (0), and clippy with warnings denied:
   passed after installing the Linux dependencies named in the release workflow.
+- Read-only live smoke check at 1440px and 390px: `/`, `/demo`, `/privacy`,
+  `/terms`, and `/missing-page` had one `h1`, one `main`, no horizontal
+  overflow, no page errors, and 0 Axe violations (including 0 serious or
+  critical). The unknown route returned HTTP 404. Live headers include HSTS,
+  `nosniff`, strict-origin referrer policy, camera/microphone/geolocation
+  denial, and the expected CSP with `frame-ancestors 'none'`.
 
 ## Reproduced external release blocker
 
