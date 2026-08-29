@@ -14,8 +14,11 @@ const routes: Record<string, { title: string; description: string }> = {
   '/404': { title: 'Page not found — Diagram Source Studio', description: 'Return to Diagram Source Studio.' }
 };
 
-function header(): string {
-  return `<header class="site-header"><a class="wordmark" href="/" data-link aria-label="Diagram Source Studio home"><span class="mark" aria-hidden="true">D<span></span>S</span><b>Diagram Source Studio</b></a><nav aria-label="Main navigation"><a href="/demo" data-link>Demo</a><a href="/#downloads">Download</a><a href="/privacy" data-link>Privacy</a></nav></header>`;
+function header(compact = false): string {
+  const navigation = compact
+    ? `<a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a>`
+    : `<a href="/?demo=1" data-link>Demo</a><a href="/#downloads" data-link>Download</a><a href="/privacy" data-link>Privacy</a>`;
+  return `<header class="site-header${compact ? ' demo-site-header' : ''}"><a class="wordmark" href="/" data-link aria-label="Diagram Source Studio home"><span class="mark" aria-hidden="true">D<span></span>S</span><b>Diagram Source Studio</b></a><nav aria-label="Main navigation">${navigation}</nav></header>`;
 }
 
 function footer(): string {
@@ -25,7 +28,7 @@ function footer(): string {
 function home(): string {
   return `${header()}<main id="main" tabindex="-1">
     <section class="hero">
-      <div class="hero-copy"><p class="eyebrow">Renderer inspection workbench</p><h1 tabindex="-1">Catch broken diagram renders before commit</h1><p class="lede">For engineers who keep Mermaid or D2 files in Git and need to inspect real output.</p><div class="hero-actions"><a class="primary" href="/demo" data-link>Try it with sample data</a><span>Loads a Mermaid project in the browser.</span></div><ul class="plain-facts"><li>Files stay on your device</li><li>Core editing works offline</li><li>Free editor · Studio is $39 once</li></ul></div>
+      <div class="hero-copy"><p class="eyebrow">Diagram renderer comparison</p><h1 tabindex="-1">Catch broken diagram renders before commit</h1><p class="lede">For engineers who keep Mermaid or D2 files in Git and need to inspect real output.</p><div class="hero-actions"><a class="primary" href="/?demo=1" data-link>Try it with sample data</a><span>Loads a Mermaid project in the browser.</span></div><ul class="plain-facts"><li>Files stay on your device</li><li>Core editing works offline</li><li>Free editor · Studio is $39 once</li></ul></div>
       <figure class="hero-art"><picture><source media="(max-width: 640px)" srcset="/assets/neon-inspection-640.webp"><img src="/assets/neon-inspection-1280.webp" width="1536" height="1024" fetchpriority="high" alt="A neon diagram on a repair bench has one broken magenta connection." /></picture><figcaption><span class="signal magenta"></span> Render difference found between two bundled versions</figcaption></figure>
     </section>
     <section class="live-preview" aria-labelledby="preview-title"><div class="section-intro"><p class="eyebrow">01 / the product</p><h2 id="preview-title">Inspect the output beside its source</h2><p>Use the browser demo now. Install the desktop app when you need native files.</p></div><div class="mini-workbench" aria-label="Diagram Source Studio preview"><div class="mini-source"><div class="mini-bar"><span>architecture.mmd</span><span>UTF-8</span></div><pre><span>flowchart LR</span>
@@ -34,9 +37,9 @@ function home(): string {
   source --> previous{10.9.8}
   <mark>previous -. missing .-> check</mark></pre></div><div class="mini-canvas"><svg viewBox="0 0 620 300" role="img" aria-label="Two renderer paths meet at an inspection node, while a magenta path is broken."><defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g class="diagram-lines" fill="none" stroke-width="4" filter="url(#glow)"><path stroke="#36f1e4" d="M120 150H240M380 85H495M120 150C170 150 180 85 240 85"/><path stroke="#ff4fa3" stroke-dasharray="22 14" d="M120 150C170 150 180 225 240 225M380 225H430"/></g><g fill="#19202a" stroke="#36f1e4" stroke-width="2"><rect x="20" y="115" width="100" height="70"/><rect x="240" y="50" width="140" height="70"/><rect x="240" y="190" width="140" height="70"/><rect x="495" y="115" width="105" height="70"/></g><g fill="#f5f1e8" font-size="17" text-anchor="middle"><text x="70" y="157">source</text><text x="310" y="92">11.17.2</text><text x="310" y="232">10.9.8</text><text x="548" y="157">inspect</text></g><circle cx="459" cy="225" r="10" fill="#ff4fa3"/></svg><span class="canvas-status"><i></i> 1 output difference</span></div></div></section>
     <section class="walkthrough" aria-labelledby="how-title"><div class="section-intro"><p class="eyebrow">02 / how it works</p><h2 id="how-title">Check a diagram in three steps</h2></div><ol><li><div class="step-frame source-frame" aria-hidden="true"><span>architecture.mmd</span><code>service --&gt; database</code></div><h3>Open the source</h3><p>Choose a Mermaid or D2 file from your repository.</p></li><li><div class="step-frame compare-frame" aria-hidden="true"><span>11.17.2 ✓</span><span>10.9.8 !</span></div><h3>Compare the renders</h3><p>Place two bundled Mermaid versions side by side.</p></li><li><div class="step-frame export-frame" aria-hidden="true"><span>&lt;metadata&gt;</span><b>SVG</b><b>PNG</b></div><h3>Export an editable file</h3><p>Save SVG or PNG output with the source embedded.</p></li></ol></section>
-    <section class="boundary" aria-labelledby="boundary-title"><div><p class="eyebrow">03 / clear boundary</p><h2 id="boundary-title">Your diagrams do not become a service</h2></div><div><p>The editor has no accounts, hosting, collaboration, analytics, or AI generation.</p><p>Source stays local. Purchase availability checks the public catalog once. License checks send only the token you enter.</p></div></section>
-    <section class="pricing" id="pricing" aria-labelledby="price-title"><div><p class="eyebrow">04 / Studio license</p><h2 id="price-title">Compare two Mermaid versions</h2><p>The free editor previews, diagnoses, and exports diagrams. Studio adds the side-by-side renderer matrix.</p></div><div class="price-plate"><span>Studio comparison</span><strong>$39 once</strong><small>One-time license. After payment, checkout returns here and verifies your Studio access.</small><div id="checkout-action" aria-live="polite"><span>Checking purchase availability…</span></div><a href="/#downloads">Already have a Studio license? Download the app to paste it.</a><p>Sociobot/Dodo is the merchant of record. Refunds revoke the license.</p></div></section>
-    <section class="downloads" id="downloads" aria-labelledby="download-title"><div><p class="eyebrow">05 / desktop app</p><h2 id="download-title">Install it beside your repository</h2><p>Desktop builds are unsigned until the project owner adds signing certificates.</p></div><div id="download-panel" class="download-panel" aria-live="polite"><span class="tube-dots" aria-hidden="true"><i></i><i></i><i></i></span><p>Checking the latest release…</p></div></section>
+    <section class="boundary" aria-labelledby="boundary-title"><div><p class="eyebrow">03 / clear boundary</p><h2 id="boundary-title">Privacy and product limits</h2></div><div><p>No sign-in is required to use the editor. Diagram source stays on your device.</p><p>Purchase availability checks the public catalog once. License checks send only the token you enter.</p></div></section>
+    <section class="pricing" id="pricing" aria-labelledby="price-title"><div><p class="eyebrow">04 / Studio license</p><h2 id="price-title">Compare two Mermaid versions</h2><p>The free editor previews, reports syntax problems, and exports diagrams. Studio adds the side-by-side renderer matrix.</p></div><div class="price-plate"><span>Studio comparison</span><strong>$39 once</strong><small>One-time license. After payment, checkout returns here and verifies your Studio access.</small><div id="checkout-action" aria-live="polite"><span>Checking purchase availability…</span></div><a href="/#downloads">Already have a Studio license? Download the app to paste it.</a><p>Studio checkout is hosted by Dodo Payments. Refunds revoke the license.</p></div></section>
+    <section class="downloads" id="downloads" aria-labelledby="download-title"><div><p class="eyebrow">05 / desktop app</p><h2 id="download-title">Download the desktop app</h2><p>Desktop builds are unsigned until the project owner adds signing certificates.</p></div><div id="download-panel" class="download-panel" aria-live="polite"><span class="tube-dots" aria-hidden="true"><i></i><i></i><i></i></span><p>Checking the latest release…</p></div></section>
   </main>${footer()}`;
 }
 
@@ -46,14 +49,14 @@ function privacy(): string {
   return `${legalHeader('Privacy / updated 28 August 2026', 'Your source stays on your device', 'Diagram Source Studio reads files you choose and does not upload their contents.')}
   <h2>Files and local storage</h2><p>The browser demo keeps sample changes in memory. The real editor may store your last open source in local storage. You can clear site data at any time.</p>
   <h2>License checks</h2><p>If checkout returns a license, the app saves it and removes it from the address. The app sends the token to the Sociobot billing API and stores the result for one day. Diagram source is not included.</p>
-  <h2>Network use</h2><p>The editor loads its code, fonts, and sample from this site. It makes no analytics or advertising requests. The app checks the public Sociobot catalog once to show purchase availability. The download panel requests public release data from GitHub.</p>
+  <h2>Network use</h2><p>The editor loads its code, fonts, and sample from this site. It makes no analytics or advertising requests.</p><p>The landing page requests public release and purchase availability data. It does not send diagram source with those requests.</p>
   <h2>Your choices</h2><p>Use the free editor without a license. Remove local data through your browser or operating system.</p></main>${footer()}`;
 }
 
 function terms(): string {
   return `${legalHeader('Terms / updated 28 August 2026', 'Use the editor for work you control', 'These terms cover the app, browser demo, and one-time Studio license.')}
   <h2>License</h2><p>The source code is available under the MIT License. An active Studio license grants one person use of paid app features on their devices.</p>
-  <h2>Purchases and refunds</h2><p>Studio costs $39 USD once. Sociobot/Dodo is the merchant of record. A refunded license stops working.</p>
+  <h2>Purchases and refunds</h2><p>Studio costs $39 USD once. Studio checkout is hosted by Dodo Payments. A refunded license stops working.</p>
   <h2>Your files</h2><p>You keep all rights to your source and exports. You are responsible for files you open and share.</p>
   <h2>No warranty</h2><p>The software is provided without warranty. Review important render output before publishing it.</p></main>${footer()}`;
 }
@@ -100,10 +103,11 @@ async function setupCheckout() {
   }
 }
 
-function renderRoute(path = location.pathname, push = false, moveFocus = false) {
-  let route = routes[path] ? path : '/404';
+function renderRoute(path = location.pathname, push = false, moveFocus = false, search = location.search, hash = location.hash) {
+  const demoRequested = path === '/' && new URLSearchParams(search).get('demo') === '1';
+  let route = demoRequested ? '/demo' : (routes[path] ? path : '/404');
   if (isNative()) route = '/demo';
-  if (push) history.pushState({}, '', path);
+  if (push) history.pushState({}, '', `${path}${search}${hash}`);
   const metadata = routes[route];
   unmountRoute?.();
   unmountRoute = undefined;
@@ -116,7 +120,7 @@ function renderRoute(path = location.pathname, push = false, moveFocus = false) 
   document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', metadata.title);
   document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', metadata.description);
   if (route === '/') app.innerHTML = home();
-  else if (route === '/demo') app.innerHTML = editorView(!isNative());
+  else if (route === '/demo') app.innerHTML = `${header(true)}${editorView(!isNative())}${footer()}`;
   else if (route === '/privacy') app.innerHTML = privacy();
   else if (route === '/terms') app.innerHTML = terms();
   else app.innerHTML = notFound();
@@ -127,10 +131,15 @@ function renderRoute(path = location.pathname, push = false, moveFocus = false) 
   if (moveFocus || push) requestAnimationFrame(() => document.querySelector<HTMLElement>('h1')?.focus({ preventScroll: !push }));
   document.querySelector<HTMLElement>('#route-announcer')?.remove();
   const announcer = document.createElement('div'); announcer.id = 'route-announcer'; announcer.className = 'sr-only'; announcer.setAttribute('aria-live', 'polite'); announcer.textContent = metadata.title; document.body.append(announcer);
-  if (push) scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  if (push) {
+    const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    if (hash) requestAnimationFrame(() => document.querySelector<HTMLElement>(hash)?.scrollIntoView({ behavior }));
+    else scrollTo({ top: 0, behavior });
+  }
 }
 
-captureLicense(!isNative() && location.pathname === '/demo');
+const isDemoLocation = () => location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
+captureLicense(!isNative() && isDemoLocation());
 document.querySelector<HTMLAnchorElement>('.skip-link')?.addEventListener('click', (event) => {
   event.preventDefault();
   history.replaceState(history.state, '', '#main');
@@ -139,7 +148,7 @@ document.querySelector<HTMLAnchorElement>('.skip-link')?.addEventListener('click
 document.addEventListener('click', (event) => {
   const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[data-link]');
   if (!anchor || anchor.origin !== location.origin) return;
-  event.preventDefault(); renderRoute(anchor.pathname, true);
+  event.preventDefault(); renderRoute(anchor.pathname, true, false, anchor.search, anchor.hash);
 });
 addEventListener('popstate', () => renderRoute(location.pathname, false, true));
 renderRoute();

@@ -13,7 +13,7 @@ const sample = `flowchart LR
 
 test('@claim:demo-sandbox demo loads sample and does not save it as real data', async ({ page }) => {
   await page.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => route.fulfill({ json: { valid: true } }));
-  await page.goto('/demo');
+  await page.goto('/?demo=1');
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   await expect(page.locator('#source')).toHaveValue(/Diagram source/);
   await page.locator('#source').fill('flowchart LR\n  demo --> changed');
@@ -296,9 +296,9 @@ test('@claim:billing-catalog native startup checks the public catalog once and d
   await expect(page.getByRole('link', { name: 'Buy Studio for $39 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
   expect(catalogRequests).toBe(1);
   const application = await readFile(resolve('src/main.ts'), 'utf8');
-  expect(application).toContain('The app checks the public Sociobot catalog once to show purchase availability.');
+  expect(application).toContain('The landing page requests public release and purchase availability data.');
   const readme = await readFile(resolve('README.md'), 'utf8');
-  expect(readme).toContain("checks Sociobot's public catalog once");
+  expect(readme).toMatch(/The landing page requests public\s+release and purchase availability data\./);
 });
 
 test('@claim:license-verdict-one-day cached verification waits exactly one day before rechecking', async ({ page }) => {
@@ -348,7 +348,7 @@ test('@claim:refund-revocation a revoked verification response locks Studio comp
   await expect(page.getByText('The renderer matrix is in the one-time Studio license.')).toBeVisible();
 });
 
-test('@regression:live-billing-verifier rejects a missing product and proves the hosted checkout responds', async () => {
+test('@claim:checkout-provider recorded checkout redirects to Dodo Payments', async () => {
   // @ts-expect-error The executable live verifier is intentionally plain ESM.
   const { verifyLiveBilling } = await import('../scripts/verify-live-billing.mjs');
   const apiBase = 'https://billing.test/api/v1';
@@ -381,6 +381,52 @@ test('@regression:live-billing-verifier rejects a missing product and proves the
     checkout_host: 'checkout.dodopayments.com',
     checkout_page_status: 200
   });
+});
+
+test('@claim:no-sign-in a fresh demo edits and exports without authentication', async ({ page }) => {
+  const external: string[] = [];
+  page.on('request', (request) => { if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') external.push(request.url()); });
+  await page.goto('/?demo=1');
+  await page.locator('#source').fill(sample);
+  await expect(page.locator('#diagnostics')).toContainText('Preview rendered');
+  await expect(page.locator('input[type="password"], form [name*="email" i]')).toHaveCount(0);
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export SVG' }).click();
+  await download;
+  expect(external).toEqual([]);
+});
+
+test('@claim:free-editor-diagnostics reports malformed Mermaid, recovers, and exports', async ({ page }) => {
+  await page.goto('/?demo=1');
+  await expect(page.locator('#diagnostics')).toContainText('Preview rendered');
+  await page.locator('#source').fill('flowchart LR\n  broken -->');
+  await expect(page.locator('#diagnostics')).toHaveClass(/error/);
+  await expect(page.getByRole('button', { name: 'Load working sample' })).toBeVisible();
+  await page.getByRole('button', { name: 'Load working sample' }).click();
+  await expect(page.locator('#diagnostics')).toContainText('Preview rendered');
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export SVG' }).click();
+  await download;
+});
+
+test('@claim:startup-network landing requests only public release and purchase data', async ({ page }) => {
+  const external: Array<{ url: string; method: string; body: string | null }> = [];
+  await page.addInitScript(() => { (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1'; });
+  page.on('request', (request) => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') external.push({ url: request.url(), method: request.method(), body: request.postData() });
+  });
+  await page.route('https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1', (route) => route.fulfill({ json: [] }));
+  await page.route('https://api.sociobot.in/api/v1/products', (route) => route.fulfill({ json: { data: [] } }));
+  await page.goto('/');
+  await expect.poll(() => external.map((request) => request.url).sort()).toEqual([
+    'https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1',
+    'https://api.sociobot.in/api/v1/products'
+  ]);
+  expect(external).toEqual(expect.arrayContaining([
+    { url: 'https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1', method: 'GET', body: null },
+    { url: 'https://api.sociobot.in/api/v1/products', method: 'GET', body: null }
+  ]));
+  expect(JSON.stringify(external)).not.toContain('Diagram source');
 });
 
 test('@regression:route-remount keeps one export handler', async ({ page }) => {

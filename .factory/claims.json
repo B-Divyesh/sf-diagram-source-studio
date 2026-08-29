@@ -117,5 +117,33 @@
     "where": "landing pricing, terms",
     "test": "npm test -- --grep @claim:refund-revocation",
     "sandbox": "simulated native workspace with an expired cache; recorded revoked verification response locks Studio comparison"
+  },
+  {
+    "id": "no-sign-in",
+    "claim": "No sign-in is required to use the editor",
+    "where": "landing privacy boundary",
+    "test": "npm test -- --grep @claim:no-sign-in",
+    "sandbox": "fresh /?demo=1 with no stored state; edit, render, and export without an authentication form or external request"
+  },
+  {
+    "id": "free-editor-diagnostics",
+    "claim": "The free editor previews, reports syntax problems, and exports diagrams",
+    "where": "landing Studio license section",
+    "test": "npm test -- --grep @claim:free-editor-diagnostics",
+    "sandbox": "fresh /?demo=1; render source, enter malformed Mermaid, read the diagnostic, load the working sample, and export SVG"
+  },
+  {
+    "id": "startup-network",
+    "claim": "The landing page requests public release and purchase availability data without diagram source",
+    "where": "privacy page, README",
+    "test": "npm test -- --grep @claim:startup-network",
+    "sandbox": "fresh landing page with recorded GitHub and Sociobot responses; assert exact GET requests, no request body, and no diagram source"
+  },
+  {
+    "id": "checkout-provider",
+    "claim": "Studio checkout is hosted by Dodo Payments",
+    "where": "landing pricing, terms, README",
+    "test": "npm test -- --grep @claim:checkout-provider",
+    "sandbox": "recorded catalog and checkout redirect fixture; assert the hosted checkout URL uses checkout.dodopayments.com"
   }
 ]

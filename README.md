@@ -2,7 +2,7 @@
 
 Catch Mermaid and D2 render changes before you commit.
 
-Diagram Source Studio is a local-first workbench for engineers who keep diagrams in Git. Edit source beside its real output, read diagnostics, compare bundled Mermaid 10.9.8 and 11.17.2 renderers, and export SVG or PNG files that preserve the source byte for byte.
+Diagram Source Studio is a local-first workbench for engineers who keep diagrams in Git. Edit source beside its output. Read diagnostics. Compare Mermaid 10.9.8 with 11.17.2. Export SVG or PNG with the source embedded.
 
 Live site: <https://diagram-source-studio.sociobot.in><br>
 One-click demo: <https://diagram-source-studio.sociobot.in/demo>
@@ -19,9 +19,9 @@ One-click demo: <https://diagram-source-studio.sociobot.in/demo>
 
 The compact D2 renderer is intentionally smaller than the full D2 language. Use Mermaid for diagrams that need shapes beyond nodes, labels, and arrows.
 
-## Free and Studio
+## Free editor and Studio license
 
-The free editor includes editing, diagnostics, single-version preview, and both exports. Studio adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison for a one-time $39 USD license. Sociobot/Dodo is the merchant of record. After payment, checkout returns to the product with a license token; the app stores it locally, removes it from the address, verifies it with Sociobot, and enables Studio. Existing Studio licenses can also be pasted into the app.
+The free editor includes editing, diagnostics, single-version preview, and both exports. Studio adds side-by-side Mermaid 10.9.8 and 11.17.2 comparison for a one-time $39 USD license. Studio checkout is hosted by Dodo Payments. After payment, checkout returns a license token. The app saves it locally, removes it from the address, verifies it, and enables Studio. Existing Studio licenses can also be pasted into the app.
 
 ## Run the site and browser demo
 
@@ -71,16 +71,21 @@ npm test
 npm run test:live:billing
 ```
 
-The live billing check confirms that the exact $39 USD product is present and
-that its Dodo-hosted checkout page responds successfully. The browser suite
-records the completed browser contract: a returned `license` token is saved,
-removed from the URL, verified, and enables both Studio comparison panels.
+The live billing check confirms that the exact $39 USD product is present.
+It also confirms that its Dodo-hosted checkout page responds successfully.
+The browser suite tests a returned `license` token. It confirms that Studio
+comparison becomes available.
 
 The claim manifest is [`.factory/claims.json`](.factory/claims.json). The demo contract is [`.factory/demo.md`](.factory/demo.md).
 
 ## Privacy and security
 
-Diagram contents stay on the device during the tested edit and export flow. Renderer scripts and fonts ship with the app. SVG output is parsed before display; scripts, links, embedded objects, event handlers, and external references are removed. The app checks Sociobot's public catalog once to show whether Studio is available; a license check sends only the token you enter to `api.sociobot.in`.
+Diagram contents stay on the device during the tested edit and export flow.
+SVG output is parsed before display. Scripts, links, embedded objects, event
+handlers, and external references are removed. The landing page requests public
+release and purchase availability data. It does not send diagram source with
+those requests. A license check sends only the token you enter to
+`api.sociobot.in`.
 
 Read the in-product `/privacy` and `/terms` routes for user-facing details.
 

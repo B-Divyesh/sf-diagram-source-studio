@@ -68,6 +68,22 @@ test('mobile navigation and demo actions meet 44px touch targets', async ({ page
   }
 });
 
+test('demo keeps the shared home, legal navigation, and footer at its direct entry point', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/?demo=1');
+  const header = page.locator('.demo-site-header');
+  await expect(header.getByRole('link', { name: 'Diagram Source Studio home' })).toBeVisible();
+  await expect(header.getByRole('link', { name: 'Privacy' })).toBeVisible();
+  await expect(header.getByRole('link', { name: 'Terms' })).toBeVisible();
+  const footer = page.locator('.site-footer');
+  await expect(footer.getByRole('link', { name: 'Privacy' })).toBeVisible();
+  await expect(footer.getByRole('link', { name: 'Terms' })).toBeVisible();
+  for (const target of [header.getByRole('link', { name: 'Privacy' }), header.getByRole('link', { name: 'Terms' })]) {
+    const box = await target.boundingBox();
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test('static host configuration keeps known app paths and returns a designed 404 for unknown paths', async () => {
   const config = JSON.parse(await (await import('node:fs/promises')).readFile('public/staticwebapp.config.json', 'utf8'));
   expect(config.navigationFallback).toBeUndefined();
