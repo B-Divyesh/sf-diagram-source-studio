@@ -1,0 +1,42 @@
+[
+  {
+    "name": "metadata",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "live-billing",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "quality",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "build (ubuntu-latest, linux)",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "build (macos-latest, mac-x64, --target x86_64-apple-darwin)",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "build (macos-latest, mac-arm64, --target aarch64-apple-darwin)",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "build (windows-latest, windows)",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  {
+    "name": "publish",
+    "status": "completed",
+    "conclusion": "success"
+  }
+]

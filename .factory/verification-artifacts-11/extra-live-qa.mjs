@@ -1,0 +1,23 @@
+import { chromium } from 'playwright';
+import { writeFile } from 'node:fs/promises';
+
+const base = 'https://diagram-source-studio.sociobot.in';
+const browser = await chromium.launch();
+const context = await browser.newContext({ viewport: { width: 720, height: 450 } });
+const page = await context.newPage();
+const errors = [];
+page.on('pageerror', error => errors.push(String(error)));
+page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+await page.goto(base);
+const rootReflow = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth, mainVisible: !!document.querySelector('main') }));
+await page.getByRole('link', { name: 'Privacy' }).first().click();
+const privacy = { url: page.url(), title: await page.title(), focus: await page.evaluate(() => document.activeElement?.textContent?.trim()) };
+await page.goBack();
+await page.waitForTimeout(100);
+const back = { url: page.url(), title: await page.title(), focus: await page.evaluate(() => document.activeElement?.textContent?.trim()) };
+await page.goto(`${base}/demo`);
+const demoReflow = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth, mainVisible: !!document.querySelector('main') }));
+const report = { viewport: { width: 720, height: 450, note: '1440x900 at 200% zoom equivalent CSS viewport' }, rootReflow, demoReflow, privacy, back, errors };
+await writeFile('.factory/verification-artifacts-11/extra-live-qa.json', JSON.stringify(report, null, 2));
+console.log(JSON.stringify(report, null, 2));
+await browser.close();

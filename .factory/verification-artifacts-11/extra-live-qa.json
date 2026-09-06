@@ -1,0 +1,26 @@
+{
+  "viewport": {
+    "width": 720,
+    "height": 450,
+    "note": "1440x900 at 200% zoom equivalent CSS viewport"
+  },
+  "rootReflow": {
+    "overflow": false,
+    "mainVisible": true
+  },
+  "demoReflow": {
+    "overflow": false,
+    "mainVisible": true
+  },
+  "privacy": {
+    "url": "https://diagram-source-studio.sociobot.in/privacy",
+    "title": "Privacy — Diagram Source Studio",
+    "focus": "Your source stays on your device"
+  },
+  "back": {
+    "url": "https://diagram-source-studio.sociobot.in/",
+    "title": "Diagram Source Studio — check diagram renders",
+    "focus": "Catch broken diagram renders before commit"
+  },
+  "errors": []
+}

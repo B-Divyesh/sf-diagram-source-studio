@@ -1,0 +1,26 @@
+{
+  "version": "v0.1.13",
+  "commit": "f2a906680d470b70ca1558e59dcf62f82955d645",
+  "assets": {
+    "macos_arm64": {
+      "name": "Diagram.Source.Studio_0.1.13_aarch64.dmg",
+      "url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_aarch64.dmg"
+    },
+    "macos_x64": {
+      "name": "Diagram.Source.Studio_0.1.13_x64.dmg",
+      "url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_x64.dmg"
+    },
+    "windows": {
+      "name": "Diagram.Source.Studio_0.1.13_x64-setup.exe",
+      "url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_x64-setup.exe"
+    },
+    "linux_appimage": {
+      "name": "Diagram.Source.Studio_0.1.13_amd64.AppImage",
+      "url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_amd64.AppImage"
+    },
+    "linux_deb": {
+      "name": "Diagram.Source.Studio_0.1.13_amd64.deb",
+      "url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_amd64.deb"
+    }
+  }
+}

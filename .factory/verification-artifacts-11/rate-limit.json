@@ -1,0 +1,48 @@
+{
+  "counts": {
+    "200": 30,
+    "429": 10
+  },
+  "rateLimited": [
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    },
+    {
+      "status": 429,
+      "retryAfter": "4"
+    }
+  ]
+}

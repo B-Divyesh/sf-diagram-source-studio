@@ -1,0 +1,527 @@
+{
+  "checks": {
+    "first-desktop": {
+      "scrollY": 0,
+      "title": "Diagram Source Studio — check diagram renders",
+      "job": "Catch broken diagram renders before commit",
+      "audience": "For engineers who keep Mermaid or D2 files in Git and need to inspect real output.",
+      "action": "Try it with sample data",
+      "result": "Loads a Mermaid project in the browser.",
+      "facts": [
+        "Files stay on your device",
+        "Core editing works offline",
+        "Free editor · Studio is $39 once"
+      ],
+      "actionBox": {
+        "top": 553.015625,
+        "bottom": 604.84375,
+        "left": 72,
+        "right": 294
+      },
+      "resultBox": {
+        "top": 620.84375,
+        "bottom": 643.640625,
+        "left": 72,
+        "right": 334
+      },
+      "factBoxes": [
+        {
+          "top": 661.640625,
+          "bottom": 687.46875
+        },
+        {
+          "top": 695.46875,
+          "bottom": 721.296875
+        },
+        {
+          "top": 729.296875,
+          "bottom": 755.125
+        }
+      ],
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "overflow": false,
+      "errors": []
+    },
+    "first-phone": {
+      "scrollY": 0,
+      "title": "Diagram Source Studio — check diagram renders",
+      "job": "Catch broken diagram renders before commit",
+      "audience": "For engineers who keep Mermaid or D2 files in Git and need to inspect real output.",
+      "action": "Try it with sample data",
+      "result": "Loads a Mermaid project in the browser.",
+      "facts": [
+        "Files stay on your device",
+        "Core editing works offline",
+        "Free editor · Studio is $39 once"
+      ],
+      "actionBox": {
+        "top": 362.59375,
+        "bottom": 414.421875,
+        "left": 20,
+        "right": 370
+      },
+      "resultBox": {
+        "top": 419.421875,
+        "bottom": 442.21875,
+        "left": 20,
+        "right": 370
+      },
+      "factBoxes": [
+        {
+          "top": 454.21875,
+          "bottom": 480.046875
+        },
+        {
+          "top": 484.046875,
+          "bottom": 509.875
+        },
+        {
+          "top": 513.875,
+          "bottom": 539.703125
+        }
+      ],
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false,
+      "errors": []
+    },
+    "demo": {
+      "banner": true,
+      "sampleBytes": 215,
+      "sample": "flowchart LR\n  source[Diagram source] --> current{Mermaid 11.17.2}\n  source --> previous{Mermaid 10.9.8}\n  current --> check[Compare output]\n  previous -. missing arc .-> check\n  check --> export[Export with source]",
+      "initialSvg": 1,
+      "svgBytes": 1297,
+      "svgMetadataSource": "flowchart LR\n  client[Web client] --> api[Diagram API]\n  api --> git[(Git review)]",
+      "pngBytes": 43697,
+      "pngSignature": "89504e470d0a1a0a",
+      "resetRestored": true,
+      "sentinel": "REAL-DO-NOT-TOUCH",
+      "storageKeys": [
+        "real:qa-sentinel",
+        "release:diagram-source-studio"
+      ],
+      "empty": "The source is empty. Type a diagram or load the sample.",
+      "invalid": "The 11.17.2 renderer stopped: Parse error on line 3:. Check the marked source.",
+      "d2Text": [
+        "naïve route",
+        "Café ☕",
+        "你好世界"
+      ],
+      "d2Invalid": "No D2 nodes found. Add a node or an arrow.",
+      "errors": []
+    },
+    "mobileDemo": {
+      "firstFocus": "Skip to main content",
+      "skipTarget": "main",
+      "arrowFocus": "Source",
+      "targets": [
+        {
+          "text": "Skip to main content",
+          "width": 189,
+          "height": 49.828125
+        },
+        {
+          "text": "DSDiagram Source Studio",
+          "width": 163,
+          "height": 60
+        },
+        {
+          "text": "Privacy",
+          "width": 54,
+          "height": 44
+        },
+        {
+          "text": "Terms",
+          "width": 45,
+          "height": 44
+        },
+        {
+          "text": "Reset demo",
+          "width": 77,
+          "height": 44
+        },
+        {
+          "text": "Start for real",
+          "width": 78,
+          "height": 44
+        },
+        {
+          "text": "Open file",
+          "width": 87,
+          "height": 44
+        },
+        {
+          "text": "Export SVG",
+          "width": 103,
+          "height": 44
+        },
+        {
+          "text": "MermaidD2",
+          "width": 171,
+          "height": 44
+        },
+        {
+          "text": "Load sample project",
+          "width": 171,
+          "height": 71.65625
+        },
+        {
+          "text": "Source",
+          "width": 183,
+          "height": 86.40625
+        },
+        {
+          "text": "Preview",
+          "width": 183,
+          "height": 86.40625
+        },
+        {
+          "text": "Mermaid 11.17.2Mermaid 10.9.8",
+          "width": 132,
+          "height": 44
+        },
+        {
+          "text": "Compare versions",
+          "width": 172,
+          "height": 44
+        },
+        {
+          "text": "Privacy",
+          "width": 54,
+          "height": 44
+        },
+        {
+          "text": "Terms",
+          "width": 45,
+          "height": 44
+        },
+        {
+          "text": "Built by Param Factory (external site)",
+          "width": 170,
+          "height": 44
+        }
+      ],
+      "minWidth": 45,
+      "minHeight": 44,
+      "overflow": false,
+      "errors": []
+    },
+    "invalidLicense": {
+      "notice": "This license is no longer active.See Studio purchase optionsStudio adds the two-version comparison.",
+      "buyHref": "/#pricing",
+      "errors": []
+    },
+    "offline": {
+      "sourceVisible": true,
+      "diagnostics": "Syntax parsed. Preview rendered.",
+      "caches": [
+        "diagram-source-studio-v0.1.13"
+      ],
+      "errors": []
+    }
+  },
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Diagram Source Studio — check diagram renders",
+      "lang": "en",
+      "h1": [
+        "Catch broken diagram renders before commit"
+      ],
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Catch broken diagram renders before commit"
+        },
+        {
+          "level": 2,
+          "text": "Inspect the render beside its source"
+        },
+        {
+          "level": 2,
+          "text": "Check a diagram in three steps"
+        },
+        {
+          "level": 3,
+          "text": "Open the source"
+        },
+        {
+          "level": 3,
+          "text": "Compare the renders"
+        },
+        {
+          "level": 3,
+          "text": "Export an editable file"
+        },
+        {
+          "level": 2,
+          "text": "Privacy and product limits"
+        },
+        {
+          "level": 2,
+          "text": "Compare two Mermaid versions"
+        },
+        {
+          "level": 2,
+          "text": "Download the desktop app"
+        }
+      ],
+      "canonical": "https://diagram-source-studio.sociobot.in/",
+      "motion": 0.00001,
+      "errors": []
+    },
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Diagram Source Studio",
+      "lang": "en",
+      "h1": [
+        "Check diagram renders"
+      ],
+      "main": 1,
+      "header": 2,
+      "footer": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Check diagram renders"
+        },
+        {
+          "level": 2,
+          "text": "Diagnostics"
+        },
+        {
+          "level": 2,
+          "text": "Studio license"
+        },
+        {
+          "level": 2,
+          "text": "Source"
+        },
+        {
+          "level": 2,
+          "text": "Renderer preview"
+        }
+      ],
+      "canonical": "https://diagram-source-studio.sociobot.in/demo",
+      "motion": 0.00001,
+      "errors": []
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy — Diagram Source Studio",
+      "lang": "en",
+      "h1": [
+        "Your source stays on your device"
+      ],
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Your source stays on your device"
+        },
+        {
+          "level": 2,
+          "text": "Files and local storage"
+        },
+        {
+          "level": 2,
+          "text": "License checks"
+        },
+        {
+          "level": 2,
+          "text": "Network use"
+        },
+        {
+          "level": 2,
+          "text": "Your choices"
+        }
+      ],
+      "canonical": "https://diagram-source-studio.sociobot.in/privacy",
+      "motion": 0.00001,
+      "errors": []
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms — Diagram Source Studio",
+      "lang": "en",
+      "h1": [
+        "Use the editor for work you control"
+      ],
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Use the editor for work you control"
+        },
+        {
+          "level": 2,
+          "text": "License"
+        },
+        {
+          "level": 2,
+          "text": "Purchases and refunds"
+        },
+        {
+          "level": 2,
+          "text": "Your files"
+        },
+        {
+          "level": 2,
+          "text": "No warranty"
+        }
+      ],
+      "canonical": "https://diagram-source-studio.sociobot.in/terms",
+      "motion": 0.00001,
+      "errors": []
+    },
+    "/missing-verification-11": {
+      "status": 404,
+      "title": "Page not found — Diagram Source Studio",
+      "lang": "en",
+      "h1": [
+        "Page not found"
+      ],
+      "main": 1,
+      "header": 1,
+      "footer": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Page not found"
+        }
+      ],
+      "canonical": "https://diagram-source-studio.sociobot.in/missing-verification-11",
+      "motion": 0.00001,
+      "errors": []
+    }
+  },
+  "axe": {
+    "/": [],
+    "/demo": [],
+    "/privacy": [],
+    "/terms": [],
+    "/missing-verification-11": []
+  },
+  "requests": {
+    "demo": [
+      {
+        "url": "https://diagram-source-studio.sociobot.in/",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/neon-inspection-1280.webp",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-Dbj0zxo1.js",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/main-CCC-LUn6.css",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BKTgBNmI.woff2",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://api.github.com/repos/B-Divyesh/sf-diagram-source-studio/releases?per_page=1",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://api.sociobot.in/api/v1/products",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-BriLmxM2.woff2",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "blob:https://diagram-source-studio.sociobot.in/f845813d-8a76-4f92-aee2-378acc2a02b4",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "https://diagram-source-studio.sociobot.in/vendor/mermaid-11.min.js",
+        "method": "GET",
+        "body": null
+      }
+    ]
+  },
+  "errors": [
+    {
+      "label": "first-desktop",
+      "errors": []
+    },
+    {
+      "label": "first-phone",
+      "errors": []
+    },
+    {
+      "label": "desktop-demo",
+      "errors": []
+    },
+    {
+      "label": "mobile-demo",
+      "errors": []
+    },
+    {
+      "label": "route-/",
+      "errors": []
+    },
+    {
+      "label": "route-/demo",
+      "errors": []
+    },
+    {
+      "label": "route-/privacy",
+      "errors": []
+    },
+    {
+      "label": "route-/terms",
+      "errors": []
+    },
+    {
+      "label": "route-/missing-verification-11",
+      "errors": []
+    },
+    {
+      "label": "license-invalid",
+      "errors": []
+    },
+    {
+      "label": "offline",
+      "errors": []
+    }
+  ]
+}

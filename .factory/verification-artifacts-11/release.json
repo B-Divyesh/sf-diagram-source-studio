@@ -1,0 +1,52 @@
+{
+  "tag_name": "v0.1.13",
+  "target_commitish": "main",
+  "published_at": "2026-09-06T04:33:22Z",
+  "assets": [
+    {
+      "name": "Diagram.Source.Studio.app.tar.gz",
+      "size": 6774398,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio.app.tar.gz"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_aarch64.dmg",
+      "size": 6649186,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_aarch64.dmg"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_amd64.AppImage",
+      "size": 82885112,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_amd64.AppImage"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_amd64.deb",
+      "size": 8307568,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_amd64.deb"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_x64-setup.exe",
+      "size": 5087648,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_x64-setup.exe"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_x64.dmg",
+      "size": 6823318,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_x64.dmg"
+    },
+    {
+      "name": "Diagram.Source.Studio_0.1.13_x64_en-US.msi",
+      "size": 6369280,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/Diagram.Source.Studio_0.1.13_x64_en-US.msi"
+    },
+    {
+      "name": "latest.json",
+      "size": 1204,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/latest.json"
+    },
+    {
+      "name": "SHA256SUMS",
+      "size": 756,
+      "browser_download_url": "https://github.com/B-Divyesh/sf-diagram-source-studio/releases/download/v0.1.13/SHA256SUMS"
+    }
+  ]
+}
