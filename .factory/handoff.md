@@ -1,29 +1,45 @@
-# Diagram Source Studio review 3 handoff
+# Diagram Source Studio review 4 handoff
 
 ## Status
 
-**PASS.** Adversarial first-read review 3 completed on 2026-08-29 against commit `d7697755210314199dc2a86fb11943a487ff5e0d` and the live site <https://diagram-source-studio.sociobot.in>. No product code was changed.
+**FAIL.** Independent review 4 completed on 2026-09-06 against implementation `80d2b686ec61efd15441e3faa0075a2f205abea2` and the live site <https://diagram-source-studio.sociobot.in>.
+
+There is one high-severity finding and two untested public claims. The installed desktop app cannot load the billing catalog or verify a license because the API does not allow the Tauri app origin. No product code was changed.
 
 ## Completed
 
-- Wrote `.factory/review-3.md` with the full cold-read, copy, demo, claims, history, routing, privacy, accessibility, visual-identity, and missed-leverage review.
-- Verified fresh 390 × 844 and 1440 × 900 landing contexts. The first screen clearly gives the job, audience, and sample-demo action; its action result and three facts fit without scrolling.
-- Verified the live one-click demo, direct `/demo`, sample state, banner, reset, start-for-real exit, and isolated storage using a seeded real-data sentinel.
-- Crawled all rendered live links. Internal routes and external product destinations returned the expected statuses; unknown routes produce the designed HTTP 404.
-- Verified live route metadata, back-button focus management, console/page errors, request logs, and Axe serious/critical results.
+- Wrote `.factory/review-4.md` with the verdict, evidence, declared-claim results, and disposition of every earlier finding.
+- Verified the live job statement, audience, first action, one-click sample, realistic output, persistent demo label, reset, exit, and separation from a real-data sentinel.
+- Checked normal, invalid, boundary, and recovery paths for Mermaid and D2, plus SVG and PNG exports.
+- Checked desktop and phone layouts, keyboard use, focus, reduced motion, 200% equivalent reflow, accessibility scans, links, titles, legal pages, and the designed HTTP 404.
+- Checked privacy requests, service-worker update, offline reload, build sizes, and Lighthouse budgets.
+- Ran every declared claim command, the full test suite, build, release verification, audit, and Rust quality commands from a clean checkout after installing documented prerequisites.
+- Downloaded the v0.1.10 AppImage into a clean consumer environment, matched its checksum, launched it under a fresh user-data directory, and exercised the populated editor.
+- Compared 31 live static files with the fresh build; all matched.
 
-## Verification
-
-In clean clone `/tmp/diagram-review-3.FbLygL`:
+## Verification commands
 
 ```sh
 npm ci
-PATH=/tmp/pwsh-7.4.12.LpBiQs:$PATH npm test
+npm test
 npm run build
+npm run verify:release
+npm audit
+cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
+cargo test --manifest-path src-tauri/Cargo.toml
+cargo check --manifest-path src-tauri/Cargo.toml
+cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings
 ```
 
-`npm test` passed all 13 accessibility/route checks, all 21 manifest claim checks, and 4 regression checks. The container lacked `pwsh`; a temporary PowerShell 7 runtime was downloaded outside the repository solely to meet the README-listed test prerequisite. `npm run build` passed and produced `dist/site/` (12.99 kB gzip main JS; 4.65 kB gzip CSS).
+Every command passed after PowerShell and the documented Linux Tauri packages were installed. The first affected attempts failed because the base worker image did not include those prerequisites; this is recorded in the review.
 
-## Known gaps / next steps
+Lighthouse results:
 
-No review findings or release-blocking gaps remain. Keep PowerShell 7 available in future verifier images because `npm test` intentionally requires it for the Windows installer claim.
+- Landing: performance 99, accessibility 100, best practices 100, SEO 100.
+- Demo: performance 100, accessibility 100, best practices 100, SEO 100.
+
+## Known gap and next step
+
+The AppImage purchase panel remains at “Checking purchase availability…” because `api.sociobot.in` does not return a matching CORS allow-origin header for `http://tauri.localhost` or `tauri://localhost`. The free editor works, but a clean installation cannot buy or verify the Studio license.
+
+Allow the product's installed origins or route the catalog and verification requests through a narrow Tauri command. Then add an installed-origin integration test, publish a new desktop release, and repeat the clean-install purchase and verification checks. The `billing-catalog` and `studio-purchase` claims remain untested until that is done.
