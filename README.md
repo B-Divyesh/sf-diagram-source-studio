@@ -41,7 +41,14 @@ npm run preview
 
 ## Run the desktop app
 
-Install the current Tauri 2 system prerequisites, Rust, Node.js 22, and npm. Then run:
+Install the current Tauri 2 system prerequisites, Rust, Node.js 22, and npm. On Debian or Ubuntu, install:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+```
+
+Then run:
 
 ```sh
 npm ci

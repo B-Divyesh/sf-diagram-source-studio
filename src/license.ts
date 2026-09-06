@@ -10,6 +10,11 @@ interface LicenseStore {
   removeItem(key: string): void;
 }
 
+interface NativeBillingResponse {
+  status: number;
+  body: string;
+}
+
 const demoValues = new Map<string, string>();
 const demoStore: LicenseStore = {
   getItem: (key) => demoValues.get(key) ?? null,
@@ -36,12 +41,40 @@ function testBillingApiBase(): string | undefined {
   return (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__;
 }
 
+function isNativeShell(): boolean {
+  return '__TAURI_INTERNALS__' in window;
+}
+
 export function canCheckBillingCatalog(): boolean {
-  return !['localhost', '127.0.0.1'].includes(location.hostname) || Boolean(testBillingApiBase());
+  return isNativeShell() || !['localhost', '127.0.0.1'].includes(location.hostname) || Boolean(testBillingApiBase());
 }
 
 export function billingCatalogUrl(): string {
   return `${testBillingApiBase() ?? API_BASE}/products`;
+}
+
+async function billingRequest(request: 'catalog' | 'verify', license?: string): Promise<Response> {
+  const testBase = testBillingApiBase();
+  if (!isNativeShell() || testBase) {
+    const url = request === 'catalog'
+      ? `${testBase ?? API_BASE}/products`
+      : `${testBase ? `${testBase}/products/diagram-source-studio` : BASE}/verify?license=${encodeURIComponent(license ?? '')}`;
+    return fetch(url);
+  }
+
+  const { invoke } = await import('@tauri-apps/api/core');
+  const response = await invoke<NativeBillingResponse>('billing_request', { request, license });
+  return new Response(response.body, {
+    status: response.status,
+    headers: { 'content-type': 'application/json' }
+  });
+}
+
+export async function fetchBillingCatalog(): Promise<BillingProduct[] | undefined> {
+  const response = await billingRequest('catalog');
+  if (!response.ok) throw new Error('catalog unavailable');
+  const catalog = await response.json() as { data?: BillingProduct[] };
+  return catalog.data;
 }
 
 export function captureLicense(demo = false): void {
@@ -83,7 +116,7 @@ export async function verifyLicense(demo = false): Promise<LicenseState> {
     if (cached.token === token && cached.checkedAt && Date.now() - cached.checkedAt < 86_400_000) {
       return { unlocked: cached.valid === true, notice: cached.valid ? undefined : 'This license is no longer active.' };
     }
-    const response = await fetch(`${BASE}/verify?license=${encodeURIComponent(token)}`);
+    const response = await billingRequest('verify', token);
     if (!response.ok) throw new Error('verify unavailable');
     const data = await response.json() as { valid: boolean };
     store.setItem(VERDICT_KEY, JSON.stringify({ valid: data.valid, checkedAt: Date.now(), token }));

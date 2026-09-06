@@ -1,6 +1,6 @@
 import './styles.css';
 import { editorView, mountEditor } from './editor';
-import { billingCatalogUrl, canCheckBillingCatalog, captureLicense, checkoutUrl, purchaseDeliveryNotice, purchaseDeliveryReady, studioProductEnabled } from './license';
+import { canCheckBillingCatalog, captureLicense, checkoutUrl, fetchBillingCatalog, purchaseDeliveryNotice, purchaseDeliveryReady, studioProductEnabled } from './license';
 
 const app = document.querySelector<HTMLElement>('#app')!;
 const isNative = () => '__TAURI_INTERNALS__' in window;
@@ -22,7 +22,7 @@ function header(compact = false): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.10 · Original generated artwork</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Diagram Source Studio</strong><br>Check diagram renders before you commit.</p><nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav><p class="build">v0.1.11 · Original generated artwork</p></footer>`;
 }
 
 function home(): string {
@@ -48,7 +48,7 @@ const legalHeader = (eyebrow: string, heading: string, intro: string) => `${head
 function privacy(): string {
   return `${legalHeader('Privacy / updated 28 August 2026', 'Your source stays on your device', 'Diagram Source Studio reads files you choose and does not upload their contents.')}
   <h2>Files and local storage</h2><p>The browser demo keeps sample changes in memory. The real editor may store your last open source in local storage. You can clear site data at any time.</p>
-  <h2>License checks</h2><p>If checkout returns a license, the app saves it and removes it from the address. The app sends the token to the Sociobot billing API and stores the result for one day. Diagram source is not included.</p>
+  <h2>License checks</h2><p>If checkout returns a license, the app saves it and removes it from the address. The app sends only that token to the Sociobot billing API and stores the result for one day. Diagram source is not included.</p>
   <h2>Network use</h2><p>The editor loads its code, fonts, and sample from this site. It makes no analytics or advertising requests.</p><p>The landing page requests public release and purchase availability data. It does not send diagram source with those requests.</p>
   <h2>Your choices</h2><p>Use the free editor without a license. Remove local data through your browser or operating system.</p></main>${footer()}`;
 }
@@ -93,10 +93,8 @@ async function setupCheckout() {
   if (!action) return;
   try {
     if (!canCheckBillingCatalog()) throw new Error('production catalog only');
-    const response = await fetch(billingCatalogUrl());
-    if (!response.ok) throw new Error('catalog unavailable');
-    const catalog = await response.json() as { data?: Array<{ slug?: string; price_minor?: number; currency?: string }> };
-    if (!studioProductEnabled(catalog.data) || !purchaseDeliveryReady) throw new Error('product unavailable');
+    const catalog = await fetchBillingCatalog();
+    if (!studioProductEnabled(catalog) || !purchaseDeliveryReady) throw new Error('product unavailable');
     action.innerHTML = `<a class="primary" href="${checkoutUrl}">Buy Studio</a>`;
   } catch {
     action.textContent = purchaseDeliveryNotice;

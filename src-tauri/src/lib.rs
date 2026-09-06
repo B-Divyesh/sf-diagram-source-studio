@@ -1,12 +1,79 @@
 use base64::Engine;
 use serde::Serialize;
 use std::path::Path;
+use std::time::Duration;
+
+const BILLING_API_BASE: &str = "https://api.sociobot.in/api/v1";
 
 #[derive(Serialize)]
 struct FileDocument {
     name: String,
     contents: String,
     binary: bool,
+}
+
+#[derive(Serialize)]
+struct BillingResponse {
+    status: u16,
+    body: String,
+}
+
+fn billing_url(
+    api_base: &str,
+    request: &str,
+    license: Option<&str>,
+) -> Result<reqwest::Url, String> {
+    let base = api_base.trim_end_matches('/');
+    match request {
+        "catalog" if license.is_none() => reqwest::Url::parse(&format!("{base}/products"))
+            .map_err(|_| "billing endpoint is invalid".to_string()),
+        "verify" => {
+            let token = license
+                .filter(|value| !value.trim().is_empty() && value.len() <= 4096)
+                .ok_or_else(|| "a license token is required".to_string())?;
+            let mut url =
+                reqwest::Url::parse(&format!("{base}/products/diagram-source-studio/verify"))
+                    .map_err(|_| "billing endpoint is invalid".to_string())?;
+            url.query_pairs_mut().append_pair("license", token);
+            Ok(url)
+        }
+        _ => Err("unsupported billing request".to_string()),
+    }
+}
+
+async fn fetch_billing(
+    api_base: &str,
+    request: &str,
+    license: Option<&str>,
+) -> Result<BillingResponse, String> {
+    let url = billing_url(api_base, request, license)?;
+    let client = reqwest::Client::builder()
+        .timeout(Duration::from_secs(10))
+        .user_agent("Diagram Source Studio")
+        .build()
+        .map_err(|_| "billing request could not start".to_string())?;
+    let response = client
+        .get(url)
+        .send()
+        .await
+        .map_err(|_| "billing request is unavailable".to_string())?;
+    let status = response.status().as_u16();
+    let body = response
+        .text()
+        .await
+        .map_err(|_| "billing response could not be read".to_string())?;
+    Ok(BillingResponse { status, body })
+}
+
+// This command deliberately exposes only the public catalog and this
+// product's verify endpoint. It never receives diagram source or arbitrary
+// URLs, so installed Tauri webviews do not need a broad CORS exception.
+#[tauri::command]
+async fn billing_request(
+    request: String,
+    license: Option<String>,
+) -> Result<BillingResponse, String> {
+    fetch_billing(BILLING_API_BASE, &request, license.as_deref()).await
 }
 
 fn document_from_path(path: &Path) -> Option<FileDocument> {
@@ -77,7 +144,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             open_document,
             save_document,
-            save_binary
+            save_binary,
+            billing_request
         ])
         .run(tauri::generate_context!())
         .expect("error while running Diagram Source Studio");
@@ -86,6 +154,32 @@ pub fn run() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::io::{Read, Write};
+    use std::net::TcpListener;
+    use std::thread;
+
+    fn one_response_server(
+        expected_path: &'static str,
+        body: &'static str,
+    ) -> (String, thread::JoinHandle<()>) {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let address = listener.local_addr().unwrap();
+        let handle = thread::spawn(move || {
+            let (mut stream, _) = listener.accept().unwrap();
+            let mut request = [0_u8; 4096];
+            let count = stream.read(&mut request).unwrap();
+            let request = String::from_utf8_lossy(&request[..count]);
+            assert!(request.starts_with(&format!("GET {expected_path} HTTP/1.1")));
+            assert!(!request.contains("Diagram source"));
+            let response = format!(
+                "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+                body.len(),
+                body
+            );
+            stream.write_all(response.as_bytes()).unwrap();
+        });
+        (format!("http://{address}/api/v1"), handle)
+    }
 
     #[test]
     fn native_file_round_trip_preserves_utf8_bom_and_crlf_bytes() {
@@ -115,5 +209,36 @@ mod tests {
             bytes
         );
         std::fs::remove_dir_all(directory).unwrap();
+    }
+
+    #[test]
+    fn native_billing_bridge_returns_catalog_and_license_verdict_without_cors() {
+        let (catalog_base, catalog_server) = one_response_server(
+            "/api/v1/products",
+            r#"{"data":[{"slug":"diagram-source-studio","price_minor":3900,"currency":"USD"}]}"#,
+        );
+        let catalog =
+            tauri::async_runtime::block_on(fetch_billing(&catalog_base, "catalog", None)).unwrap();
+        assert_eq!(catalog.status, 200);
+        assert!(catalog.body.contains("diagram-source-studio"));
+        catalog_server.join().unwrap();
+
+        let (verify_base, verify_server) = one_response_server(
+            "/api/v1/products/diagram-source-studio/verify?license=installed-license",
+            r#"{"valid":true,"reason":"ok"}"#,
+        );
+        let verdict = tauri::async_runtime::block_on(fetch_billing(
+            &verify_base,
+            "verify",
+            Some("installed-license"),
+        ))
+        .unwrap();
+        assert_eq!(verdict.status, 200);
+        assert!(verdict.body.contains("\"valid\":true"));
+        verify_server.join().unwrap();
+
+        assert!(billing_url(&verify_base, "catalog", Some("unexpected")).is_err());
+        assert!(billing_url(&verify_base, "verify", None).is_err());
+        assert!(billing_url(&verify_base, "arbitrary", None).is_err());
     }
 }

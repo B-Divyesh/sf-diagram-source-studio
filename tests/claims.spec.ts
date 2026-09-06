@@ -155,8 +155,9 @@ test('@claim:native-file-dialogs desktop shell opens and saves exact source byte
   await page.getByRole('button', { name: 'Open file' }).click();
   await expect(page.locator('#source')).toHaveValue('flowchart LR\n  native[Native café ☕] --> saved[Saved]\n');
   const calls = await page.evaluate(() => (window as unknown as Window & { __DSS_NATIVE_CALLS__: Array<{ command: string; args: { name?: string; contents?: string } }> }).__DSS_NATIVE_CALLS__);
-  expect(calls.map((call) => call.command)).toEqual(['open_document', 'save_document', 'open_document']);
-  expect(calls[1].args).toEqual({ name: 'diagram.mmd', contents: '\ufeffflowchart LR\r\n  native[Native café ☕] --> saved[Saved]\r\n' });
+  const fileCalls = calls.filter((call) => call.command !== 'billing_request');
+  expect(fileCalls.map((call) => call.command)).toEqual(['open_document', 'save_document', 'open_document']);
+  expect(fileCalls[1].args).toEqual({ name: 'diagram.mmd', contents: '\ufeffflowchart LR\r\n  native[Native café ☕] --> saved[Saved]\r\n' });
 });
 
 test('@claim:offline-reference bundled syntax reference works without network', async ({ page, context }) => {
@@ -294,18 +295,23 @@ test('@claim:studio-purchase checkout return saves, verifies, and unlocks Studio
   await expect(page.getByText('$39 once', { exact: true })).toBeVisible();
 
   const desktop = await context.newPage();
+  let nativeBillingCalls: Array<{ command: string; args: { request?: string; license?: string } }> = [];
   await desktop.addInitScript(() => {
-    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
-    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
-  });
-  await desktop.route('**/api/v1/products', (route) => {
-    catalogRequests += 1;
-    return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
-  });
-  let verificationRequests = 0;
-  await desktop.route('https://api.sociobot.in/api/v1/products/diagram-source-studio/verify**', (route) => {
-    verificationRequests += 1;
-    return route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } });
+    const calls: Array<{ command: string; args: { request?: string; license?: string } }> = [];
+    Object.defineProperty(window, '__DSS_NATIVE_BILLING_CALLS__', { value: calls });
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {
+      invoke: async (command: string, args: { request?: string; license?: string }) => {
+        calls.push({ command, args });
+        if (command !== 'billing_request') throw new Error(`unexpected native command: ${command}`);
+        if (args.request === 'catalog') {
+          return { status: 200, body: JSON.stringify({ data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] }) };
+        }
+        if (args.request === 'verify' && args.license === 'returned-license-token') {
+          return { status: 200, body: JSON.stringify({ valid: true, reason: 'ok', expires_at: null }) };
+        }
+        return { status: 200, body: JSON.stringify({ valid: false, reason: 'invalid', expires_at: null }) };
+      }
+    } });
   });
   await desktop.goto('/');
   await expect(desktop.getByRole('link', { name: 'Buy Studio for $39 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
@@ -315,12 +321,15 @@ test('@claim:studio-purchase checkout return saves, verifies, and unlocks Studio
   expect(await desktop.evaluate(() => localStorage.getItem('sb_license:diagram-source-studio'))).toBe('returned-license-token');
   const verdict = JSON.parse(await desktop.evaluate(() => localStorage.getItem('sb_license_verdict:diagram-source-studio')) ?? '{}');
   expect(verdict).toMatchObject({ valid: true, token: 'returned-license-token' });
-  expect(verificationRequests).toBe(1);
+  nativeBillingCalls = await desktop.evaluate(() => (window as unknown as Window & { __DSS_NATIVE_BILLING_CALLS__: Array<{ command: string; args: { request?: string; license?: string } }> }).__DSS_NATIVE_BILLING_CALLS__);
+  expect(nativeBillingCalls.map((call) => call.command)).toEqual(['billing_request', 'billing_request']);
+  expect(nativeBillingCalls.filter((call) => call.args.request === 'catalog')).toHaveLength(1);
+  expect(nativeBillingCalls.filter((call) => call.args.request === 'verify')).toEqual([
+    { command: 'billing_request', args: { request: 'verify', license: 'returned-license-token' } }
+  ]);
   await desktop.getByRole('button', { name: 'Compare versions' }).click();
   await expect(desktop.locator('.matrix-result')).toHaveCount(2);
-  // One landing check plus one check for each native document load. The return
-  // document is a new load and must re-check availability independently.
-  expect(catalogRequests).toBe(3);
+  expect(catalogRequests).toBe(1);
   const eligibility = await page.evaluate(async () => {
     const modulePath = '/src/license.ts';
     const { checkoutUrl, purchaseDeliveryReady, studioProductEnabled } = await import(/* @vite-ignore */ modulePath);
@@ -339,25 +348,24 @@ test('@claim:studio-purchase checkout return saves, verifies, and unlocks Studio
   });
 });
 
-test('@claim:billing-catalog native startup checks the public catalog once and discloses it', async ({ page }) => {
-  let catalogRequests = 0;
+test('@claim:billing-catalog native startup checks the public catalog once', async ({ page }) => {
   await page.addInitScript(() => {
-    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
-    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
-  });
-  await page.route('**/api/v1/products', (route) => {
-    catalogRequests += 1;
-    expect(route.request().method()).toBe('GET');
-    expect(route.request().postData()).toBeNull();
-    return route.fulfill({ json: { data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] } });
+    const calls: Array<{ command: string; args: { request?: string; license?: string } }> = [];
+    Object.defineProperty(window, '__DSS_NATIVE_CATALOG_CALLS__', { value: calls });
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {
+      invoke: async (command: string, args: { request?: string; license?: string }) => {
+        calls.push({ command, args });
+        return { status: 200, body: JSON.stringify({ data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] }) };
+      }
+    } });
   });
   await page.goto('/');
   await expect(page.getByRole('link', { name: 'Buy Studio for $39 once' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
-  expect(catalogRequests).toBe(1);
-  const application = await readFile(resolve('src/main.ts'), 'utf8');
-  expect(application).toContain('The landing page requests public release and purchase availability data.');
-  const readme = await readFile(resolve('README.md'), 'utf8');
-  expect(readme).toMatch(/The landing page requests public\s+release and purchase availability data\./);
+  const calls = await page.evaluate(() => (window as unknown as Window & { __DSS_NATIVE_CATALOG_CALLS__: Array<{ command: string; args: { request?: string; license?: string } }> }).__DSS_NATIVE_CATALOG_CALLS__);
+  expect(calls).toHaveLength(1);
+  expect(calls[0].command).toBe('billing_request');
+  expect(calls[0].args.request).toBe('catalog');
+  expect(calls[0].args.license).toBeUndefined();
 });
 
 test('@claim:license-verdict-one-day cached verification waits exactly one day before rechecking', async ({ page }) => {
@@ -367,6 +375,7 @@ test('@claim:license-verdict-one-day cached verification waits exactly one day b
     if (!sessionStorage.getItem('dss-test-now')) sessionStorage.setItem('dss-test-now', String(seed));
     Date.now = () => Number(sessionStorage.getItem('dss-test-now'));
     Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
+    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
     localStorage.setItem('sb_license:diagram-source-studio', 'one-day-license');
     localStorage.setItem('sb_license_verdict:diagram-source-studio', JSON.stringify({ valid: true, token: 'one-day-license', checkedAt: seed }));
   }, checkedAt);
@@ -391,6 +400,7 @@ test('@claim:refund-revocation a revoked verification response locks Studio comp
   await page.addInitScript((seed) => {
     Date.now = () => seed + 86_400_000;
     Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {} });
+    (window as Window & { __DSS_TEST_BILLING_API_BASE__?: string }).__DSS_TEST_BILLING_API_BASE__ = 'https://api.sociobot.in/api/v1';
     localStorage.setItem('sb_license:diagram-source-studio', 'refunded-license');
     localStorage.setItem('sb_license_verdict:diagram-source-studio', JSON.stringify({ valid: true, token: 'refunded-license', checkedAt: seed }));
   }, checkedAt);

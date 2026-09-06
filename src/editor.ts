@@ -1,5 +1,5 @@
 import { embedSourceInPng, embedSourceInSvg, Engine, MERMAID_SAMPLE, renderDiagram, RendererVersion, sourceFromPng, sourceFromSvg } from './diagram';
-import { billingCatalogUrl, canCheckBillingCatalog, checkoutUrl, localLicenseState, purchaseDeliveryNotice, purchaseDeliveryReady, saveLicense, studioProductEnabled, verifyLicense } from './license';
+import { canCheckBillingCatalog, checkoutUrl, fetchBillingCatalog, localLicenseState, purchaseDeliveryNotice, purchaseDeliveryReady, saveLicense, studioProductEnabled, verifyLicense } from './license';
 
 const D2_SAMPLE = `direction: right
 source: Diagram source
@@ -272,10 +272,8 @@ export function mountEditor(demo: boolean) {
   const setupEditorCheckout = async () => {
     try {
       if (!canCheckBillingCatalog()) throw new Error('production catalog only');
-      const response = await fetch(billingCatalogUrl());
-      if (!response.ok) throw new Error('catalog unavailable');
-      const catalog = await response.json() as { data?: Array<{ slug?: string; price_minor?: number; currency?: string }> };
-      if (!studioProductEnabled(catalog.data)) throw new Error('product unavailable');
+      const catalog = await fetchBillingCatalog();
+      if (!studioProductEnabled(catalog)) throw new Error('product unavailable');
       const action = document.querySelector<HTMLElement>('[data-buy-state]');
       if (!purchaseDeliveryReady) throw new Error('purchase delivery paused');
       if (!disposed && action) action.outerHTML = `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
