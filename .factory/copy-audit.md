@@ -1,6 +1,6 @@
 # Landing copy audit
 
-Audited 2026-08-29. Counts split on spaces and treat hyphenated terms and product versions as one word. No sentence exceeds 22 words or uses a banned marketing word.
+Rechecked 2026-09-06. Counts split on spaces and treat hyphenated terms and product versions as one word. No sentence exceeds 22 words or uses a banned marketing word.
 
 ## First screen
 

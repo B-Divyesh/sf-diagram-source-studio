@@ -93,6 +93,7 @@ export function mountEditor(demo: boolean) {
   const timeouts = new Set<number>();
   let disposed = false;
   let checkoutRequested = false;
+  let checkoutAvailability: 'pending' | 'available' | 'unavailable' = 'pending';
   let sourceFormat: { lineEnding: '\n' | '\r\n'; bom: boolean } = { lineEnding: '\n', bom: false };
   let unlocked = localLicenseState(demo).unlocked;
 
@@ -259,11 +260,16 @@ export function mountEditor(demo: boolean) {
     document.querySelector('.workbench')?.setAttribute('data-mobile-pane', name);
   }
 
+  const checkoutAction = () => {
+    if (checkoutAvailability === 'available') return `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
+    if (checkoutAvailability === 'unavailable') return `<span class="buy-link">${purchaseDeliveryNotice}</span>`;
+    return '<span class="buy-link" data-buy-state>Checking purchase availability…</span>';
+  };
   const updateLicense = () => {
     const state = localLicenseState(demo); unlocked = state.unlocked;
     document.querySelector<HTMLElement>('#license-state')!.innerHTML = unlocked
       ? '<span class="license-ok">Studio license active</span><p>Two-version comparison is available.</p>'
-      : `<p>${state.notice ?? 'The free editor includes preview and both exports.'}</p>${demo ? '<a class="buy-link" href="/#pricing">See Studio purchase options</a>' : '<span class="buy-link" data-buy-state>Checking purchase availability…</span>'}<p>Studio adds the two-version comparison.</p>`;
+      : `<p>${state.notice ?? 'The free editor includes preview and both exports.'}</p>${demo ? '<a class="buy-link" href="/#pricing">See Studio purchase options</a>' : checkoutAction()}<p>Studio adds the two-version comparison.</p>`;
     if (!unlocked && !demo && !checkoutRequested) {
       checkoutRequested = true;
       setupEditorCheckout();
@@ -274,12 +280,10 @@ export function mountEditor(demo: boolean) {
       if (!canCheckBillingCatalog()) throw new Error('production catalog only');
       const catalog = await fetchBillingCatalog();
       if (!studioProductEnabled(catalog)) throw new Error('product unavailable');
-      const action = document.querySelector<HTMLElement>('[data-buy-state]');
       if (!purchaseDeliveryReady) throw new Error('purchase delivery paused');
-      if (!disposed && action) action.outerHTML = `<a class="buy-link" href="${checkoutUrl}">Buy Studio for $39 once</a>`;
+      if (!disposed) { checkoutAvailability = 'available'; updateLicense(); }
     } catch {
-      const action = document.querySelector<HTMLElement>('[data-buy-state]');
-      if (!disposed && action) action.textContent = purchaseDeliveryNotice;
+      if (!disposed) { checkoutAvailability = 'unavailable'; updateLicense(); }
     }
   };
   updateLicense(); verifyLicense(demo).then(() => { if (!disposed) updateLicense(); });

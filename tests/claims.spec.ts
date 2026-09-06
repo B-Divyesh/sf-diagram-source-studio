@@ -516,3 +516,28 @@ test('@regression:catalog-unavailable purchase action explains an unavailable bi
   await expect(page.getByText('Studio checkout is unavailable right now. Try again shortly; the free editor still works.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Buy Studio' })).toHaveCount(0);
 });
+
+test('@regression:catalog-ready survives an invalid native license check', async ({ page }) => {
+  await page.addInitScript(() => {
+    const calls: Array<{ request?: string; license?: string }> = [];
+    Object.defineProperty(window, '__DSS_NATIVE_INVALID_LICENSE_CALLS__', { value: calls });
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {
+      invoke: async (command: string, args: { request?: string; license?: string }) => {
+        if (command !== 'billing_request') throw new Error(`unexpected native command: ${command}`);
+        calls.push(args);
+        if (args.request === 'catalog') return { status: 200, body: JSON.stringify({ data: [{ slug: 'diagram-source-studio', price_minor: 3900, currency: 'USD' }] }) };
+        return { status: 200, body: JSON.stringify({ valid: false, reason: 'invalid', expires_at: null }) };
+      }
+    } });
+  });
+  await page.goto('/');
+  const buy = page.getByRole('link', { name: 'Buy Studio for $39 once' });
+  await expect(buy).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
+  await page.getByText('Have a license?').click();
+  await page.locator('#license-token').fill('not-a-valid-license');
+  await page.getByRole('button', { name: 'Verify license' }).click();
+  await expect(page.getByText('This license is no longer active.')).toBeVisible();
+  await expect(buy).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/diagram-source-studio/checkout');
+  const calls = await page.evaluate(() => (window as unknown as Window & { __DSS_NATIVE_INVALID_LICENSE_CALLS__: Array<{ request?: string; license?: string }> }).__DSS_NATIVE_INVALID_LICENSE_CALLS__);
+  expect(calls).toEqual([{ request: 'catalog' }, { request: 'verify', license: 'not-a-valid-license' }]);
+});
