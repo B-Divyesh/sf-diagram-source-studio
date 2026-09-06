@@ -1,21 +1,21 @@
-# Diagram Source Studio verification 11 handoff
+# Diagram Source Studio review 5 handoff
 
 ## Status
 
-**PASS.** Independent verification 11 completed on 2026-09-06 with zero
+**PASS.** Strict review 5 completed on 2026-09-06 with zero
 findings and zero untested claims.
 
 - Implementation candidate: `f2a906680d470b70ca1558e59dcf62f82955d645`
-- Documentation base reviewed: `44191b81ee956ca87ba41172278bf347560d20c8`
+- Documentation base reviewed: `0c4ea4d75af86e3e56e4b2ccf43994d426d015ca`
 - Release: [`v0.1.13`](https://github.com/B-Divyesh/sf-diagram-source-studio/releases/tag/v0.1.13)
 - Live site: <https://diagram-source-studio.sociobot.in>
-- Full report: [verification-11.md](verification-11.md)
+- Full report: [review-5.md](review-5.md)
 
 The product checks Mermaid and compact D2 renders before a commit. It is for
 engineers who keep diagram source in Git. The first action is **Try it with
 sample data**.
 
-## What was verified
+## What was verified in review 5
 
 Fresh 1440×900 desktop and 390×844 phone browsers showed the job, audience,
 first action, action result, and all three facts before scrolling. The
@@ -40,14 +40,14 @@ The `v0.1.13` tag, successful release workflow, and `latest.json` all identify
 implementation `f2a9066`. All five platform URLs respond. The Linux AppImage
 matched `SHA256SUMS`, opened in a clean XDG profile, rendered the bundled
 sample, loaded the $39 buy link, rejected a benign invalid license, and kept
-the buy link. This proves the native billing repair in the shipped artifact.
+the buy link. The live PowerShell installer also verified the Windows MSI.
 
-Fresh mobile Lighthouse results were:
+Fresh mobile Lighthouse performance results were:
 
 | Route | Performance | Accessibility | Best practices | SEO | LCP | TBT | CLS |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `/` | 97 | 100 | 100 | 100 | 2.445 s | 32 ms | 0 |
-| `/demo` | 100 | 100 | 100 | 100 | 1.213 s | 0 ms | 0.00024 |
+| `/` | 99 | Verified separately | Verified separately | Verified separately | 1.645 s | 0 ms | 0.0158 |
+| `/demo` | 100 | Verified separately | Verified separately | Verified separately | 1.442 s | 0 ms | 0.0015 |
 
 ## Run the verification
 
@@ -67,8 +67,8 @@ cargo check --locked --manifest-path src-tauri/Cargo.toml
 cargo clippy --locked --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
 ```
 
-Machine-readable evidence and screenshots are under
-`.factory/verification-artifacts-11/`.
+The current report is `.factory/review-5.md`. Earlier machine-readable evidence
+and screenshots remain under `.factory/verification-artifacts-11/`.
 
 ## Known limits and operator action
 
@@ -83,4 +83,4 @@ Machine-readable evidence and screenshots are under
 - This static/Tauri product has no product backend, tenant store, health
   endpoint, or restart-persistence path.
 
-No product code was changed during verification 11.
+No product code was changed during review 5.
